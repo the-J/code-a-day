@@ -24,7 +24,9 @@
   top: 0
 }
 
-s #outer-face .marker {
+#outer-face .marker {
+  background-color: gray;
+
   width: 0.2vim;
   margin-left: -4px
 }
@@ -37,7 +39,6 @@ s #outer-face .marker {
 }
 
 #outer-face .marker.oneseven {
-  background-color: gray;
   -webkit-transform: rotate(30deg);
   -moz-transform: rotate(30deg);
   -ms-transform: rotate(30deg);
@@ -45,7 +46,6 @@ s #outer-face .marker {
 }
 
 #outer-face .marker.twoeight {
-  background-color: gray;
   -webkit-transform: rotate(60deg);
   -moz-transform: rotate(60deg);
   -ms-transform: rotate(60deg);
@@ -53,7 +53,6 @@ s #outer-face .marker {
 }
 
 #outer-face .marker.fourten {
-  background-color: gray;
   -webkit-transform: rotate(120deg);
   -moz-transform: rotate(120deg);
   -ms-transform: rotate(120deg);
@@ -61,7 +60,6 @@ s #outer-face .marker {
 }
 
 #outer-face .marker.fiveeleven {
-  background-color: gray;
   -webkit-transform: rotate(150deg);
   -moz-transform: rotate(150deg);
   -ms-transform: rotate(150deg);
