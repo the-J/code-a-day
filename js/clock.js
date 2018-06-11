@@ -8,27 +8,38 @@ function setCurrentTime() {
 
     const date = new Date();
 
-    console.log('setting time to: ', new Date());
+    const seconds = date.getSeconds();    
+    let minutes = date.getMinutes();
+    let hours = date.getHours();
+
+    let minutesDiff = 0;
+    let hoursDiff = 0;
+
+    if (seconds !== 0) {
+        minutesDiff = Number((seconds / 10).toFixed(2));
+    }
+
+    if (minutes !== 0) {
+        hoursDiff = Number((minutes / 60).toFixed(2))
+    }
     
-    const time = [
+    const hands = [
         {
-            base: 6,
             id: document.getElementById('seconds'),
-            angle: date.getSeconds()
+            angle: 6 * seconds
         },
         {
-            base: 6,
             id: document.getElementById('minutes'),
-            angle: date.getMinutes()
+            angle: 6 * minutes + minutesDiff
         },
         {
-            base: 12,
             id: document.getElementById('hours'),
-            angle: date.getHours()
+            angle: 30 * hours + 30 * hoursDiff
         }
     ]
 
-    time.forEach(function(t) {
-        t.id.style.webkitTransform = 'rotate(' + t.base * t.angle + 'deg)';
+    hands.forEach(function (hand, i) {
+        hand.id.style.transform = 'rotate(' + hand.angle + 'deg)';
+        hand.id.style.webkitTransform = 'rotate(' + hand.angle + 'deg)';
     })
 }
