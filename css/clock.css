@@ -1,14 +1,108 @@
-#watch {
+#outer-face {
   border-radius: 50%;
   width: 30vmin;
   height: 30vmin;
   position: relative;
   background-color: rgb(255, 255, 255);
   box-shadow: 0px 0px 0px 2px rgb(90, 90, 90);
+  border: 1vmin solid black;
   animation: pulse 5s linear;
   top: 5vh;
   left: 50%;
   transform: translateX(-50%);
+}
+
+#outer-face::before, #outer-face::after, #outer-face .marker {
+  content: "";
+  position: absolute;
+  width: 0.5vmin;
+  height: 100%;
+  background: black;
+  z-index: 0;
+  left: 50%;
+  margin-left: -0.25vmin;
+  top: 0
+}
+
+s #outer-face .marker {
+  width: 0.2vim;
+  margin-left: -4px
+}
+
+#outer-face::after {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg)
+}
+
+#outer-face .marker.oneseven {
+  background-color: gray;
+  -webkit-transform: rotate(30deg);
+  -moz-transform: rotate(30deg);
+  -ms-transform: rotate(30deg);
+  transform: rotate(30deg)
+}
+
+#outer-face .marker.twoeight {
+  background-color: gray;
+  -webkit-transform: rotate(60deg);
+  -moz-transform: rotate(60deg);
+  -ms-transform: rotate(60deg);
+  transform: rotate(60deg)
+}
+
+#outer-face .marker.fourten {
+  background-color: gray;
+  -webkit-transform: rotate(120deg);
+  -moz-transform: rotate(120deg);
+  -ms-transform: rotate(120deg);
+  transform: rotate(120deg)
+}
+
+#outer-face .marker.fiveeleven {
+  background-color: gray;
+  -webkit-transform: rotate(150deg);
+  -moz-transform: rotate(150deg);
+  -ms-transform: rotate(150deg);
+  transform: rotate(150deg)
+}
+
+.inner-face {
+  -webkit-border-radius: 1000px;
+  -moz-border-radius: 1000px;
+  position: relative;
+  width: 88%;
+  height: 88%;
+  background: white;
+  border-radius: 1000px;
+  z-index: 1001;
+  left: 6%;
+  top: 6%;
+}
+
+.inner-face::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border-radius: 18px;
+  margin-left: -9px;
+  margin-top: -9px;
+  background: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  box-shadow: 0 0 30px gray;
+}
+
+.inner-face::after {
+  content: "QUARTZ";
+  position: absolute;
+  width: 100%;
+  font: normal 0.8em Arial;
+  color: gray;
+  text-align: center;
+  top: 85%
 }
 
 .hand-container {
@@ -24,6 +118,7 @@
   border-radius: 20px;
   left: 50%;
   transform-origin: 50% 100%;
+  z-index: 999;
 }
 
 #seconds .hand {
