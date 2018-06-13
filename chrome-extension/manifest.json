@@ -1,0 +1,31 @@
+{
+    "name": "Basic extension tut",
+    "version": "1.0",
+    "description": "Following basic chrome extension tut",
+    "permissions": [
+        "storage",
+        "declarativeContent"
+    ],
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    },
+    "page_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "images/mbj_logo16.png",
+            "32": "images/mbj_logo32.png",
+            "48": "images/mbj_logo48.png",
+            "128": "images/mbj_logo128.png"
+        }
+    },
+    "icons": {
+        "16": "images/mbj_logo16.png",
+        "32": "images/mbj_logo32.png",
+        "48": "images/mbj_logo48.png",
+        "128": "images/mbj_logo128.png"
+    },
+    "manifest_version": 2
+}
