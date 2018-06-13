@@ -1,4 +1,4 @@
-let page = document.getElementById('buttonDiv');
+let page = document.getElementById('colored-buttons');
 
 function randomNumber() {
     let number = Math.floor((Math.random() * 10));
@@ -49,6 +49,8 @@ function colorOptions() {
         }
 
         button.style.backgroundColor = color;
+        button.setAttribute('content', 'color: ' + color);
+        button.innerHTML = color;
 
         button.addEventListener('click', function () {
             chrome.storage.sync.set({ color: color }, function () {
