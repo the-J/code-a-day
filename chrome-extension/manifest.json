@@ -4,7 +4,8 @@
     "description": "Following basic chrome extension tut",
     "permissions": [
         "storage",
-        "declarativeContent"
+        "declarativeContent",
+        "activeTab"
     ],
     "background": {
         "scripts": [
