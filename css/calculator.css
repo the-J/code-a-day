@@ -1,4 +1,22 @@
 #calculator {
+    margin: 10px 10px;
+    height: 300px;
+    border: 2px solid black;
+}
+
+#display {
+    margin: 10px 10px;
+    height: 40px;
+    border: 1px solid red;
+}
+
+#buttons {
+    margin: 10px 10px;
+    height: 40px;
+    border: 1px solid blue;
+}
+
+.button {
+    width: calc(25% - 10px);
     border: 1px solid black;
-    position: absolute;
 }
