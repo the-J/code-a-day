@@ -8,7 +8,7 @@
 
     <title>CODE-A-DAY</title>
 
-    <link rel="shortcut icon" type="image/jpg" href="images/mbj_logo_favicon.jpg" />
+    <link rel="shortcut icon" type="image/jpg" href="../public/mbj_logo_favicon.jpg" />
 
     <link rel='stylesheet' type="text/css" media="screen" href="css/normalize.css" />
     <link rel='stylesheet' type="text/css" media="screen" href="css/skeleton.css" />
@@ -45,48 +45,51 @@
 
     <div class='container'>
         <div class='row'>
-            <div id='calculator' class='twelve columns'>
+                <div id='calculator' class='twelve columns' style='display: none'>
+
+            <div id='calculator' class='twelve columns' style='display: none'>
 
                 <div class='twelve columns'>
-                    <div id='display'></div>
+                    <input id='display' type='text' value='0'>
                 </div>
-
-                <div class="twelve columns">
-                    <div id="buttons">
-                        <button></button>
-                        <button></button>
-                        <button></button>
-                        <button></button>
-                    </div>
-
-                    <div id="buttons">
-                            <button></button>
-                            <button></button>
-                            <button></button>
-                            <button></button>
-                    </div>
-
-                    <div id="buttons">
-                            <button></button>
-                            <button></button>
-                            <button></button>
-                            <button></button>
-                    </div>
-
-                    <div id="buttons">
-                            <button></button>
-                            <button></button>
-                            <button></button>
-                            <button></button>
-                    </div>
-                </div>
-
             </div>
+
+            <div class="twelve columns">
+                <div id="buttons">
+                    <button type="button" onClick='add()'>add</button>
+                    <button></button>
+                    <button></button>
+                    <button></button>
+                </div>
+
+                <div id="buttons">
+                    <button></button>
+                    <button></button>
+                    <button></button>
+                    <button></button>
+                </div>
+
+                <div id="buttons">
+                    <button></button>
+                    <button></button>
+                    <button></button>
+                    <button></button>
+                </div>
+
+                <div id="buttons">
+                    <button></button>
+                    <button></button>
+                    <button></button>
+                    <button></button>
+                </div>
+            </div>
+
         </div>
+    </div>
     </div>
 
     <!-- <script src='js/clock.js'></script> -->
-    <script src='js/calculator.js'></script>
+    <script src='./js/calculator.js'></script>
 </body>
 
 </html>

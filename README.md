@@ -1,2 +1,3 @@
 # code-a-day
-coding a day
+
+Repo for a little things.
