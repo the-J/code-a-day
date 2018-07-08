@@ -7,26 +7,39 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-
     <title>Materialize</title>
 </head>
 <body>
-<div class='container'>
-    <h1>Hiding classes</h1>
-    <h3 class="hide">hidden</h3>
-    <h3 class="hide-on-small-only">hide on small screen sizes</h3>
-    <h3 class="hide-oon-med-only">hide on medium size</h3>
-    <h3 class="hide-on-large-only">hide on large size</h3>
-    <h3 class="hide-on-med-and-down">hide on medium & small size</h3>
-    <h3 class="hide-on-med-and-up">hide on medium & large size</h3>
+<span>
+<nav class="nav-wraper indigo">
+    <div class="container">
+        <a href="#" class="brand-logo"> Site Title</a>
+        <a href="#" class="sidenav-trigger" data-target="mobile-links">
+            <i class="material-icons">menu</i>
+        </a>
 
-    <h1>Color classes</h1>
-    <h3 class="blue darken-1">blue darken-1</h3>
-    <h3 class="orange lighten-4">orange lighten-4</h3>
-    <h3 class="purple darken-3 white-text">purple darken-3 white-text</h3>
-    <h3 class="teal darken-2 yellow-text text-lighten-3">teal darken-2 yellow-text text-lighten-3</h3>
-    <h3 class="yellow lighten-3 purple-text text-darken-2">hide on medium & large size</h3>
-</div>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Login</a></li>
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+</ul>
+</span>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems, options = {});
+    });
+</script>
 </body>
 </html>
