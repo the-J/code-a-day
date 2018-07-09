@@ -8,6 +8,14 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <title>Materialize</title>
+
+    <style>
+        nav .badge {
+            position: relative;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
 </head>
 <body>
 <span>
@@ -22,7 +30,10 @@
             <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
-            <li><a href="#">Login</a></li>
+            <li><a href="#" class="btn-floating indigo darken-4 z-depth-0">
+                <i class="material-icons">notifications</i>
+            </a></li>
+            <li><span class="badge white-text pink new">5</span></li>
         </ul>
     </div>
 </nav>
