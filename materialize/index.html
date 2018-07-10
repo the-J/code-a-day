@@ -18,6 +18,8 @@
     </style>
 </head>
 <body>
+
+<!-- navigation -->
 <nav class="nav-wraper indigo">
     <div class="container">
         <a href="#" class="brand-logo"> Site Title</a>
@@ -43,6 +45,25 @@
     <li><a href="#">Contact</a></li>
 </ul>
 
+<!-- modals -->
+<div class="container">
+    <h2>Modals</h2>
+
+    <a href="#terms" class="btn orange modal-trigger">Terms & Conditions</a>
+
+    <div class="modal" id="terms">
+        <div class="modal-content">
+            <h4>Terms & Conditions</h4>
+            <p>asdawdasd awd wad awdasd sd adwawd da wasd sad wad asd ad a dadwsdadawdasd a</p>
+        </div>
+
+        <div class="modal-footer">
+            <a href="#" class="btn modal-close">Agree & Close</a>
+        </div>
+    </div>
+</div>
+
+<!-- cards -->
 <div class="container">
     <h2>Cards</h2>
 
@@ -143,6 +164,7 @@
     </div>
 </div>
 
+<!-- collections -->
 <div class="container">
     <h2>Collections</h2>
     <div class="row">
@@ -184,12 +206,16 @@
     </div>
 </div>
 
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.sidenav');
         var instances = M.Sidenav.init(elems, options = {});
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems, options);
     });
 </script>
 </body>
