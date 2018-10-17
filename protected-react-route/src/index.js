@@ -15,8 +15,6 @@ function App() {
             <h1>Protected React Router</h1>
 
             <Route exact path='/' component={LandingPage} />
-            <Route exact path='/app' component={AppLayout} />
-
             <ProtectedRoute exact path='/app' component={AppLayout} />
 
         </div>
