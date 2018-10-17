@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter , Route, Switch } from 'react-router-dom';
 
+import ProtectedRoute from './protectedRoute';
+
 import LandingPage from './landingPage';
 import AppLayout from './appLayout';
 
@@ -14,6 +16,8 @@ function App() {
 
             <Route exact path='/' component={LandingPage} />
             <Route exact path='/app' component={AppLayout} />
+
+            <ProtectedRoute exact path='/app' component={AppLayout} />
 
         </div>
     );
