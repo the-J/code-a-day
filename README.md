@@ -11,3 +11,6 @@
  * collection of small things that don't need own folder
  * classic game 'snake' in svg
  * maybe calculator in vanillaJS
+
+## protected-react-route
+ * setting react-router params depending on users login status
