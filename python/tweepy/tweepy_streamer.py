@@ -4,12 +4,12 @@ from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 
-# rename twitter_credentials.py and fill with tokens
-import credentials
-
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
+# rename twitter_credentials.py and fill with tokens
+import credentials
 
 # # # # TWITTER CLIENT # # # #
 class TwitterClient:
@@ -104,10 +104,10 @@ class TwitterListener(StreamListener):
 
 class TweetAnalyzer:
     """
-    Functionality for analyzing ad categorizing content from tweets
+    Functionality for analyzing and categorizing content from tweets
     """
     def tweets_to_data_frame(self, tweets):
-        df = pd.DataFrame(data=[tweet.text for tweet in tweets], columns=['Tweets'])
+        df = pd.DataFrame(data=[tweet.text for tweet in tweets], columns=['tweets'])
 
         df['id'] = np.array([tweet.id for tweet in tweets])
         df['len'] = np.array([len(tweet.text) for tweet in tweets])
@@ -126,20 +126,41 @@ if __name__ == "__main__":
 
     api = twitter_client.get_twitter_client_api()
 
-    tweets = api.user_timeline(screen_name="iamdevloper", count=20)
+    tweets = api.user_timeline(screen_name="iamdevloper", count=500)
 
     df = tweet_analyzer.tweets_to_data_frame(tweets)
 
-    print(df.head(10))
+    # # # # VISUALIZING DATA # # # #
 
-    """
-    get possible values to write
-    """
+    # # BASIC DATA # #
+    # get average length over all tweets
+    print(np.mean(df['len']))
+
+    # get max likes all tweets
+    print(np.max(df['likes']))
+
+    # get number of retweets all tweets
+    print(np.max(df['retweets']))
+
+    # # TIME SERIES # #
+    time_likes = pd.Series(data=df['likes'].values, index=df['date'])
+    time_likes.plot(figsize=(16, 4), color='r')
+    plt.show()
+
+    # # # # DISPLAYING DATA # # # #
+    # write first 10 entries
+    # print(df.head(10))
+
+    # get possible values to write
     # print(dir(tweets[0]))
 
+    # # # # TARGETING USER AND FETCHING HIS DATA # # # #
+    # create list of hash tags to find
     # hash_tag_list = ['barack obama', 'hillary clinton']
+
+    # setting file to store fetched tweets in
     # fetched_tweets_filename = "tweets.txt"
-    #
+
     # twitter_client = TwitterClient()
     # print(twitter_client.get_user_timeline_tweets(1))
     # print(twitter_client.get_friend_list(1))
