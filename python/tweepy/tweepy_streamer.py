@@ -7,6 +7,9 @@ from tweepy import Stream
 # rename twitter_credentials.py and fill with tokens
 import credentials
 
+import numpy as np
+import pandas as pd
+
 
 # # # # TWITTER CLIENT # # # #
 class TwitterClient:
@@ -15,6 +18,9 @@ class TwitterClient:
         self.twitter_client = API(self.auth)
 
         self.twitter_user = twitter_user
+
+    def get_twitter_client_api(self):
+        return self.twitter_client
 
     def get_user_timeline_tweets(self, num_tweets):
         tweets = []
@@ -96,14 +102,35 @@ class TwitterListener(StreamListener):
         print(status)
 
 
+class TweetAnalyzer():
+    """
+    Functionality for analyzing ad categorizing content from tweets
+    """
+    def tweets_to_data_frame(self, tweets):
+        df = pd.DataFrame(data=[tweet.text for tweet in tweets], columns=['Tweets'])
+        return df
+
+
 if __name__ == "__main__":
-    hash_tag_list = ['barack obama', 'hillary clinton']
-    fetched_tweets_filename = "tweets.txt"
 
     twitter_client = TwitterClient()
-    print(twitter_client.get_user_timeline_tweets(1))
-    print(twitter_client.get_friend_list(1))
-    print(twitter_client.get_home_timeline_tweets(1))
+    tweet_analyzer = TweetAnalyzer()
+
+    api = twitter_client.get_twitter_client_api()
+
+    tweets = api.user_timeline(screen_name="iamdevloper", count=20)
+
+    df = tweet_analyzer.tweets_to_data_frame(tweets)
+
+    print(df.head(10))
+
+    # hash_tag_list = ['barack obama', 'hillary clinton']
+    # fetched_tweets_filename = "tweets.txt"
+    #
+    # twitter_client = TwitterClient()
+    # print(twitter_client.get_user_timeline_tweets(1))
+    # print(twitter_client.get_friend_list(1))
+    # print(twitter_client.get_home_timeline_tweets(1))
 
     # twitter_streamer = TwitterStreamer()
     # twitter_streamer.stream_tweets(fetched_tweets_filename, hash_tag_list)
