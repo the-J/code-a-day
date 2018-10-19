@@ -29,9 +29,21 @@ class TwitterStreamer():
 
 # # # # TWITTER STREAM LISTENER # # # #
 class StdOutListener(StreamListener):
+    """
+    Basic listener class that just prints received tweets to stdout
+    """
+
+    def __init__(self, fetched_tweets_filename):
+        self.fetched_tweets_filename = fetched_tweets_filename
 
     def on_data(self, data):
-        print(data)
+        try:
+            print(data)
+            with open(self.fetched_tweets_filename, 'a') as tf:
+                tf.write(data)
+                return True
+        except BaseException as e:
+            print("Error on data: %s" % str(e))
         return True
 
     def on_error(self, status):
