@@ -1,16 +1,27 @@
 # code-a-day
 
-## chrome extension
- * Tinkering in chrome browser extensions options.
- * Simple extension for changing background to random hex color
+* chrome extension
+    ###### building simple chrome extension
+    * Tinkering in chrome browser extensions options.
+    * Simple extension for changing background to random hex color
 
-## materialize
- * learning materialize
+* javaScript
+    ###### projects in nodejs, cra and other full js things
+    * protected-react-route
+        * setting react-router params depending on users login status
 
-## small things
- * collection of small things that don't need own folder
- * classic game 'snake' in svg
- * maybe calculator in vanillaJS
+* python
+    ###### python projects - tutorials
+    * tweepy
+        * working with tweeepy
+        * fetching tweets and analyzing fetched data
 
-## protected-react-route
- * setting react-router params depending on users login status
+* small things
+    ###### collections of small things
+        * small_things
+            * classic game 'snake' in svg
+
+        * css
+            * materialize - materialize playground
+    
+  
