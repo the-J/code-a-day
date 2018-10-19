@@ -58,6 +58,9 @@ class TwitterListener(StreamListener):
         return True
 
     def on_error(self, status):
+        if status == 420:
+            # return false on data method in case of hitting rate limits on twitter API
+            return False
         print(status)
 
 
