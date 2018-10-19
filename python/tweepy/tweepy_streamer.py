@@ -134,17 +134,32 @@ if __name__ == "__main__":
 
     # # BASIC DATA # #
     # get average length over all tweets
-    print(np.mean(df['len']))
+    print('mean length', np.mean(df['len']))
 
     # get max likes all tweets
-    print(np.max(df['likes']))
+    print('max likes', np.max(df['likes']))
 
     # get number of retweets all tweets
-    print(np.max(df['retweets']))
+    print('max retweets', np.max(df['retweets']))
 
     # # TIME SERIES # #
+    # likes
+    # time_likes = pd.Series(data=df['likes'].values, index=df['date'])
+    # time_likes.plot(figsize=(16, 4), color='r')
+    # plt.show()
+
+    # retweets
+    # time_likes = pd.Series(data=df['retweets'].values, index=df['date'])
+    # time_likes.plot(figsize=(16, 4), color='r')
+    # plt.show()
+
+    # likes + retweets
     time_likes = pd.Series(data=df['likes'].values, index=df['date'])
-    time_likes.plot(figsize=(16, 4), color='r')
+    time_likes.plot(figsize=(16, 4), label='likes', legend=True)
+
+    time_retweets = pd.Series(data=df['retweets'].values, index=df['date'])
+    time_retweets.plot(figsize=(16, 4), label='retweets', legend=True)
+
     plt.show()
 
     # # # # DISPLAYING DATA # # # #
