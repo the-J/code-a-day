@@ -51,11 +51,8 @@ class StdOutListener(StreamListener):
 
 
 if __name__ == "__main__":
+    hash_tag_list = ['barack obama', 'hillary clinton']
+    fetched_tweets_filename = "tweets.txt"
 
-    listener = StdOutListener()
-    auth = OAuthHandler(twitter_credentials.CONSUMER_KEY, twitter_credentials.CONSUMER_SECRET)
-    auth.set_access_token(twitter_credentials.ACCESS_TOKEN, twitter_credentials.ACCESS_TOKEN_SECRET)
-
-    stream = Stream(auth, listener)
-
-    stream.filter(track=['barack obama', 'hillary clinton'])
+    twitter_streamer = TwitterStreamer()
+    twitter_streamer.stream_tweets(fetched_tweets_filename, hash_tag_list)
