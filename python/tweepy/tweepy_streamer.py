@@ -1,9 +1,20 @@
+from tweepy import API
+from tweepy import Cursor
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 
 import twitter_credentials
 
+
+# # # # TWITTER AUTHENTICATOR # # # #
+class TwitterAuthenticator():
+
+    def authenticate_twitter_app(self):
+        auth = OAuthHandler(twitter_credentials.CONSUMER_KEY, twitter_credentials.CONSUMER_SECRET)
+        auth.set_access_token(twitter_credentials.ACCESS_TOKEN, twitter_credentials.ACCESS_TOKEN_SECRET)
+
+        return auth
 
 # # # # TWITTER STREAMER # # # #
 class TwitterStreamer():
@@ -12,15 +23,14 @@ class TwitterStreamer():
     """
 
     def __init__(self):
-        pass
+        self.twitter_authenticator = TwitterAuthenticator()
 
     def stream_tweets(self, fetched_tweets_filename, hash_tag_list):
         # this handles twitter authentication and connection to the Twitter Streaming API
 
         listener = TwitterListener(fetched_tweets_filename)
 
-        auth = OAuthHandler(twitter_credentials.CONSUMER_KEY, twitter_credentials.CONSUMER_SECRET)
-        auth.set_access_token(twitter_credentials.ACCESS_TOKEN, twitter_credentials.ACCESS_TOKEN_SECRET)
+        auth = self.twitter_authenticator.authenticate_twitter_app()
 
         stream = Stream(auth, listener)
 
