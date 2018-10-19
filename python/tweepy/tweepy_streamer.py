@@ -17,7 +17,8 @@ class TwitterStreamer():
     def stream_tweets(self, fetched_tweets_filename, hash_tag_list):
         # this handles twitter authentication and connection to the Twitter Streaming API
 
-        listener = StdOutListener(fetched_tweets_filename)
+        listener = TwitterListener(fetched_tweets_filename)
+
         auth = OAuthHandler(twitter_credentials.CONSUMER_KEY, twitter_credentials.CONSUMER_SECRET)
         auth.set_access_token(twitter_credentials.ACCESS_TOKEN, twitter_credentials.ACCESS_TOKEN_SECRET)
 
@@ -28,7 +29,7 @@ class TwitterStreamer():
 
 
 # # # # TWITTER STREAM LISTENER # # # #
-class StdOutListener(StreamListener):
+class TwitterListener(StreamListener):
     """
     Basic listener class that just prints received tweets to stdout
     """
