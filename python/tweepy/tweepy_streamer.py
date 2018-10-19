@@ -9,19 +9,26 @@ import twitter_credentials
 
 # # # # TWITTER CLIENT # # # #
 class TwitterClient:
-    def __init__(self):
+    def __init__(self, twitter_user=None):
         self.auth = TwitterAuthenticator().authenticate_twitter_app()
         self.twitter_client = API(self.auth)
 
+        self.twitter_user = twitter_user
+
     def get_user_timeline_tweets(self, num_tweets):
         tweets = []
-        for tweet in Cursor(self.twitter_client.user_timeline).items(num_tweets):
+
+        for tweet in Cursor(self.twitter_client.user_timeline, id=self.twitter_user).items(num_tweets):
             tweets.append(tweet)
+
         return tweets
 
 
 # # # # TWITTER AUTHENTICATOR # # # #
 class TwitterAuthenticator:
+
+    def __init__(self):
+        pass
 
     def authenticate_twitter_app(self):
         auth = OAuthHandler(twitter_credentials.CONSUMER_KEY, twitter_credentials.CONSUMER_SECRET)
