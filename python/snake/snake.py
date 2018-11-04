@@ -36,7 +36,19 @@ class snake(object):
         pass
 
 
-def drawGrid(selfw, rows, durface):
+def drawGrid(w, rows, surface):
+    size_btwn = w // rows
+
+    x = 0
+    y = 9
+
+    for l in range(rows):
+        x = x + size_btwn
+        y = y + size_btwn
+
+        pygame.draw.line(surface, (255, 255, 25), (x, 0), (x, w))
+        pygame.draw.line(surface, (255, 255, 25), (0, y), (w, y))
+
     pass
 
 
@@ -55,12 +67,5 @@ def message_box(subject, content):
 def main():
     pass
 
-
-rows =
-w =
-h =
-
-cube.rows = rows
-cube.w = w
 
 main()
