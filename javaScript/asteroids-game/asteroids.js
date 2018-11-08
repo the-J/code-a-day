@@ -9,6 +9,8 @@ const SHOW_HIDE_SHIPS_CENTER_DOT = false; // read the name
 // GAME CONST
 const FPS = 30; // frames per second
 const FRICTION = 0.7; // friction coefficient of space ( 0 = no, 1 = lost)
+const LASER_MAX = 10; // max num of lasers on the screen at once
+const LASER_SPD = 5000; // speed of lasers px /sec
 
 const SHIP_SIZE = 30; // ship height in px
 const SHIP_TURN_SPEED = 360; // rotate speed in deg / sec
@@ -49,12 +51,29 @@ function newShip() {
 
         explodeTime: 0,
         blinkTime: Math.ceil(SHIP_BLINK_DUR * FPS),
-        blinkNum: Math.ceil(SHIP_INV_DUR / SHIP_BLINK_DUR)
+        blinkNum: Math.ceil(SHIP_INV_DUR / SHIP_BLINK_DUR),
+
+        canShoot: true,
+        lasers: []
     };
 }
 
 function explodeShip() {
     ship.explodeTime = Math.floor(SHIP_EXPLODE_DUR * FPS);
+}
+
+function shootLaser() {
+    // create laser obj
+    if (ship.canShoot && ship.lasers.length < LASER_MAX) {
+        ship.lasers.push({ // laser cord - from ships nose
+            x: ship.x + 4 / 3 * ship.r * Math.cos(ship.a),
+            y: ship.y - 4 / 3 * ship.r * Math.sin(ship.a),
+            xv: LASER_SPD * Math.cos(ship.a) / FPS,
+            yv: LASER_SPD * Math.sin(ship.a) / FPS
+        });
+    }
+    // prevent further shooting
+    ship.canShoot = false;
 }
 
 function createAsteroidBelt() {
@@ -100,6 +119,9 @@ document.addEventListener('keyup', keyUp);
 
 function keyDown( /** @type {KeyboardEvent} */ ev ) {
     switch (ev.keyCode) { //rotate and move ship
+        case 32: // space bar - shoot laser
+            shootLaser();
+            break;
         case 37: // rotate left
             ship.rot = SHIP_TURN_SPEED / 180 * Math.PI / FPS;
             break;
@@ -118,6 +140,9 @@ function keyDown( /** @type {KeyboardEvent} */ ev ) {
 
 function keyUp( /** @type {KeyboardEvent} */ ev ) {
     switch (ev.keyCode) { //rotate and move ship
+        case 32: // space bar - allow hoot again
+            ship.canShoot = true;
+            break;
         case 37: // left - stop rotating
             ship.rot = 0;
             break;
@@ -252,6 +277,14 @@ function update() {
     if (SHOW_HIDE_SHIPS_CENTER_DOT) {
         ctx.fillStyle = 'red'; // center ship dot
         ctx.fillRect(ship.x - 1, ship.y - 1, 2, 2);
+    }
+
+    // draw lasers
+    for (var i = 0; i < ship.lasers.length; i++) {
+        ctx.fillStyle = 'salmon';
+        ctx.beginPath();
+        ctx.arc(ship.lasers[ i ].x, ship.lasers[ i ].y, SHIP_SIZE / 15, 0, Math.PI * 2, false);
+        ctx.fill();
     }
 
     if (!exploding) {
