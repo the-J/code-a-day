@@ -289,8 +289,38 @@ function update() {
         ctx.fill();
     }
 
+    // detect lasers hits on asteroids
+    var ax, ay, ar, lx, ly;
+    for (var i = roids.length - 1; i >= 0; i--) {
+
+        // grab asteroid props
+        ax = roids[ i ].x;
+        ay = roids[ i ].y;
+        ar = roids[ i ].r;
+
+        // loop over lasers
+        for (var j = ship.lasers.length - 1; j >= 0; j--) {
+
+            // grab lasers props
+            lx = ship.lasers[ j ].x;
+            ly = ship.lasers[ j ].y;
+
+            // detect hits
+            if (distBetweenPoints(ax, ay, lx, ly) < ar) {
+
+                // remove laser
+                ship.lasers.splice(j, 1);
+
+                // remove asteroid
+                roids.splice(i, 1);
+
+                break;
+            }
+        }
+    }
+
+    // check asteroid collisions (when no exploding
     if (!exploding) {
-        // check asteroid collisions
         if (ship.blinkNum === 0) {
             for (var i = 0; i < roids.length; i++) {
                 if (distBetweenPoints(ship.x, ship.y, roids[ i ].x, roids[ i ].y) < ship.r + roids[ i ].r) {
@@ -355,7 +385,7 @@ function update() {
     else if (ship.y > canv.height + ship.r) ship.y = 0 - ship.r;
 
     // move the lasers
-    for (var i = ship.lasers.length -1; i >= 0; i--) {
+    for (var i = ship.lasers.length - 1; i >= 0; i--) {
 
         // check traveled dis
         if (ship.lasers[ i ].dist > LASER_DIST * canv.width) {
