@@ -10,7 +10,8 @@ const SHOW_HIDE_SHIPS_CENTER_DOT = false; // read the name
 const FPS = 30; // frames per second
 const FRICTION = 0.7; // friction coefficient of space ( 0 = no, 1 = lost)
 const LASER_MAX = 10; // max num of lasers on the screen at once
-const LASER_SPD = 5000; // speed of lasers px /sec
+const LASER_SPD = 500; // speed of lasers px /sec
+const LASER_DIST = 0.6; // max dist laser can travel as fraction of screan width
 
 const SHIP_SIZE = 30; // ship height in px
 const SHIP_TURN_SPEED = 360; // rotate speed in deg / sec
@@ -69,7 +70,8 @@ function shootLaser() {
             x: ship.x + 4 / 3 * ship.r * Math.cos(ship.a),
             y: ship.y - 4 / 3 * ship.r * Math.sin(ship.a),
             xv: LASER_SPD * Math.cos(ship.a) / FPS,
-            yv: LASER_SPD * Math.sin(ship.a) / FPS
+            yv: -LASER_SPD * Math.sin(ship.a) / FPS,
+            dist: 0
         });
     }
     // prevent further shooting
@@ -351,6 +353,30 @@ function update() {
 
     if (ship.y < 0 - ship.r) ship.y = canv.height + ship.r;
     else if (ship.y > canv.height + ship.r) ship.y = 0 - ship.r;
+
+    // move the lasers
+    for (var i = ship.lasers.length -1; i >= 0; i--) {
+
+        // check traveled dis
+        if (ship.lasers[ i ].dist > LASER_DIST * canv.width) {
+            ship.lasers.splice(i, 1);
+            continue;
+        }
+
+        // move lasers
+        ship.lasers[ i ].x += ship.lasers[ i ].xv;
+        ship.lasers[ i ].y += ship.lasers[ i ].yv;
+
+        // calculate dist traveled
+        ship.lasers[ i ].dist += Math.sqrt(Math.pow(ship.lasers[ i ].xv, 2) + Math.pow(ship.lasers[ i ].yv, 2));
+
+        // handle edge of the screen
+        if (ship.lasers[ i ].x < 0) ship.lasers[ i ].x = canv.width;
+        else if (ship.lasers[ i ].x > canv.width) ship.lasers[ i ].x = 0;
+
+        if (ship.lasers[ i ].y < 0) ship.lasers[ i ].y = canv.height;
+        else if (ship.lasers[ i ].y > canv.height) ship.lasers[ i ].y = 0;
+    }
 
     // move asteroid
     for (var i = 0; i < roids.length; i++) {
