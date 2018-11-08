@@ -2,6 +2,10 @@
  * Created by juliusz.jakubowski@gmail.com on 08.11.18.
  */
 
+// DEV CONST
+const SHOW_BOUNDING = false; // show hide collision bounding
+
+// GAME CONST
 const FPS = 30; // frames per second
 const SHIP_SIZE = 30; // ship height in px
 const TURN_SPEED = 360; // rotate speed in deg / sec
@@ -12,8 +16,8 @@ const ROIDS_SIZE = 100; // starting size in px
 const ROIDS_SPD = 50; // max starting speed od asteroids in px / sec
 const ROIDS_VERT = 10; // average numb of vertices on each asteroid
 const ROIDS_JAG = 0.4; // jaggednes of the asteroids 0 = none
-const SHOW_BOUNDING = true; // show hide collision bounding
-const SHOW_HIDE_SHIPS_CENTER_DOT = false;
+const SHOW_HIDE_SHIPS_CENTER_DOT = false; // read the name
+const SHIP_EXPLODE_DUR = 0.3; //duration of ships explosion
 
 /**type {HTMLCanvasElement} */
 var canv = document.getElementById('gameCanvas');
@@ -28,7 +32,8 @@ var ship = {
     thrust: {
         x: 0,
         y: 0
-    }
+    },
+    explodeTime: 0
 };
 
 // asteroids
@@ -75,13 +80,8 @@ function newAsteroid( x, y ) {
     return roid;
 }
 
-function explodeShip(){
-    ctx.fillStyle= 'lime';
-    ctx.strokeStyle = 'lime';
-    ctx.beginPath();
-    ctx.arc(ship.x, ship.y, ship.r, 0, Math.PI * 2, false);
-    ctx.fill();
-    ctx.stroke();
+function explodeShip() {
+    ship.explodeTime = Math.floor(SHIP_EXPLODE_DUR * FPS);
 }
 
 // set event handlers
@@ -125,28 +125,55 @@ function keyUp( /** @type {KeyboardEvent} */ ev ) {
 }
 
 function update() {
+    var exploding = ship.explodeTime > 0;
+
     // draw space
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canv.width, canv.height);
 
     // draw ship
-    ctx.strokeStyle = 'white';
-    ctx.lineWidth = SHIP_SIZE / 20;
-    ctx.beginPath();
-    ctx.moveTo( // ships upper tip
-        ship.x + 4 / 3 * ship.r * Math.cos(ship.a),
-        ship.y - 4 / 3 * ship.r * Math.sin(ship.a)
-    );
-    ctx.lineTo( // ships rear left
-        ship.x - ship.r * (2 / 3 * Math.cos(ship.a) + Math.sin(ship.a)),
-        ship.y + ship.r * (2 / 3 * Math.sin(ship.a) - Math.cos(ship.a))
-    );
-    ctx.lineTo( // ships rear right
-        ship.x - ship.r * (2 / 3 * Math.cos(ship.a) - Math.sin(ship.a)),
-        ship.y + ship.r * (2 / 3 * Math.sin(ship.a) + Math.cos(ship.a))
-    );
-    ctx.closePath();
-    ctx.stroke();
+    if (!exploding) {
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = SHIP_SIZE / 20;
+        ctx.beginPath();
+        ctx.moveTo( // ships upper tip
+            ship.x + 4 / 3 * ship.r * Math.cos(ship.a),
+            ship.y - 4 / 3 * ship.r * Math.sin(ship.a)
+        );
+        ctx.lineTo( // ships rear left
+            ship.x - ship.r * (2 / 3 * Math.cos(ship.a) + Math.sin(ship.a)),
+            ship.y + ship.r * (2 / 3 * Math.sin(ship.a) - Math.cos(ship.a))
+        );
+        ctx.lineTo( // ships rear right
+            ship.x - ship.r * (2 / 3 * Math.cos(ship.a) - Math.sin(ship.a)),
+            ship.y + ship.r * (2 / 3 * Math.sin(ship.a) + Math.cos(ship.a))
+        );
+        ctx.closePath();
+        ctx.stroke();
+    }
+    else {
+        // draw explosion - need to create loop for that
+        ctx.fillStyle = 'darkred';
+        ctx.beginPath();
+        ctx.arc(ship.x, ship.y, ship.r * 1.7, 0, Math.PI * 2, false);
+        ctx.fill();
+        ctx.fillStyle = 'red';
+        ctx.beginPath();
+        ctx.arc(ship.x, ship.y, ship.r * 1.4, 0, Math.PI * 2, false);
+        ctx.fill();
+        ctx.fillStyle = 'orange';
+        ctx.beginPath();
+        ctx.arc(ship.x, ship.y, ship.r * 1.1, 0, Math.PI * 2, false);
+        ctx.fill();
+        ctx.fillStyle = 'yellow';
+        ctx.beginPath();
+        ctx.arc(ship.x, ship.y, ship.r * 0.8, 0, Math.PI * 2, false);
+        ctx.fill();
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(ship.x, ship.y, ship.r * 0.5, 0, Math.PI * 2, false);
+        ctx.fill();
+    }
 
     if (SHOW_BOUNDING) {
         ctx.strokeStyle = 'lime';
@@ -199,49 +226,55 @@ function update() {
         ctx.fillRect(ship.x - 1, ship.y - 1, 2, 2);
     }
 
-    // check asteroid collisions
-    for (var i = 0; i < roids.length; i++) {
-        if(distBetweenPoints(ship.x, ship.y, roids[i].x, roids[i].y) < ship.r + roids[i].r){
-            explodeShip();
+    if (!exploding) {
+
+        // check asteroid collisions
+        for (var i = 0; i < roids.length; i++) {
+            if (distBetweenPoints(ship.x, ship.y, roids[ i ].x, roids[ i ].y) < ship.r + roids[ i ].r) {
+                explodeShip();
+            }
         }
+
+        // rotate ship
+        ship.a += ship.rot;
+
+        // move the ship
+        ship.x += ship.thrust.x;
+        ship.y += ship.thrust.y;
     }
 
-    // rotate ship
-    ship.a += ship.rot;
-
-    // thrust and move the ship
+    // thrusting
     if (ship.thrusting) {
         ship.thrust.x += SHIP_THRUST * Math.cos(ship.a) / FPS;
         ship.thrust.y -= SHIP_THRUST * Math.sin(ship.a) / FPS;
 
         // draw the thruster
-        ctx.fillStyle = 'red';
-        ctx.strokeStyle = 'yellow';
-        ctx.lineWidth = SHIP_SIZE / 10;
-        ctx.beginPath();
-        ctx.moveTo( // rear left
-            ship.x - ship.r * (2 / 3 * Math.cos(ship.a) + 0.5 * Math.sin(ship.a)),
-            ship.y + ship.r * (2 / 3 * Math.sin(ship.a) - 0.5 * Math.cos(ship.a))
-        );
-        ctx.lineTo( // rear center behind ship
-            ship.x - ship.r * 6 / 3 * Math.cos(ship.a),
-            ship.y + ship.r * 6 / 3 * Math.sin(ship.a)
-        );
-        ctx.lineTo( // ships rear right
-            ship.x - ship.r * (2 / 3 * Math.cos(ship.a) - 0.5 * Math.sin(ship.a)),
-            ship.y + ship.r * (2 / 3 * Math.sin(ship.a) + 0.5 * Math.cos(ship.a))
-        );
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
+        if (!exploding) {
+            ctx.fillStyle = 'red';
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = SHIP_SIZE / 10;
+            ctx.beginPath();
+            ctx.moveTo( // rear left
+                ship.x - ship.r * (2 / 3 * Math.cos(ship.a) + 0.5 * Math.sin(ship.a)),
+                ship.y + ship.r * (2 / 3 * Math.sin(ship.a) - 0.5 * Math.cos(ship.a))
+            );
+            ctx.lineTo( // rear center behind ship
+                ship.x - ship.r * 6 / 3 * Math.cos(ship.a),
+                ship.y + ship.r * 6 / 3 * Math.sin(ship.a)
+            );
+            ctx.lineTo( // ships rear right
+                ship.x - ship.r * (2 / 3 * Math.cos(ship.a) - 0.5 * Math.sin(ship.a)),
+                ship.y + ship.r * (2 / 3 * Math.sin(ship.a) + 0.5 * Math.cos(ship.a))
+            );
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        }
     }
     else {
         ship.thrust.x -= FRICTION * ship.thrust.x / FPS;
         ship.thrust.y -= FRICTION * ship.thrust.y / FPS;
     }
-
-    ship.x += ship.thrust.x;
-    ship.y += ship.thrust.y;
 
     // handle screen edge
     if (ship.x < 0 - ship.r) ship.x = canv.width + ship.r;
