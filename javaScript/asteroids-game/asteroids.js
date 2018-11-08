@@ -102,7 +102,7 @@ function update() {
     // rotate ship
     ship.a += ship.rot;
 
-    // thrust the ship
+    // thrust and move the ship
     if (ship.thrusting) {
         ship.thrust.x += SHIP_THRUST * Math.cos(ship.a) / FPS;
         ship.thrust.y -= SHIP_THRUST * Math.sin(ship.a) / FPS;
@@ -112,8 +112,13 @@ function update() {
         ship.thrust.y -= FRICTION * ship.thrust.y / FPS;
     }
 
-
-    //move the ship
     ship.x += ship.thrust.x;
     ship.y += ship.thrust.y;
+
+    // handle screen edge
+    if (ship.x < 0 - ship.r) ship.x = canv.width + ship.r;
+    if (ship.x > canv.width + ship.r) ship.x = 0 - ship.r;
+
+    if (ship.y < 0 - ship.r) ship.y = canv.height + ship.r;
+    if (ship.y > canv.height + ship.r) ship.y = 0 - ship.r;
 }
