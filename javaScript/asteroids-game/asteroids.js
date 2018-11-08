@@ -11,6 +11,7 @@ const ROIDS_NUM = 3; // starting num of asteroids
 const ROIDS_SIZE = 100; // starting size in px
 const ROIDS_SPD = 50; // max starting speed od asteroids in px / sec
 const ROIDS_VERT = 10; // average numb of vertices on each asteroid
+const ROIDS_JAG = 0.4; // jaggednes of the asteroids 0 = none
 
 /**type {HTMLCanvasElement} */
 var canv = document.getElementById('gameCanvas');
@@ -53,15 +54,23 @@ function distBetweenPoints( x1, y1, x2, y2 ) {
 }
 
 function newAsteroid( x, y ) {
-    return {
+    var roid = {
         x: x,
         y: y,
         xv: Math.random() * ROIDS_SPD / FPS * (Math.random() < 0.5 ? 1 : -1),
         yv: Math.random() * ROIDS_SPD / FPS * (Math.random() < 0.5 ? 1 : -1),
         r: ROIDS_SIZE / 2,
         a: Math.random() * Math.PI * 2, // in radians
-        vert: Math.floor(Math.random() * (ROIDS_VERT + 1) + ROIDS_VERT / 2)
+        vert: Math.floor(Math.random() * (ROIDS_VERT + 1) + ROIDS_VERT / 2),
+        offs: []
     };
+
+    // create vertexs offset
+    for (var i = 0; i < roid.vert; i++) {
+        roid.offs.push(Math.random() * ROIDS_JAG * 2 + 1 - ROIDS_JAG);
+    }
+
+    return roid;
 }
 
 // set event handlers
@@ -131,7 +140,7 @@ function update() {
     // draw asteroids
     ctx.strokeStyle = 'slategrey';
     ctx.lineWidth = SHIP_SIZE / 20;
-    var x, y, r, a, vert;
+    var x, y, r, a, vert, offs;
     for (var i = 0; i < roids.length; i++) {
         // get asteroid props
         x = roids[ i ].x;
@@ -139,19 +148,20 @@ function update() {
         r = roids[ i ].r;
         a = roids[ i ].a;
         vert = roids[ i ].vert;
+        offs = roids[ i ].offs;
 
         // draw path
         ctx.beginPath();
         ctx.moveTo(
-            x + r * Math.cos(a),
-            y + r * Math.sin(a)
+            x + r * offs[ 0 ] * Math.cos(a),
+            y + r * offs[ 0 ] * Math.sin(a)
         );
 
         // draw polygon
-        for (var j = 0; j < vert; j++) {
+        for (var j = 1; j < vert; j++) {
             ctx.lineTo(
-                x + r * Math.cos(a + j * Math.PI * 2 / vert),
-                y + r * Math.sin(a + j * Math.PI * 2 / vert)
+                x + r * offs[ j ] * Math.cos(a + j * Math.PI * 2 / vert),
+                y + r * offs[ j ] * Math.sin(a + j * Math.PI * 2 / vert)
             );
         }
         ctx.closePath();
