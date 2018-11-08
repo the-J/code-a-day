@@ -166,9 +166,17 @@ function update() {
         }
         ctx.closePath();
         ctx.stroke();
+
         // move asteroid
+        roids[ i ].x += roids[ i ].xv;
+        roids[ i ].y += roids[ i ].yv;
 
         // handle edge of screen
+        if (roids[ i ].x < 0 - roids[ i ].r) roids[ i ].x = canv.width + roids[ i ].r;
+        else if (roids[ i ].x > canv.width + roids[ i ].r) roids[ i ].x = 0 - roids[ i ].r;
+
+        if (roids[ i ].y < 0 - roids[ i ].r) roids[ i ].y = canv.height + roids[ i ].r;
+        else if (roids[ i ].y > canv.height + roids[ i ].r) roids[ i ].y = 0 - roids[ i ].r;
     }
 
 
@@ -214,8 +222,8 @@ function update() {
 
     // handle screen edge
     if (ship.x < 0 - ship.r) ship.x = canv.width + ship.r;
-    if (ship.x > canv.width + ship.r) ship.x = 0 - ship.r;
+    else if (ship.x > canv.width + ship.r) ship.x = 0 - ship.r;
 
     if (ship.y < 0 - ship.r) ship.y = canv.height + ship.r;
-    if (ship.y > canv.height + ship.r) ship.y = 0 - ship.r;
+    else if (ship.y > canv.height + ship.r) ship.y = 0 - ship.r;
 }
