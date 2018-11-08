@@ -5,6 +5,7 @@
 const FPS = 30; // frames per second
 const SHIP_SIZE = 30; // ship height in px
 const TURN_SPEED = 360; // rotate speed in deg / sec
+const SHIP_THRUST = 5; // acceleration of ship px / sec / sec
 
 /**type {HTMLCanvasElement} */
 var canv = document.getElementById('gameCanvas');
@@ -14,15 +15,20 @@ var ship = {
     y: canv.height / 2,
     r: SHIP_SIZE / 2,
     a: 90 / 180 * Math.PI, // convert angle to radians - facing up
-    rot: 0
+    rot: 0, // initial rotating speed
+    thrusting: false,
+    thrust: {
+        x: 0,
+        y: 0
+    }
 };
+
+// setup game loop
+setInterval(update, 1000 / FPS);
 
 // set event handlers
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
-
-// setup game loop
-setInterval(update, 1000 / FPS);
 
 function keyDown( /** @type {KeyboardEvent} */ ev ) {
     switch (ev.keyCode) { //rotate and move ship
@@ -30,6 +36,7 @@ function keyDown( /** @type {KeyboardEvent} */ ev ) {
             ship.rot = TURN_SPEED / 180 * Math.PI / FPS;
             break;
         case 38: // thrusting
+            ship.thrusting = true;
             break;
         case 39: // rotate right
             ship.rot = -TURN_SPEED / 180 * Math.PI / FPS;
@@ -47,9 +54,10 @@ function keyUp( /** @type {KeyboardEvent} */ ev ) {
             ship.rot = 0;
             break;
         case 38: // up - thrusting
+            ship.thrusting = false;
             break;
         case 39: // stop rotate right
-            ship.rot = 0 ;
+            ship.rot = 0;
             break;
         case 40:
             break;
@@ -93,6 +101,13 @@ function update() {
     // rotate ship
     ship.a += ship.rot;
 
-    //move the ship
+    // thrust the ship
+    if (ship.thrusting) {
+        ship.thrust.x += SHIP_THRUST * Math.cos(ship.a) / FPS;
+        ship.thrust.y -= SHIP_THRUST * Math.sin(ship.a) / FPS;
+    }
 
+    //move the ship
+    ship.x += ship.thrust.x;
+    ship.y += ship.thrust.y;
 }
