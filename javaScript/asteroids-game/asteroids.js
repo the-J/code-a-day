@@ -12,6 +12,7 @@ const ROIDS_SIZE = 100; // starting size in px
 const ROIDS_SPD = 50; // max starting speed od asteroids in px / sec
 const ROIDS_VERT = 10; // average numb of vertices on each asteroid
 const ROIDS_JAG = 0.4; // jaggednes of the asteroids 0 = none
+const SHOW_HIDE_SHIPS_CENTER_DOT = false;
 
 /**type {HTMLCanvasElement} */
 var canv = document.getElementById('gameCanvas');
@@ -179,9 +180,11 @@ function update() {
         else if (roids[ i ].y > canv.height + roids[ i ].r) roids[ i ].y = 0 - roids[ i ].r;
     }
 
-
-    ctx.fillStyle = 'red'; // center ship dot
-    // ctx.fillRect(ship.x - 1, ship.y - 1, 2, 2);
+    // center dot
+    if (SHOW_HIDE_SHIPS_CENTER_DOT) {
+        ctx.fillStyle = 'red'; // center ship dot
+        ctx.fillRect(ship.x - 1, ship.y - 1, 2, 2);
+    }
 
     // rotate ship
     ship.a += ship.rot;
