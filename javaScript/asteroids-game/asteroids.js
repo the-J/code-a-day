@@ -254,11 +254,13 @@ function update() {
         ctx.fillRect(ship.x - 1, ship.y - 1, 2, 2);
     }
 
-    // check asteroid collisions
     if (!exploding) {
-        for (var i = 0; i < roids.length; i++) {
-            if (distBetweenPoints(ship.x, ship.y, roids[ i ].x, roids[ i ].y) < ship.r + roids[ i ].r) {
-                explodeShip();
+        // check asteroid collisions
+        if (ship.blinkNum === 0) {
+            for (var i = 0; i < roids.length; i++) {
+                if (distBetweenPoints(ship.x, ship.y, roids[ i ].x, roids[ i ].y) < ship.r + roids[ i ].r) {
+                    explodeShip();
+                }
             }
         }
 
