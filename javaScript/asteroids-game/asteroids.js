@@ -75,29 +75,24 @@ function update() {
     // draw ship
     ctx.strokeStyle = 'white';
     ctx.lineWidth = SHIP_SIZE / 20;
-
     ctx.beginPath();
-
     ctx.moveTo( // ships upper tip
         ship.x + 4 / 3 * ship.r * Math.cos(ship.a),
         ship.y - 4 / 3 * ship.r * Math.sin(ship.a)
     );
-
     ctx.lineTo( // ships rear left
         ship.x - ship.r * (2 / 3 * Math.cos(ship.a) + Math.sin(ship.a)),
         ship.y + ship.r * (2 / 3 * Math.sin(ship.a) - Math.cos(ship.a))
     );
-
     ctx.lineTo( // ships rear right
         ship.x - ship.r * (2 / 3 * Math.cos(ship.a) - Math.sin(ship.a)),
         ship.y + ship.r * (2 / 3 * Math.sin(ship.a) + Math.cos(ship.a))
     );
-
     ctx.closePath();
     ctx.stroke();
 
     ctx.fillStyle = 'red'; // center ship dot
-    ctx.fillRect(ship.x - 1, ship.y - 1, 2, 2);
+    // ctx.fillRect(ship.x - 1, ship.y - 1, 2, 2);
 
     // rotate ship
     ship.a += ship.rot;
@@ -106,6 +101,27 @@ function update() {
     if (ship.thrusting) {
         ship.thrust.x += SHIP_THRUST * Math.cos(ship.a) / FPS;
         ship.thrust.y -= SHIP_THRUST * Math.sin(ship.a) / FPS;
+
+        // draw the thruster
+        ctx.fillStyle = 'red';
+        ctx.strokeStyle = 'yellow';
+        ctx.lineWidth = SHIP_SIZE / 10;
+        ctx.beginPath();
+        ctx.moveTo( // rear left
+            ship.x - ship.r * (2 / 3 * Math.cos(ship.a) + 0.5 * Math.sin(ship.a)),
+            ship.y + ship.r * (2 / 3 * Math.sin(ship.a) - 0.5 * Math.cos(ship.a))
+        );
+        ctx.lineTo( // rear center behind ship
+            ship.x - ship.r * 6 / 3 * Math.cos(ship.a),
+            ship.y + ship.r * 6 / 3 * Math.sin(ship.a)
+        );
+        ctx.lineTo( // ships rear right
+            ship.x - ship.r * (2 / 3 * Math.cos(ship.a) - 0.5 * Math.sin(ship.a)),
+            ship.y + ship.r * (2 / 3 * Math.sin(ship.a) + 0.5 * Math.cos(ship.a))
+        );
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
     }
     else {
         ship.thrust.x -= FRICTION * ship.thrust.x / FPS;
