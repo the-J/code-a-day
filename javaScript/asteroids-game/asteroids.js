@@ -6,6 +6,7 @@ const FPS = 30; // frames per second
 const SHIP_SIZE = 30; // ship height in px
 const TURN_SPEED = 360; // rotate speed in deg / sec
 const SHIP_THRUST = 5; // acceleration of ship px / sec / sec
+const FRICTION = 0.7; // friction coefficient of space ( 0 = no, 1 = lost)
 
 /**type {HTMLCanvasElement} */
 var canv = document.getElementById('gameCanvas');
@@ -106,6 +107,11 @@ function update() {
         ship.thrust.x += SHIP_THRUST * Math.cos(ship.a) / FPS;
         ship.thrust.y -= SHIP_THRUST * Math.sin(ship.a) / FPS;
     }
+    else {
+        ship.thrust.x -= FRICTION * ship.thrust.x / FPS;
+        ship.thrust.y -= FRICTION * ship.thrust.y / FPS;
+    }
+
 
     //move the ship
     ship.x += ship.thrust.x;
