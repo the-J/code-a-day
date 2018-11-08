@@ -285,7 +285,7 @@ function update() {
         ship.thrust.y -= SHIP_THRUST * Math.sin(ship.a) / FPS;
 
         // draw the thruster
-        if (!exploding) {
+        if (!exploding && blinkOn) {
             ctx.fillStyle = 'red';
             ctx.strokeStyle = 'yellow';
             ctx.lineWidth = SHIP_SIZE / 10;
