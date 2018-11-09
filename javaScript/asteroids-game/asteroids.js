@@ -9,6 +9,7 @@ const SHOW_HIDE_SHIPS_CENTER_DOT = false; // show or hide ship's centre dot
 // SYSTEM CONST
 const FPS = 30; // frames per second
 const FRICTION = 0.7; // friction coefficient of space (0 = no friction, 1 = lots of friction)
+const GAME_LIVES = 3; // starting num of lives
 const TEXT_FADE_TIME = 2.5; // text fade time in sec
 const TEXT_SIZE = 40; // text font size px
 
@@ -35,7 +36,7 @@ var canv = document.getElementById('gameCanvas');
 var ctx = canv.getContext('2d');
 
 // set game params
-var level, roids, ship, text, textAlpha;
+var level, roids, ship, text, textAlpha, lives;
 newGame();
 
 // set up event handlers
@@ -85,6 +86,26 @@ function destroyAsteroid( index ) {
 
 function distBetweenPoints( x1, y1, x2, y2 ) {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+}
+
+function drawShip( x, y, a ) {
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = SHIP_SIZE / 20;
+    ctx.beginPath();
+    ctx.moveTo( // ships upper tip
+        x + 4 / 3 * ship.r * Math.cos(a),
+        y - 4 / 3 * ship.r * Math.sin(a)
+    );
+    ctx.lineTo( // ships rear left
+        x - ship.r * (2 / 3 * Math.cos(a) + Math.sin(a)),
+        y + ship.r * (2 / 3 * Math.sin(a) - Math.cos(ship.a))
+    );
+    ctx.lineTo( // ships rear right
+        x - ship.r * (2 / 3 * Math.cos(a) - Math.sin(a)),
+        y + ship.r * (2 / 3 * Math.sin(a) + Math.cos(a))
+    );
+    ctx.closePath();
+    ctx.stroke();
 }
 
 function explodeShip() {
@@ -148,6 +169,7 @@ function newAsteroid( x, y, r ) {
 
 function newGame() {
     level = 0;
+    lives = GAME_LIVES;
     ship = newShip();
     newLevel();
 }
@@ -207,23 +229,7 @@ function update() {
     // draw ship
     if (!exploding) {
         if (blinkOn) {
-            ctx.strokeStyle = 'white';
-            ctx.lineWidth = SHIP_SIZE / 20;
-            ctx.beginPath();
-            ctx.moveTo( // ships upper tip
-                ship.x + 4 / 3 * ship.r * Math.cos(ship.a),
-                ship.y - 4 / 3 * ship.r * Math.sin(ship.a)
-            );
-            ctx.lineTo( // ships rear left
-                ship.x - ship.r * (2 / 3 * Math.cos(ship.a) + Math.sin(ship.a)),
-                ship.y + ship.r * (2 / 3 * Math.sin(ship.a) - Math.cos(ship.a))
-            );
-            ctx.lineTo( // ships rear right
-                ship.x - ship.r * (2 / 3 * Math.cos(ship.a) - Math.sin(ship.a)),
-                ship.y + ship.r * (2 / 3 * Math.sin(ship.a) + Math.cos(ship.a))
-            );
-            ctx.closePath();
-            ctx.stroke();
+            drawShip(ship.x, ship.y, ship.a);
         }
 
         // handle blinking
@@ -345,6 +351,11 @@ function update() {
         ctx.font = 'small-caps ' + TEXT_SIZE + 'px dejavu sans mono';
         ctx.fillText(text, canv.width / 2, canv.height * 0.75);
         textAlpha -= (1.0 / TEXT_FADE_TIME / FPS);
+    }
+
+    // draw lives
+    for (var i = 0; i < lives; i++) {
+        drawShip(SHIP_SIZE + i * SHIP_SIZE * 1.2, SHIP_SIZE, 0.5 * Math.PI);
     }
 
     // detect lasers hits on asteroids
