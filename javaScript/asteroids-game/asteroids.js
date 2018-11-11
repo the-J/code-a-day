@@ -8,6 +8,7 @@ const SHOW_HIDE_SHIPS_CENTER_DOT = false; // show or hide ship's centre dot
 
 // SYSTEM CONST
 const FPS = 30; // frames per second
+const SAVE_KEY_SCORE = 'asteroids high score'; // save jkey for local srtorage high score
 const FRICTION = 0.7; // friction coefficient of space (0 = no friction, 1 = lots of friction)
 const GAME_LIVES = 3; // starting num of lives
 const TEXT_FADE_TIME = 2.5; // text fade time in sec
@@ -85,6 +86,7 @@ function destroyAsteroid( index ) {
     // check high score
     if (score > scoreHigh) {
         scoreHigh = score;
+        localStorage.setItem(SAVE_KEY_SCORE, scoreHigh);
     }
 
     // destroy the asteroid
@@ -190,8 +192,17 @@ function newGame() {
     level = 0;
     lives = GAME_LIVES;
     score = 0;
-    scoreHigh = 100;
     ship = newShip();
+
+    // get high score from local storage
+    var scoreString = localStorage.getItem(SAVE_KEY_SCORE);
+    if (scoreString === null) {
+        scoreHigh = 0;
+    }
+    else {
+        scoreHigh = parseInt(scoreString);
+    }
+
     newLevel();
 }
 
