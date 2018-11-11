@@ -39,6 +39,9 @@ const ROID_PTS_SML = 100; // points for small asteroid
 var canv = document.getElementById('gameCanvas');
 var ctx = canv.getContext('2d');
 
+// set up sound effects
+var fxLaser = new Audio('sounds/laser.m4a');
+
 // set game params
 var level, roids, ship, text, textAlpha, lives, score, scoreHigh;
 newGame();
@@ -254,6 +257,7 @@ function shootLaser() {
             dist: 0,
             explodeTime: 0
         });
+        fxLaser.play();
     }
 
     // prevent further shooting
