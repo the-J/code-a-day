@@ -39,7 +39,7 @@ var canv = document.getElementById('gameCanvas');
 var ctx = canv.getContext('2d');
 
 // set game params
-var level, roids, ship, text, textAlpha, lives, score;
+var level, roids, ship, text, textAlpha, lives, score, scoreHigh;
 newGame();
 
 // set up event handlers
@@ -80,6 +80,11 @@ function destroyAsteroid( index ) {
     }
     else {
         score += ROID_PTS_SML;
+    }
+
+    // check high score
+    if (score > scoreHigh) {
+        scoreHigh = score;
     }
 
     // destroy the asteroid
@@ -185,6 +190,7 @@ function newGame() {
     level = 0;
     lives = GAME_LIVES;
     score = 0;
+    scoreHigh = 100;
     ship = newShip();
     newLevel();
 }
@@ -397,8 +403,14 @@ function update() {
     ctx.textBaseline = 'middle';
     ctx.fillStyle = 'white';
     ctx.font = TEXT_SIZE + 'px dejavu sans mono';
-    ctx.fillText(score, canv.width -SHIP_SIZE / 2, SHIP_SIZE);
-    textAlpha -= (1.0 / TEXT_FADE_TIME / FPS);
+    ctx.fillText(score, canv.width - SHIP_SIZE / 2, SHIP_SIZE);
+
+    // draw the high score
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'white';
+    ctx.font = (TEXT_SIZE * 0.75) + 'px dejavu sans mono';
+    ctx.fillText('TOP ' + scoreHigh, canv.width / 2, SHIP_SIZE);
 
     // detect lasers hits on asteroids
     var ax, ay, ar, lx, ly;
