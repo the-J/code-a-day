@@ -26,17 +26,20 @@ const SHIP_THRUST = 5; // acceleration of the ship in pixels per second per seco
 const SHIP_TURN_SPD = 360; // turn speed in degrees per second
 
 const ROID_JAG = 0.4; // jaggedness of the asteroids (0 = none, 1 = lots)
-const ROID_NUM = 1; // starting number of asteroids
+const ROID_NUM = 3; // starting number of asteroids
 const ROID_SIZE = 100; // starting size of asteroids in pixels
 const ROID_SPD = 50; // max starting speed of asteroids in pixels per second
 const ROID_VERT = 10; // average number of vertices on each asteroid
+const ROID_PTS_LGE = 20; // points for big asteroid
+const ROID_PTS_MED = 50; // points for midd asteroid
+const ROID_PTS_SML = 100; // points for small asteroid
 
 /** @type {HTMLCanvasElement} */
 var canv = document.getElementById('gameCanvas');
 var ctx = canv.getContext('2d');
 
 // set game params
-var level, roids, ship, text, textAlpha, lives;
+var level, roids, ship, text, textAlpha, lives, score;
 newGame();
 
 // set up event handlers
@@ -68,10 +71,15 @@ function destroyAsteroid( index ) {
     if (r === Math.ceil(ROID_SIZE / 2)) { // large asteroid
         roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 4)));
         roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 4)));
+        score += ROID_PTS_LGE;
     }
     else if (r === Math.ceil(ROID_SIZE / 4)) { // medium asteroid
         roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 8)));
         roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 8)));
+        score += ROID_PTS_MED;
+    }
+    else {
+        score += ROID_PTS_SML;
     }
 
     // destroy the asteroid
@@ -176,6 +184,7 @@ function newAsteroid( x, y, r ) {
 function newGame() {
     level = 0;
     lives = GAME_LIVES;
+    score = 0;
     ship = newShip();
     newLevel();
 }
@@ -364,12 +373,15 @@ function update() {
 
     // draw game text
     if (textAlpha >= 0) {
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
         ctx.fillStyle = 'rgba(255, 255, 255, ' + textAlpha + ')';
         ctx.font = 'small-caps ' + TEXT_SIZE + 'px dejavu sans mono';
         ctx.fillText(text, canv.width / 2, canv.height * 0.75);
         textAlpha -= (1.0 / TEXT_FADE_TIME / FPS);
     }
     else if (ship.dead) {
+        // start new game after game over fades
         newGame();
     }
 
@@ -379,6 +391,14 @@ function update() {
         lifeColor = exploding && i === lives - 1 ? 'red' : 'white';
         drawShip(SHIP_SIZE + i * SHIP_SIZE * 1.2, SHIP_SIZE, 0.5 * Math.PI, lifeColor);
     }
+
+    //draw the score
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'white';
+    ctx.font = TEXT_SIZE + 'px dejavu sans mono';
+    ctx.fillText(score, canv.width -SHIP_SIZE / 2, SHIP_SIZE);
+    textAlpha -= (1.0 / TEXT_FADE_TIME / FPS);
 
     // detect lasers hits on asteroids
     var ax, ay, ar, lx, ly;
