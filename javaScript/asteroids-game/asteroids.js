@@ -6,7 +6,7 @@
 const SHOW_BOUNDING = false; // show or hide collision bounding
 const SHOW_HIDE_SHIPS_CENTER_DOT = false; // show or hide ship's centre dot
 const SOUND_ON = false; // handling mute sound
-const MUSIC_ON = true; // handling mute music
+const MUSIC_ON = false; // handling mute music
 
 // SYSTEM CONST
 const FPS = 30; // frames per second
@@ -49,7 +49,8 @@ var fxHit = new Sound('sounds/hit.m4a', 5);
 var fxThrust = new Sound('sounds/thrust.m4a');
 
 // set up music
-var music = new Music('sounds/music-low.m4a', 'sounds/music-high.mm4a;');
+var music = new Music('sounds/music-low.m4a', 'sounds/music-high.m4a');
+var roidsLeft, roidsTotal;
 
 // set game params
 var level, roids, ship, text, textAlpha, lives, score, scoreHigh;
@@ -64,6 +65,8 @@ setInterval(update, 1000 / FPS);
 
 function createAsteroidBelt() {
     roids = [];
+    roidsTotal = (ROID_NUM + level) * 7;
+    roidsLeft = roidsTotal;
     var x, y;
     for (var i = 0; i < ROID_NUM + level; i++) {
         // random asteroid location (not touching spaceship)
@@ -106,6 +109,11 @@ function destroyAsteroid( index ) {
 
     // sound
     fxHit.play();
+
+    // calculate ratio of remaining asteroids to determine music tempo
+    roidsLeft--;
+    music.setAsteroidRatio(roidsLeft === 0 ? 1 : roidsLeft / roidsTotal);
+
 
     // new level when no more asteroids
     if (roids.length === 0) {
@@ -303,8 +311,9 @@ function Sound( src, maxStreams = 1, vol = 1.0 ) {
 function Music( srcLow, srcHigh ) {
     this.soundLow = new Audio(srcLow);
     this.soundHigh = new Audio(srcHigh);
+
     this.low = true;
-    this.tempo = 1.0; // sec pre bit
+    this.tempo = 1.0; // sec per bit
     this.beatTime = 0; // frames until next beat
 
     this.play = function () {
@@ -318,6 +327,10 @@ function Music( srcLow, srcHigh ) {
 
             this.low = !this.low;
         }
+    };
+
+    this.setAsteroidRatio = function ( ratio ) {
+        this.tempo = 1.0 - 0.75 * (1.0 - ratio);
     };
 
     this.tick = function () {
