@@ -28,6 +28,6 @@
 
 * small things
     ###### collections of small things
-        * small_things
-            * some fun with css, testing materialize css and css stuff
-            * old clock that I made in JS and css
+    * small_things
+       * some fun with css, testing materialize css and css stuff
+        * old clock that I made in JS and css
