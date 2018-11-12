@@ -47,7 +47,7 @@ var fxLaser = new Sound('javaScript/asteroids-game/sounds/laser.m4a', 5, 0.5);
 console.log({fxLaser});
 var fxExplode = new Sound('javaScript/asteroids-game/sounds/explode.m4a');
 var fxHit = new Sound('javaScript/asteroids-game/sounds/hit.m4a', 5);
-var fxThrust = new Sound('sounds/thrust.m4a');
+var fxThrust = new Sound('javaScript/asteroids-game/sounds/thrust.m4a');
 
 // set up music
 var music = new Music('javaScript/asteroids-game/sounds/music-low.m4a', 'javaScript/asteroids-game/sounds/music-high.m4a');
