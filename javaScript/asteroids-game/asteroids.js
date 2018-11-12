@@ -5,8 +5,8 @@
 // DEV CONST
 const SHOW_BOUNDING = false; // show or hide collision bounding
 const SHOW_HIDE_SHIPS_CENTER_DOT = false; // show or hide ship's centre dot
-const SOUND_ON = false; // handling mute sound
-const MUSIC_ON = false; // handling mute music
+const SOUND_ON = true; // handling mute sound
+const MUSIC_ON = true; // handling mute music
 
 // SYSTEM CONST
 const FPS = 30; // frames per second
@@ -43,13 +43,14 @@ var canv = document.getElementById('gameCanvas');
 var ctx = canv.getContext('2d');
 
 // set up sound effects
-var fxLaser = new Sound('sounds/laser.m4a', 5, 0.5);
-var fxExplode = new Sound('sounds/explode.m4a');
-var fxHit = new Sound('sounds/hit.m4a', 5);
+var fxLaser = new Sound('javaScript/asteroids-game/sounds/laser.m4a', 5, 0.5);
+console.log({fxLaser});
+var fxExplode = new Sound('javaScript/asteroids-game/sounds/explode.m4a');
+var fxHit = new Sound('javaScript/asteroids-game/sounds/hit.m4a', 5);
 var fxThrust = new Sound('sounds/thrust.m4a');
 
 // set up music
-var music = new Music('sounds/music-low.m4a', 'sounds/music-high.m4a');
+var music = new Music('javaScript/asteroids-game/sounds/music-low.m4a', 'javaScript/asteroids-game/sounds/music-high.m4a');
 var roidsLeft, roidsTotal;
 
 // set game params
@@ -311,6 +312,9 @@ function Sound( src, maxStreams = 1, vol = 1.0 ) {
 function Music( srcLow, srcHigh ) {
     this.soundLow = new Audio(srcLow);
     this.soundHigh = new Audio(srcHigh);
+
+    this.soundHigh.volume = 0.3;
+    this.soundLow.volume = 0.3;
 
     this.low = true;
     this.tempo = 1.0; // sec per bit
