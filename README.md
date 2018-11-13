@@ -9,8 +9,8 @@
     ###### projects in nodejs, cra and other full js things
     * protected-react-route
         * setting react-router params depending on users login status
-    * gatsby-basic
-        * gatsby-basic is gatsby 2.0 blog site - witing for content and styling
+    * gatsby-basic (standalone repo)
+        * gatsby-basic is gatsby 2.0 blog site - waiting for content and styling
         * repo: [gatsby-blog](https://github.com/the-J/Blog)
         * life: [netlify](https://determined-goodall-008bfe.netlify.com/blog)
     * asteroids-game
