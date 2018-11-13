@@ -3,14 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Asteroids Game</title>
-    <style></style>
+
+   <style>
+    .onOff {
+            display: grid;
+            place-content: center;
+            margin: 0 auto;
+            width: 200px;
+            background: black;
+            padding: 20px;
+            color: white;
+    }
+    .can {
+        
+        display: grid;
+        padding: 5px;
+        place-content: center;
+        margin: 0 auto;
+    }
+
+    </style>
 </head>
 <body>
+   <div class="can"> 
 <canvas
         id="gameCanvas"
         width="700"
         height="500"
 />
+</div>
+<p class="onOff" >SOUND ON / OFF</p>
 
 <script type="application/javascript" src="asteroids.js">
 </script>
