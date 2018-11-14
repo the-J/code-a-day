@@ -19,6 +19,18 @@
         * not finished, some small things needs to be updated
     * vue
         * some tests with vue.js 
+    * pomodoroClock
+        * still proud o math in this one
+        * svg painteg pomodoro timer
+    * weatherApp
+        * highCharts.js- F'/C'
+        * yahoo weather API
+    * RandomQuoteMachine
+        * not sure if still works
+        
+* nodejs
+    * some old repo
+        * don't remember exactly, some old repo: express, node, mongoDB - log in with facebook....
         
 * python
     ###### python projects - tutorials
