@@ -17,6 +17,8 @@
         * well, just old asteroids game in js [life on gh-pages](https://the-j.github.io/code-a-day/)
     * snake-game
         * not finished, some small things needs to be updated
+    * vue
+        * some tests with vue.js 
         
 * python
     ###### python projects - tutorials

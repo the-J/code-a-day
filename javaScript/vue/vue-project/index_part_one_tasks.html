@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue part one tasks</title>
+
+    <style>
+        #app {
+            font-family: 'Avenir', Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: #2c3e50;
+            margin-top: 60px;
+            width: 40%;
+            margin-left: 20%;
+            text-align: center 
+        }
+    </style>
+
+</head>
+<body>
+    <div id="app">
+
+        <p v-for="member in band"> {{ member.id }} {{ member.isnt }} : {{ member.name }} </p>
+
+        <input type="text" placeholder="Add last member" v-model="newMember" />
+        <button v-on:click="addMember()">Add vocal</button>       
+        <button v-on:click="killDrummer()">Kill Drummer</button>       
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                newMember: '',
+                band: [
+                    {id: 0, isnt: 'Guitar', name: 'John Page'},
+                    {id: 1, isnt: 'Drums', name: 'Henry Bonham'},
+                    {id: 2, isnt: 'Base', name: 'John Paul Johnes'},
+                    {id: 3, isnt: 'Vocal', name: ''}
+                ]
+            },
+            methods: {
+                addMember() {
+                    this.band[3].name = this.newMember;
+                },
+                killDrummer() {
+                    this.band[1].name = this.band[1].name + ' DEAD'
+                }
+            }
+        })
+    </script>
+</body>
+</html>
