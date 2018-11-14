@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="MBJ SVG pomodoro clock">
+  <meta charset="utf-8">
+  <title>MBJ SVG pomodoro clock</title>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+  <script type="text/javascript" src="main.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+
+</head>
+<body>
+  <!-- viewBox is coordinate system, width and height are on-screen size -->
+  <svg  id="clock" viewBox="-5 -5 110 110" width="250" height="250">
+
+    <!-- <circle id="face" cx="50" cy="50" r="45"/> -->
+
+    <g id="ticks">
+      <!-- 12 hour tick marks -->
+      <line x1='72.50' y1='11.03' x2='70.00' y2='15.36'/> <!-- 5 -->
+      <line x1='88.97' y1='27.50' x2='84.64' y2='30.00'/> <!-- 10 -->
+      <line x1='95.00' y1='50.00' x2='90.00' y2='50.00'/> <!-- 15 -->
+      <line x1='88.97' y1='72.50' x2='84.64' y2='70.00'/> <!-- 20 -->
+      <line x1='72.50' y1='88.97' x2='70.00' y2='84.64'/> <!-- 25 -->
+      <line x1='50.00' y1='95.00' x2='50.00' y2='90.00'/> <!-- 30 -->
+      <line x1='27.50' y1='88.97' x2='30.00' y2='84.64'/> <!-- 35 -->
+      <line x1='11.03' y1='72.50' x2='15.36' y2='70.00'/> <!-- 40 -->
+      <line x1='5.000' y1='50.00' x2='10.00' y2='50.00'/> <!-- 45 -->
+      <line x1='11.03' y1='27.50' x2='15.36' y2='30.00'/> <!-- 50 -->
+      <line x1='27.50' y1='11.03' x2='30.00' y2='15.36'/> <!-- 55 -->
+      <line x1='50' y1='5.000' x2='50.00' y2='10.00'/> <!-- 0 -->
+    </g>
+
+    <g id="ticks15">
+      <!-- last 15 minutes tick marks -->
+      <!-- 45 to 50 -->
+      <line x1='6.206' y1='45.5' x2='11.072' y2='46'/>  <!-- 46 -->
+      <line x1='7.412' y1='41' x2='12.144' y2='42'/>    <!-- 47 -->
+      <line x1='8.618' y1='36.5' x2='13.216' y2='38'/>  <!-- 48 -->
+      <line x1='9.824' y1='32' x2='14.288' y2='34'/>    <!-- 49 -->
+
+      <!-- 50 to 55 -->
+      <line x1='14.324' y1='24.207' x2='18.288' y2='27.072'/>   <!-- 51 -->
+      <line x1='17.618' y1='20.9148' x2='21.216' y2='24.144'/>  <!-- 52 -->
+      <line x1='20.912' y1='17.621' x2='24.144' y2='21.216'/>   <!-- 53 -->
+      <line x1='24.206' y1='14.328' x2='27.072' y2='18.288'/>   <!-- 54 -->
+
+      <!-- 55 to 0 -->
+      <line x1='32' y1='9.824' x2='34' y2='14.288' />   <!-- 56 -->
+      <line x1='36.5' y1='8.628' x2='38' y2='13.216'/>  <!-- 57 -->
+      <line x1='41' y1='7.412' x2='42' y2='12.144'/>    <!-- 58 -->
+      <line x1='45.5' y1='6.206' x2='46' y2='11.072'/>  <!-- 59 -->
+    </g>
+
+    <g id="numbers">
+      <!--  dial numbers -->
+      <text x="50" y="18">0</text>
+      <text x="83" y="53">45</text>
+      <text x="50" y="88">30</text>
+      <text x="17" y="53">15</text>
+    </g>
+
+    <!-- Draw hands pointing straight up. We rotate them in the code. -->
+    <g id="hands">
+      <line id="hourhand" x1="50" y1="50" x2="50" y2="24"/>
+      <line id="minutehand" x1="50" y1="50" x2="50" y2="20"/>
+      <line id="secondhand" x1="50" y1="50" x2="50" y2="16"/>
+    </g>
+
+    <circle id="centerDot" cx="50" cy="50" r="0.5"/>
+
+    <!-- arches -->
+    <path id="workArch" /> <!-- work -->
+    <path id="breakArch" /> <!-- break -->
+
+  </svg>
+
+  <!--  buttons  -->
+  <div class="buttons">
+    <label for="hoursVal">HOURS</label>
+    <input id="hoursVal" type="number" name="hoursVal" value="0" min="0" max ="11">
+
+    <label for="minutesVal">MINUTES</label>
+    <input id="minutesVal" type="number"name="minutesVal" value="0" min="0" max="59">
+
+    <label for="breakTime">BREAK</label>
+    <input id="breakTime" type="number" name="breakTime" value="0" min="0" max="59">
+
+    <button id="btn-start" type="button" onclick="start()">START</button>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+
+/* svg */
+#clock {
+  stroke: black;
+  stroke-linecap: square;
+}
+
+/*#face { stroke-width: 3px;}*/
+
+#ticks {
+  stroke-width: 2;
+  stroke: black;
+
+}
+#ticks15 {
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke: grey;
+}
+
+#hourhand {
+  stroke-width: 5px;
+  stroke-linecap: round;
+  stroke: black;
+}
+
+#minutehand {
+  stroke-width: 3px;
+  stroke-linecap: round;
+  stroke: black;
+}
+
+#centerDot{
+  stroke-width: 1px;
+  stroke: red;
+  fill: red;
+}
+
+#secondhand {
+  stroke-width: 1px;
+  stroke: red;
+  stroke-linecap: round;
+}
+
+#numbers {
+  font-family: sans-serif;
+  font-size: 5pt;
+  font-weight: bold;
+  text-anchor: middle;
+  stroke: none;
+  fill: black;
+}
+
+/* buttons */
+.buttons{
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+input, label, #btn-start{
+  display: inline;
+  width: 100%;
+  margin-top: 1%;
+}
+
+label{
+  font-size: 0.7em;
+}
+
+/*arches*/
+#workArch{
+  fill: none;
+  stroke: #004FC4;
+  stroke-width: 3;
+}
+
+#breakArch{
+  fill: none;
+  stroke: #D7B305;
+  stroke-width: 3;
+}
