@@ -1,0 +1,12 @@
+{
+  "public": {
+    "admins": [
+      "admin@admin.com"
+    ]
+  },
+  "private": {
+    "admins": [
+      "admin@admin.com"
+    ]
+  }
+}

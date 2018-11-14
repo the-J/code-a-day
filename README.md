@@ -29,9 +29,15 @@
         * not sure if still works
         
 * nodejs
+    ##### some things with nodejs
     * some old repo
         * don't remember exactly, some old repo: express, node, mongoDB - log in with facebook....
         
+* meteor
+    ##### things in MeteorJS framework
+    * votingApp
+        * [readme](meteor/votingApp)
+    
 * python
     ###### python projects - tutorials
     * tweepy
