@@ -37,6 +37,8 @@
     ##### things in MeteorJS framework
     * votingApp
         * [readme](meteor/votingApp)
+    * apolloGraphQl
+        * some old repo - I'll check later what it does
     
 * python
     ###### python projects - tutorials
