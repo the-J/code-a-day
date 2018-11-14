@@ -1,0 +1,61 @@
+* {
+    box-sizing: border-box;
+}
+body{
+  padding-top: 20px;
+  background-color: #ACACAC;
+}
+
+/* everything col-* float left */
+[class*="col-"] {
+  float: left;
+}
+
+.row{
+  clear: both;
+}
+/* */
+.row::after{
+  content: "";
+}
+/* END INTRO*/
+
+
+
+
+
+p{
+  color: 414141;
+  font-family: Sans;
+}
+
+/* removing bullets and the rest from ul*/
+ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  /* ul needs to have position
+  to use animate on it*/
+  position: relative;
+}
+li{
+  padding: 10px;
+}
+
+#quote-cls{
+  /*position: relative; */
+  /*display: block;*/
+  background-color: #fff;
+  border-radius: 15px;
+}
+#author-cls{
+  /*position: relative; */
+  /*display: block;*/
+}
+
+button {
+  display: inline;
+  background-color: #fff;
+
+  width: auto;
+}
