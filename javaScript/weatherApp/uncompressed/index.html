@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="language" content="English" />
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="icons/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1">
+  <meta name="description" content="Weather MBJ">
+  <meta name="author" content="MadeByJ">
+  <title>Weather</title>
+
+
+  <!-- custom weather icons http://weathericons.io -->
+  <link rel="stylesheet" type="text/css" href="icons/css/weather-icons.min.css" />
+  <!-- google font -->
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+
+  <!--  main css -->
+  <link rel="stylesheet" type="text/css" href="main.css" />
+
+</head>
+
+<!--  body is bild from three elements: head; weather; forecast-->
+<body onload="position()">
+
+
+  <!-- head -->
+  <div class="row">
+    <div class="col-1">
+      <div id="place"></div>
+    </div>
+  </div>
+
+  <!-- weather -->
+  <div class="row">
+    <div class="col-2">
+      <div class="col-3">
+        <div class="col-4">
+          <div id="temperature"></div>
+        </div>
+        <div class="col-4 btn-group">
+          <button id="btn-C" class="btn" onclick="changeColor()" type="button"> &deg;C</button>
+          <button id="btn-F" class="btn" onclick="changeColor()" type="button"> &deg;F</button>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="col-4">
+          <div id="mainIcon"></div>
+        </div>
+        <div class="col-4">
+          <div id="text"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  forecast chart  -->
+  <div class="row">
+    <div class="col-5">
+      <div id="chart"></div>
+      <div id="forecast-icons"></div>
+    </div>
+  </div>
+
+
+
+  <!-- jQuery -->
+  <script src="js/jquery-3.2.0.min.js"></script>
+  <!-- highcharts.js - library for charts -->
+  <script src="js/highcharts.min.js"></script>
+  <!--  main js -->
+  <script src="main.js"></script>
+</body>
+</html>

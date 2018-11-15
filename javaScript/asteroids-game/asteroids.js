@@ -3,6 +3,7 @@
  */
 
 // DEV CONST
+const AUTOMATION_ON = true; // set neural network to shoot asteroids
 const SHOW_BOUNDING = false; // show or hide collision bounding
 const SHOW_HIDE_SHIPS_CENTER_DOT = false; // show or hide ship's centre dot
 
@@ -21,7 +22,7 @@ const LASER_MAX = 10; // maximum number of lasers on screen at once
 const LASER_SPD = 500; // speed of lasers in pixels per second
 
 const SHIP_BLINK_DUR = 0.1; // duration in seconds of a single blink during ship's invisibility
-const SHIP_EXPLODE_DUR = 0.3; // duration of the ship's explosion in seconds
+const SHIP_EXPLODE_DUR = 0.3; // duration ofs the ship's explosion in seconds
 const SHIP_INV_DUR = 3; // duration of the ship's invisibility in seconds
 const SHIP_SIZE = 30; // ship height in pixels
 const SHIP_THRUST = 5; // acceleration of the ship in pixels per second per second
@@ -54,6 +55,14 @@ var button = document.querySelector('.onOff');
 // set game params
 var level, roids, ship, text, textAlpha, lives, score, scoreHigh, soundsOn, musicOn;
 newGame();
+
+// set up neural network
+if (AUTOMATION_ON) {
+    // TODO neural network
+
+    let m0 = new Matrix(2, 3);
+    console.table(m0.data);
+}
 
 // set up event handlers
 document.addEventListener('keydown', keyDown);
@@ -153,7 +162,7 @@ function explodeShip() {
 
 function keyDown( /** @type {KeyboardEvent} */ ev ) {
 
-    if (ship.dead) return;
+    if (ship.dead || AUTOMATION_ON) return;
 
     switch (ev.keyCode) {
         case 32: // space bar (shoot laser)
@@ -173,7 +182,7 @@ function keyDown( /** @type {KeyboardEvent} */ ev ) {
 
 function keyUp( /** @type {KeyboardEvent} */ ev ) {
 
-    if (ship.dead) return;
+    if (ship.dead || AUTOMATION_ON) return;
 
     switch (ev.keyCode) {
         case 32: // space bar (allow shooting again)
@@ -348,6 +357,11 @@ function Music( srcLow, srcHigh ) {
 function update() {
     var blinkOn = ship.blinkNum % 2 === 0;
     var exploding = ship.explodeTime > 0;
+
+    // use the neural network to rotate the ship and shoot
+    if (AUTOMATION_ON) {
+        // TODO control ship
+    }
 
     // tick the music
     music.tick();
