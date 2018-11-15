@@ -1,5 +1,9 @@
 'use-strict';
 
+
+const LOG_ON = true; // whether or not to show error
+const LOG_FREQ = 10000; // how often to shot error log (in iterations)
+
 class NeuralNetwork {
     constructor( numInputs, numHidden, numOutputs ) {
         this._inputs = [];
@@ -11,6 +15,9 @@ class NeuralNetwork {
         this._bias1 = new Matrix(1, this._numOutputs);
         this._weights0 = new Matrix(this._numInputs, this._numHidden);
         this._weights1 = new Matrix(this._numHidden, this._numOutputs);
+
+        // error logging
+        this._logCount = LOG_FREQ;
 
         // randomise the initial weights
         this._bias0.randomWeights();
@@ -67,6 +74,14 @@ class NeuralNetwork {
         this._weights1 = weights;
     }
 
+    get logCount() {
+        return this._logCount;
+    }
+
+    set logCount( logCount ) {
+        this._logCount = logCount;
+    }
+
     feedForward( inputArray ) {
         // convert input array to a matrix
         this.inputs = Matrix.convertFromArray(inputArray);
@@ -91,6 +106,18 @@ class NeuralNetwork {
         // calculate the output errors (target - output)
         let targets = Matrix.convertFromArray(targetArray);
         let outputErrors = Matrix.subtract(targets, outputs);
+
+        // error loging
+        if (LOG_ON) {
+            if (this.logCount === LOG_FREQ) {
+                console.log('outputErrors', outputErrors.data[ 0 ][ 0 ]);
+            }
+
+            this.logCount--;
+            if (this.logCount === 0) {
+                this.logCount = LOG_FREQ;
+            }
+        }
 
         // calculate the deltas (errors * derivitive of the output)
         let outputDerivs = Matrix.map(outputs, x => sigmoid(x, true));

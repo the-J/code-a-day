@@ -40,9 +40,9 @@ const ROID_PTS_SML = 100; // points for small asteroid
 
 // NEURAL NETWORK SYSTEM CONST
 const NUM_INPUTS = 2;
-const NUM_HIDDEN = 5;
+const NUM_HIDDEN = 10;
 const NUM_OUTPUTS = 1;
-const NUM_TRAINING_SAMPLES = 10000;
+const NUM_TRAINING_SAMPLES = 100000;
 
 /** @type {HTMLCanvasElement} */
 var canv = document.getElementById('gameCanvas');
