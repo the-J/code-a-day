@@ -39,10 +39,13 @@ const ROID_PTS_SML = 100; // points for small asteroid
 
 
 // NEURAL NETWORK SYSTEM CONST
-const NUM_INPUTS = 2;
-const NUM_HIDDEN = 10;
+const NUM_INPUTS = 3;
+const NUM_HIDDEN = 20;
 const NUM_OUTPUTS = 1;
-const NUM_TRAINING_SAMPLES = 100000;
+const NUM_TRAINING_SAMPLES = 500000;
+const OUTPUT_LEFT = 0; // expected neural output for turning left
+const OUTPUT_RIGHT = 1; // expected neural output for turning left
+const OUTPUT_THRESHOLD = 0.25; // how close prediction must be to commit to return
 
 /** @type {HTMLCanvasElement} */
 var canv = document.getElementById('gameCanvas');
@@ -81,8 +84,10 @@ var nn;
 if (AUTOMATION_ON) {
     nn = new NeuralNetwork(NUM_INPUTS, NUM_HIDDEN, NUM_OUTPUTS);
 
-    // train the network
-    for (let i = 0; i < NUM_TRAINING_SAMPLES; i++) {
+    /**
+     *
+     // train the network
+     for (let i = 0; i < NUM_TRAINING_SAMPLES; i++) {
 
         // test XOR gate logic
         // 0 0  = 0
@@ -97,12 +102,54 @@ if (AUTOMATION_ON) {
         nn.train([ input0, input1 ], [ output ]);
 
     }
-    // test
-    console.log('0, 0 = ' + nn.feedForward([ 0, 0 ]).data);
-    console.log('0, 1 = ' + nn.feedForward([ 0, 1 ]).data);
-    console.log('1, 0 = ' + nn.feedForward([ 1, 0 ]).data);
-    console.log('1, 1 = ' + nn.feedForward([ 1, 1 ]).data);
+     // test
+     console.log('0, 0 = ' + nn.feedForward([ 0, 0 ]).data);
+     console.log('0, 1 = ' + nn.feedForward([ 0, 1 ]).data);
+     console.log('1, 0 = ' + nn.feedForward([ 1, 0 ]).data);
+     console.log('1, 1 = ' + nn.feedForward([ 1, 1 ]).data);
+     */
+
+        // train the network
+    let ax, ay, sa, sx, sy;
+    for (let i = 0; i < NUM_TRAINING_SAMPLES; i++) {
+
+        // random asteroid location (include off-screen data)
+        ax = Math.random() * (canv.width + ROID_SIZE) - ROID_SIZE / 2;
+        ay = Math.random() * (canv.height + ROID_SIZE) - ROID_SIZE / 2;
+
+        // ship's angle and position
+        sa = Math.random() * Math.PI * 2;
+        sx = ship.x;
+        sy = ship.y;
+
+        // calculate the angle to the asteroid
+        let angle = angleToPoint(sx, sy, sa, ax, ay);
+
+        // determine the direction to turn
+        let direction = angle > Math.PI ? OUTPUT_LEFT : OUTPUT_RIGHT;
+
+        // train the network
+        nn.train(normaliseInput(ax, ay, sa), [ direction ]);
+    }
 }
+
+function normaliseInput( roidX, roidY, shipA ) {
+    // normalise the values to between 0 and 1
+    let input = [];
+    input[ 0 ] = (roidX + ROID_SIZE / 2) / (canv.width + ROID_SIZE);
+    input[ 1 ] = (roidY + ROID_SIZE / 2) / (canv.height + ROID_SIZE);
+    // input[ 2 ] = roidA / (Math.PI * 2);
+    input[ 2 ] = shipA / (Math.PI * 2);
+    return input;
+}
+
+function angleToPoint( x, y, facing, targetX, targetY ) {
+    let angleToTarget = Math.atan2(-targetY + y, targetX - x);
+    let diff = facing - angleToTarget;
+
+    return (diff + Math.PI * 2) % (Math.PI * 2);
+}
+
 
 // set up event handlers
 document.addEventListener('keydown', keyDown);
@@ -194,6 +241,12 @@ function drawShip( x, y, a, color = 'white' ) {
     ctx.stroke();
 }
 
+function rotateShip( right ) {
+    const sign = right ? -1 : 1;
+    ship.rot = SHIP_TURN_SPD / 180 * Math.PI / FPS * sign;
+
+}
+
 function explodeShip() {
     ship.explodeTime = Math.ceil(SHIP_EXPLODE_DUR * FPS);
     fxExplode.play();
@@ -208,13 +261,13 @@ function keyDown( /** @type {KeyboardEvent} */ ev ) {
             shootLaser();
             break;
         case 37: // left arrow (rotate ship left)
-            ship.rot = SHIP_TURN_SPD / 180 * Math.PI / FPS;
+            rotateShip(false);
             break;
         case 38: // up arrow (thrust the ship forward)
             ship.thrusting = true;
             break;
         case 39: // right arrow (rotate ship right)
-            ship.rot = -SHIP_TURN_SPD / 180 * Math.PI / FPS;
+            rotateShip(true);
             break;
     }
 }
