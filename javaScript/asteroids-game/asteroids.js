@@ -3,10 +3,11 @@
  */
 
 // DEV CONST
+const AUTOMATION_ON = true; // set neural network to shoot asteroids
 const SHOW_BOUNDING = false; // show or hide collision bounding
 const SHOW_HIDE_SHIPS_CENTER_DOT = false; // show or hide ship's centre dot
-const SOUND_ON = true; // handling mute sound
-const MUSIC_ON = true; // handling mute music
+const SOUND_ON = false; // handling mute sound
+const MUSIC_ON = false; // handling mute music
 
 // SYSTEM CONST
 const FPS = 30; // frames per second
@@ -55,6 +56,14 @@ var roidsLeft, roidsTotal;
 // set game params
 var level, roids, ship, text, textAlpha, lives, score, scoreHigh;
 newGame();
+
+// set up neural network
+if (AUTOMATION_ON) {
+    // TODO neural network
+
+    let m0 = new Matrix(2, 3);
+    console.table(m0.data);
+}
 
 // set up event handlers
 document.addEventListener('keydown', keyDown);
@@ -153,7 +162,7 @@ function explodeShip() {
 
 function keyDown( /** @type {KeyboardEvent} */ ev ) {
 
-    if (ship.dead) return;
+    if (ship.dead || AUTOMATION_ON) return;
 
     switch (ev.keyCode) {
         case 32: // space bar (shoot laser)
@@ -173,7 +182,7 @@ function keyDown( /** @type {KeyboardEvent} */ ev ) {
 
 function keyUp( /** @type {KeyboardEvent} */ ev ) {
 
-    if (ship.dead) return;
+    if (ship.dead || AUTOMATION_ON) return;
 
     switch (ev.keyCode) {
         case 32: // space bar (allow shooting again)
@@ -348,6 +357,11 @@ function Music( srcLow, srcHigh ) {
 function update() {
     var blinkOn = ship.blinkNum % 2 === 0;
     var exploding = ship.explodeTime > 0;
+
+    // use the neural network to rotate the ship and shoot
+    if (AUTOMATION_ON) {
+        // TODO control ship
+    }
 
     // tick the music
     music.tick();
