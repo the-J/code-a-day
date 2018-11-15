@@ -50,11 +50,24 @@ var fxThrust = new Sound('sounds/thrust.m4a');
 // set up music
 var music = new Music('sounds/music-low.m4a', 'sounds/music-high.m4a');
 var roidsLeft, roidsTotal;
-var button = document.querySelector('.onOff');
 
 // set game params
-var level, roids, ship, text, textAlpha, lives, score, scoreHigh, soundsOn, musicOn;
+var level, roids, ship, text, textAlpha, lives, score, scoreHigh, soundsOn = true, musicOn = true;
 newGame();
+
+// handle music no/off
+var mute = document.getElementById('onOff');
+mute.addEventListener('click', function () {
+    soundsOn = !soundsOn;
+    musicOn = !musicOn;
+
+    var text;
+
+    if (soundsOn) text = 'MUTE';
+    else text = 'UNMUTE';
+
+    mute.textContent = text;
+});
 
 // set up neural network
 if (AUTOMATION_ON) {
@@ -67,7 +80,6 @@ if (AUTOMATION_ON) {
 // set up event handlers
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
-button.addEventListener('click', () => (soundsOn = !soundsOn) + (musicOn = !musicOn));
 
 // set up the game loop
 setInterval(update, 1000 / FPS);
