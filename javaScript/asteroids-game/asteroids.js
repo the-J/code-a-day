@@ -46,6 +46,8 @@ const NUM_TRAINING_SAMPLES = 500000;
 const OUTPUT_LEFT = 0; // expected neural output for turning left
 const OUTPUT_RIGHT = 1; // expected neural output for turning left
 const OUTPUT_THRESHOLD = 0.25; // how close prediction must be to commit to return
+const RATE_OF_FIRE = 5; // shots per sec
+
 
 /** @type {HTMLCanvasElement} */
 var canv = document.getElementById('gameCanvas');
@@ -80,7 +82,7 @@ mute.addEventListener('click', function () {
 });
 
 // set up neural network
-var nn;
+var nn, aiShootTime = 0;
 if (AUTOMATION_ON) {
     nn = new NeuralNetwork(NUM_INPUTS, NUM_HIDDEN, NUM_OUTPUTS);
 
@@ -244,7 +246,6 @@ function drawShip( x, y, a, color = 'white' ) {
 function rotateShip( right ) {
     const sign = right ? -1 : 1;
     ship.rot = SHIP_TURN_SPD / 180 * Math.PI / FPS * sign;
-
 }
 
 function explodeShip() {
@@ -452,7 +453,39 @@ function update() {
 
     // use the neural network to rotate the ship and shoot
     if (AUTOMATION_ON) {
-        // TODO control ship
+
+        // make a prediction based on current data
+        let ax = roids[ 0 ].x;
+        let ay = roids[ 0 ].y;
+        let sa = ship.a;
+        let predict = nn.feedForward(normaliseInput(ax, ay, sa)).data[ 0 ][ 0 ];
+
+        // make a turn
+        let dLeft = Math.abs(predict - OUTPUT_LEFT);
+        let dRight = Math.abs(predict - OUTPUT_RIGHT);
+
+        if (dLeft < OUTPUT_THRESHOLD) {
+            rotateShip(false);
+        }
+        else if (dRight < OUTPUT_THRESHOLD) {
+            rotateShip(true);
+        }
+        else {
+            // stop rotating
+            ship.rot = 0;
+        }
+
+        console.log({ predict });
+
+        //shoot laser as often as it can
+        if (aiShootTime === 0) {
+            aiShootTime = Math.ceil(FPS / RATE_OF_FIRE);
+            ship.canShoot = true;
+            shootLaser();
+        }
+        else {
+            aiShootTime--;
+        }
     }
 
     // tick the music
@@ -659,6 +692,15 @@ function update() {
 
         // rotate ship
         ship.a += ship.rot;
+
+        // keep angle between 0 and 360 ( two pi)
+        if (ship.a < 0) {
+            ship.a += (Math.PI * 2);
+        }
+        else if (ship.a >= (Math.PI * 2)) {
+            ship.a = (Math.PI * 2);
+        }
+
 
         // move the ship
         ship.x += ship.thrust.x;
