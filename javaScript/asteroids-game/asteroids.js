@@ -6,7 +6,6 @@
 const SHOW_BOUNDING = false; // show or hide collision bounding
 const SHOW_HIDE_SHIPS_CENTER_DOT = false; // show or hide ship's centre dot
 
-
 // SYSTEM CONST
 const FPS = 30; // frames per second
 const SAVE_KEY_SCORE = 'asteroids high score'; // save jkey for local srtorage high score
@@ -40,26 +39,26 @@ const ROID_PTS_SML = 100; // points for small asteroid
 /** @type {HTMLCanvasElement} */
 var canv = document.getElementById('gameCanvas');
 var ctx = canv.getContext('2d');
-var soundsOn = true; // handling mute sound
-var musicOn = true; // handling mute music
 
 // set up sound effects
-var fxLaser = new Sound("sounds/laser.m4a", 5, 0.5);
-var fxExplode = new Sound("sounds/explode.m4a");
-var fxHit = new Sound("sounds/hit.m4a", 5);
-var fxThrust = new Sound("sounds/thrust.m4a");
+var fxLaser = new Sound('sounds/laser.m4a', 5, 0.5);
+var fxExplode = new Sound('sounds/explode.m4a');
+var fxHit = new Sound('sounds/hit.m4a', 5);
+var fxThrust = new Sound('sounds/thrust.m4a');
 
 // set up music
 var music = new Music('sounds/music-low.m4a', 'sounds/music-high.m4a');
 var roidsLeft, roidsTotal;
+var button = document.querySelector('.onOff');
 
 // set game params
-var level, roids, ship, text, textAlpha, lives, score, scoreHigh;
+var level, roids, ship, text, textAlpha, lives, score, scoreHigh, soundsOn, musicOn;
 newGame();
 
 // set up event handlers
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
+button.addEventListener('click', () => (soundsOn = !soundsOn) + (musicOn = !musicOn));
 
 // set up the game loop
 setInterval(update, 1000 / FPS);
@@ -665,25 +664,3 @@ function update() {
         else if (roids[ i ].y > canv.height + roids[ i ].r) roids[ i ].y = 0 - roids[ i ].r;
     }
 }
-
-function soundsOnOff(e) {
-   if(e && (soundsOn == true)) {
-    soundsMuted();
-      return;
-    }  
-    soundsUnMuted();  
-}    
-
-function soundsMuted() {
-        soundsOn = false;
-        musicOn = false;
-}
-
-function soundsUnMuted() {
-        soundsOn = true;
-        musicOn = true; 
-}
-
-const button = document.querySelector('.onOff');
-
-button.addEventListener('click', (e) => {soundsOnOff(e)});
