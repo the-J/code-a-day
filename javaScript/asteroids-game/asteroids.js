@@ -8,7 +8,7 @@ const SHOW_BOUNDING = false; // show or hide collision bounding
 const SHOW_HIDE_SHIPS_CENTER_DOT = false; // show or hide ship's centre dot
 
 // ASTEROIDS SYSTEM CONST
-const FPS = 30; // frames per second
+const FPS = 60; // frames per second
 const SAVE_KEY_SCORE = 'asteroids high score'; // save jkey for local srtorage high score
 const FRICTION = 0.7; // friction coefficient of space (0 = no friction, 1 = lots of friction)
 const GAME_LIVES = 3; // starting num of lives
@@ -39,14 +39,14 @@ const ROID_PTS_SML = 100; // points for small asteroid
 
 
 // NEURAL NETWORK SYSTEM CONST
-const NUM_INPUTS = 3;
+const NUM_INPUTS = 4;
 const NUM_HIDDEN = 20;
 const NUM_OUTPUTS = 1;
 const NUM_TRAINING_SAMPLES = 500000;
 const OUTPUT_LEFT = 0; // expected neural output for turning left
 const OUTPUT_RIGHT = 1; // expected neural output for turning left
-const OUTPUT_THRESHOLD = 0.25; // how close prediction must be to commit to return
-const RATE_OF_FIRE = 5; // shots per sec
+const OUTPUT_THRESHOLD = 0.05; // how close prediction must be to commit to return
+const RATE_OF_FIRE = 15; // shots per sec
 
 
 /** @type {HTMLCanvasElement} */
@@ -131,17 +131,17 @@ if (AUTOMATION_ON) {
         let direction = angle > Math.PI ? OUTPUT_LEFT : OUTPUT_RIGHT;
 
         // train the network
-        nn.train(normaliseInput(ax, ay, sa), [ direction ]);
+        nn.train(normaliseInput(ax, ay, angle, sa), [ direction ]);
     }
 }
 
-function normaliseInput( roidX, roidY, shipA ) {
+function normaliseInput( roidX, roidY, roidA, shipA ) {
     // normalise the values to between 0 and 1
     let input = [];
     input[ 0 ] = (roidX + ROID_SIZE / 2) / (canv.width + ROID_SIZE);
     input[ 1 ] = (roidY + ROID_SIZE / 2) / (canv.height + ROID_SIZE);
-    // input[ 2 ] = roidA / (Math.PI * 2);
-    input[ 2 ] = shipA / (Math.PI * 2);
+    input[ 2 ] = roidA / (Math.PI * 2);
+    input[ 3 ] = shipA / (Math.PI * 2);
     return input;
 }
 
@@ -454,11 +454,26 @@ function update() {
     // use the neural network to rotate the ship and shoot
     if (AUTOMATION_ON) {
 
+        // compute closest asteroid
+        let c = 0; // closest index
+        let dist0 = distBetweenPoints(ship.x, ship.y, roids[ 0 ].x, roids[ 0 ].y);
+        for (let i = 1; i < roids.length; i++) {
+            let dist1 = distBetweenPoints(ship.x, ship.y, roids[ i ].x, roids[ i ].y);
+
+            if (dist1 < dist0) {
+                dist0 = dist1;
+                c = i;
+            }
+        }
+
         // make a prediction based on current data
-        let ax = roids[ 0 ].x;
-        let ay = roids[ 0 ].y;
+        let ax = roids[ c ].x;
+        let ay = roids[ c ].y;
         let sa = ship.a;
-        let predict = nn.feedForward(normaliseInput(ax, ay, sa)).data[ 0 ][ 0 ];
+        let sx = ship.x;
+        let sy = ship.y;
+        let angle = angleToPoint(sx, sy, sa, ax, ay);
+        let predict = nn.feedForward(normaliseInput(ax, ay, angle, sa)).data[ 0 ][ 0 ];
 
         // make a turn
         let dLeft = Math.abs(predict - OUTPUT_LEFT);
@@ -474,8 +489,6 @@ function update() {
             // stop rotating
             ship.rot = 0;
         }
-
-        console.log({ predict });
 
         //shoot laser as often as it can
         if (aiShootTime === 0) {

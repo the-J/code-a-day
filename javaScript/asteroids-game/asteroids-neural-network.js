@@ -2,7 +2,7 @@
 
 
 const LOG_ON = true; // whether or not to show error
-const LOG_FREQ = 10000; // how often to shot error log (in iterations)
+const LOG_FREQ = 20000; // how often to shot error log (in iterations)
 
 class NeuralNetwork {
     constructor( numInputs, numHidden, numOutputs ) {
