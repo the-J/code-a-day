@@ -7,7 +7,7 @@ const AUTOMATION_ON = true; // set neural network to shoot asteroids
 const SHOW_BOUNDING = false; // show or hide collision bounding
 const SHOW_HIDE_SHIPS_CENTER_DOT = false; // show or hide ship's centre dot
 
-// SYSTEM CONST
+// ASTEROIDS SYSTEM CONST
 const FPS = 30; // frames per second
 const SAVE_KEY_SCORE = 'asteroids high score'; // save jkey for local srtorage high score
 const FRICTION = 0.7; // friction coefficient of space (0 = no friction, 1 = lots of friction)
@@ -36,6 +36,13 @@ const ROID_VERT = 10; // average number of vertices on each asteroid
 const ROID_PTS_LGE = 20; // points for big asteroid
 const ROID_PTS_MED = 50; // points for midd asteroid
 const ROID_PTS_SML = 100; // points for small asteroid
+
+
+// NEURAL NETWORK SYSTEM CONST
+const NUM_INPUTS = 2;
+const NUM_HIDDEN = 5;
+const NUM_OUTPUTS = 1;
+const NUM_TRAINING_SAMPLES = 10000;
 
 /** @type {HTMLCanvasElement} */
 var canv = document.getElementById('gameCanvas');
@@ -70,11 +77,31 @@ mute.addEventListener('click', function () {
 });
 
 // set up neural network
+var nn;
 if (AUTOMATION_ON) {
-    // TODO neural network
+    nn = new NeuralNetwork(NUM_INPUTS, NUM_HIDDEN, NUM_OUTPUTS);
 
-    let m0 = new Matrix(2, 3);
-    console.table(m0.data);
+    // train the network
+    for (let i = 0; i < NUM_TRAINING_SAMPLES; i++) {
+
+        // test XOR gate logic
+        // 0 0  = 0
+        // 0 1  = 1
+        // 1 0  = 1
+        // 1 1  = 1
+
+        let input0 = Math.round(Math.random()); // 0 || 1
+        let input1 = Math.round(Math.random()); // 0 || 1
+        let output = input0 === input1 ? 0 : 1;
+
+        nn.train([ input0, input1 ], [ output ]);
+
+    }
+    // test
+    console.log('0, 0 = ' + nn.feedForward([ 0, 0 ]).data);
+    console.log('0, 1 = ' + nn.feedForward([ 0, 1 ]).data);
+    console.log('1, 0 = ' + nn.feedForward([ 1, 0 ]).data);
+    console.log('1, 1 = ' + nn.feedForward([ 1, 1 ]).data);
 }
 
 // set up event handlers
