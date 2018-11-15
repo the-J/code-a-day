@@ -6,8 +6,6 @@
 const AUTOMATION_ON = true; // set neural network to shoot asteroids
 const SHOW_BOUNDING = false; // show or hide collision bounding
 const SHOW_HIDE_SHIPS_CENTER_DOT = false; // show or hide ship's centre dot
-const SOUND_ON = false; // handling mute sound
-const MUSIC_ON = false; // handling mute music
 
 // SYSTEM CONST
 const FPS = 30; // frames per second
@@ -52,9 +50,10 @@ var fxThrust = new Sound('sounds/thrust.m4a');
 // set up music
 var music = new Music('sounds/music-low.m4a', 'sounds/music-high.m4a');
 var roidsLeft, roidsTotal;
+var button = document.querySelector('.onOff');
 
 // set game params
-var level, roids, ship, text, textAlpha, lives, score, scoreHigh;
+var level, roids, ship, text, textAlpha, lives, score, scoreHigh, soundsOn, musicOn;
 newGame();
 
 // set up neural network
@@ -68,6 +67,7 @@ if (AUTOMATION_ON) {
 // set up event handlers
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
+button.addEventListener('click', () => (soundsOn = !soundsOn) + (musicOn = !musicOn));
 
 // set up the game loop
 setInterval(update, 1000 / FPS);
@@ -305,7 +305,7 @@ function Sound( src, maxStreams = 1, vol = 1.0 ) {
     }
 
     this.play = function () {
-        if (SOUND_ON) {
+        if (soundsOn) {
             this.streamNum = (this.streamNum + 1) % maxStreams;
             this.streams[ this.streamNum ].play();
         }
@@ -326,7 +326,7 @@ function Music( srcLow, srcHigh ) {
     this.beatTime = 0; // frames until next beat
 
     this.play = function () {
-        if (MUSIC_ON) {
+        if (musicOn) {
             if (this.low) {
                 this.soundLow.play();
             }
