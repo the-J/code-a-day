@@ -19,6 +19,8 @@
         * not finished, some small things needs to be updated
     * vue
         * some tests with vue.js 
+    * booklistVanillaJS
+        * using localStorage to handle users book list
     * pomodoroClock
         * still proud o math in this one
         * svg painteg pomodoro timer
