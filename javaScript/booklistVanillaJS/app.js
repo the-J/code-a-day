@@ -14,20 +14,7 @@ class Book {
  */
 class UI {
     static displayBooks() {
-        const StoredBooks = [
-            {
-                title: 'Book One',
-                author: 'John Doe',
-                isbn: '123123'
-            }, {
-                title: 'Book Two',
-                author: 'John Twoooeeee',
-                isbn: '14343433'
-            }
-        ];
-
-        const books = StoredBooks;
-
+        const books = Store.getBooks();
         books.forEach(book => UI.addBookToList(book));
     }
 
