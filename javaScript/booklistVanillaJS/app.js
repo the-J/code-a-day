@@ -71,7 +71,7 @@ class UI {
         // disappear alert in 2s
         setTimeout(() => {
             document.querySelector('.alert').remove();
-        }, 2000)
+        }, 2000);
     }
 }
 
@@ -107,6 +107,9 @@ document.querySelector('#book-form').addEventListener('submit', e => {
         // Add to UI
         UI.addBookToList(book);
 
+        // show book added message
+        UI.showAlert('Book added!', 'success');
+
         // clear fields
         UI.clearFields();
     }
@@ -115,7 +118,14 @@ document.querySelector('#book-form').addEventListener('submit', e => {
 /**
  * Event: Remove Book
  */
-document.querySelector('#book-list').addEventListener('click', e => UI.deleteBook(e.target));
+document
+    .querySelector('#book-list')
+    .addEventListener('click', e => {
+        UI.deleteBook(e.target);
+
+        // show book removed message
+        UI.showAlert('Book added!', 'success');
+    });
 
 
 
