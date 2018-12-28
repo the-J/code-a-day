@@ -23,83 +23,45 @@
                     </div>
 
                     <div class="inbox_chat">
-                        <div class="chat_list active_chat">
+
+                        <div class="chat_list">
                             <div class="chat_people">
-                                <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"
-                                                           alt="sunil"></div>
+                                <div class="chat_img">
+                                    <img src="https://via.placeholder.com/150" alt="sunil">
+                                </div>
+
                                 <div class="chat_ib">
-                                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                                    <p>Test, which is a new approach to have all solutions
-                                        astrology under one roof.</p>
+                                    <h5>Kitty Kat <span class="chat_date">Dec 25</span></h5>
+                                    <p>Meow Meow Meow.</p>
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="chat_list">-->
-                        <!--<div class="chat_people">-->
-                        <!--<div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"-->
-                        <!--alt="sunil"></div>-->
-                        <!--<div class="chat_ib">-->
-                        <!--<h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>-->
-                        <!--<p>Test, which is a new approach to have all solutions-->
-                        <!--astrology under one roof.</p>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="chat_list">-->
-                        <!--<div class="chat_people">-->
-                        <!--<div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"-->
-                        <!--alt="sunil"></div>-->
-                        <!--<div class="chat_ib">-->
-                        <!--<h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>-->
-                        <!--<p>Test, which is a new approach to have all solutions-->
-                        <!--astrology under one roof.</p>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="chat_list">-->
-                        <!--<div class="chat_people">-->
-                        <!--<div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"-->
-                        <!--alt="sunil"></div>-->
-                        <!--<div class="chat_ib">-->
-                        <!--<h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>-->
-                        <!--<p>Test, which is a new approach to have all solutions-->
-                        <!--astrology under one roof.</p>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="chat_list">-->
-                        <!--<div class="chat_people">-->
-                        <!--<div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"-->
-                        <!--alt="sunil"></div>-->
-                        <!--<div class="chat_ib">-->
-                        <!--<h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>-->
-                        <!--<p>Test, which is a new approach to have all solutions-->
-                        <!--astrology under one roof.</p>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="chat_list">-->
-                        <!--<div class="chat_people">-->
-                        <!--<div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"-->
-                        <!--alt="sunil"></div>-->
-                        <!--<div class="chat_ib">-->
-                        <!--<h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>-->
-                        <!--<p>Test, which is a new approach to have all solutions-->
-                        <!--astrology under one roof.</p>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="chat_list">-->
-                        <!--<div class="chat_people">-->
-                        <!--<div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"-->
-                        <!--alt="sunil"></div>-->
-                        <!--<div class="chat_ib">-->
-                        <!--<h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>-->
-                        <!--<p>Test, which is a new approach to have all solutions-->
-                        <!--astrology under one roof.</p>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
+
+                        <div class="chat_list">
+                            <div class="chat_people">
+                                <div class="chat_img">
+                                    <img src="https://via.placeholder.com/150" alt="sunil">
+                                </div>
+
+                                <div class="chat_ib">
+                                    <h5>Terminator<span class="chat_date">Dec 27</span></h5>
+                                    <p>I'll be back.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chat_list">
+                            <div class="chat_people">
+                                <div class="chat_img">
+                                    <img src="https://via.placeholder.com/150" alt="sunil">
+                                </div>
+
+                                <div class="chat_ib">
+                                    <h5>Marco Polo<span class="chat_date">Dec 28</span></h5>
+                                    <p>I see you sson</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -308,6 +270,15 @@
     .chat_img {
         float: left;
         width: 11%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+    }
+
+    .chat_img img {
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
     }
 
     .chat_ib {
