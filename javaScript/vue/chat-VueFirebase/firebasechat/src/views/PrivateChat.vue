@@ -158,10 +158,12 @@
 
         methods: {
             saveMessage() {
-                // save to firetore
+                // save to firestore
                 db.collection('chat').add({
                     message: this.message
                 })
+
+                this.message = null;
             }
         }
     }
