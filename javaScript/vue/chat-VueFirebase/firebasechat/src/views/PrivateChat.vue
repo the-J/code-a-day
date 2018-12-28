@@ -150,13 +150,21 @@
         },
 
         methods: {
+            scrollToBottom() {
+                let box = document.querySelector('.msg_history');
+                box.scrollTop = box.scrollHeight;
+            },
             saveMessage() {
                 // save to firestore
-                db.collection('chat').add({
-                    message: this.message,
-                    author: this.authUser.displayName,
-                    createdAt: new Date()
-                });
+                db.collection('chat')
+                    .add({
+                        message: this.message,
+                        author: this.authUser.displayName,
+                        createdAt: new Date()
+                    })
+                    .then(() => {
+                        this.scrollToBottom();
+                    });
 
                 this.message = null;
             },
@@ -168,6 +176,8 @@
                         querySnapshot.forEach(doc => allMessages.push(doc.data()));
 
                         this.messages = allMessages;
+
+                        setTimeout(() => this.scrollToBottom(), 500);
                     });
             }
         },
