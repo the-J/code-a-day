@@ -162,9 +162,12 @@
     // @ is an alias to /src
 
     export default {
+        name: 'PrivateChat',
+
         data() {
             return {
-                message: null
+                message: null,
+                messages: []
             };
         },
 
@@ -176,7 +179,20 @@
                 });
 
                 this.message = null;
+            },
+            fetchMessages() {
+                db.collection('chat').get().then(querySnapshot => {
+                    let allMessages = [];
+                    querySnapshot.forEach(doc => allMessages.push(doc.data()));
+
+                    this.messages = allMessages;
+                });
             }
+        },
+
+        created() {
+            //fetch messages from firebase when created
+            this.fetchMessages();
         }
     };
 </script>
