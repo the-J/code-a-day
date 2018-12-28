@@ -98,20 +98,28 @@
                 </div>
                 <div class="mesgs">
                     <div class="msg_history">
-                        <div v-for="message in messages" class="incoming_msg">
-                            <div class="received_msg">
+                        <div v-for="message in messages">
+                            <div :class="[message.author === authUser.displayName ? 'sent_msg' : 'received_msg']">
                                 <div class="received_withd_msg">
                                     <p>{{message.message}}</p>
-                                    <span class="time_date"> {{message.createdAt}}</span></div>
+                                    <span class="time_date">{{message.author}}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="type_msg">
                         <div class="input_msg_write">
-                            <input @keyup.enter="saveMessage" v-model="message" type="text" class="write_msg"
-                                   placeholder="Type a message" />
-                            <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o"
-                                                                          aria-hidden="true"></i></button>
+                            <input
+                                    @keyup.enter="saveMessage"
+                                    v-model="message"
+                                    type="text"
+                                    class="write_msg"
+                                    placeholder="Type a message"
+                            />
+                            <button class="msg_send_btn" type="button">
+                                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -125,13 +133,16 @@
 </template>
 
 <script>
+    import firebase from 'firebase';
+
     export default {
         name: 'PrivateChat',
 
         data() {
             return {
                 message: null,
-                messages: []
+                messages: [],
+                authUser: {}
             };
         },
 
@@ -140,6 +151,7 @@
                 // save to firestore
                 db.collection('chat').add({
                     message: this.message,
+                    author: this.authUser.displayName,
                     createdAt: new Date()
                 });
 
@@ -158,8 +170,34 @@
         },
 
         created() {
+            // assign user when component created
+            firebase.auth().onAuthStateChanged((user => {
+                if (user) {
+                    this.authUser = user;
+                }
+                else {
+                    this.authUser = {};
+                }
+            }));
+
             //fetch messages from firebase when created
             this.fetchMessages();
+        },
+
+        beforeRouteEnter( to, from, next ) {
+            // 'vm' acts as 'this' because this junk of code executes before this is available
+            next(vm => {
+
+                // check users state
+                firebase.auth().onAuthStateChanged(user => {
+                    if (user) {
+                        next();
+                    }
+                    else {
+                        vm.$router.push('/login');
+                    }
+                });
+            });
         }
     };
 </script>
@@ -203,6 +241,7 @@
         display: inline-block;
         text-align: right;
         width: 60%;
+        padding:
     }
 
     .headind_srch {
@@ -285,16 +324,11 @@
         background: #ebebeb;
     }
 
-    .incoming_msg_img {
-        display: inline-block;
-        width: 6%;
-    }
-
     .received_msg {
-        display: inline-block;
         padding: 0 0 0 10px;
+        float: left;
         vertical-align: top;
-        width: 92%;
+        width: 100%;
     }
 
     .received_withd_msg p {
@@ -304,24 +338,33 @@
         font-size: 14px;
         margin: 0;
         padding: 5px 10px 5px 12px;
-        width: 100%;
+        width: 51%;
     }
 
     .time_date {
         color: #747474;
         display: block;
         font-size: 12px;
+        align-self: auto;
         margin: 8px 0 0;
+        width: auto;
+    }
+
+    .received_msg span {
+        display: block;
+        position: relative;
+        left: -25%;
+        align-self: center;
     }
 
     .received_withd_msg {
-        width: 57%;
+        width: 100%;
     }
 
     .mesgs {
-        float: left;
         padding: 30px 15px 0 25px;
-        width: 60%;
+        width: 100%;
+        word-wrap: normal;
     }
 
     .sent_msg p {
@@ -330,18 +373,14 @@
         font-size: 14px;
         margin: 0;
         color: #fff;
-        padding: 5px 10px 5px 12px;
-        width: 100%;
-    }
-
-    .outgoing_msg {
-        overflow: hidden;
-        margin: 26px 0 26px;
+        width: auto;
     }
 
     .sent_msg {
         float: right;
-        width: 46%;
+        width: 51%;
+        margin: auto 0;
+        padding-right: 0;
     }
 
     .input_msg_write input {
@@ -370,10 +409,6 @@
         right: 0;
         top: 11px;
         width: 33px;
-    }
-
-    .messaging {
-        padding: 0 0 50px 0;
     }
 
     .msg_history {
