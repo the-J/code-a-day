@@ -98,45 +98,11 @@
                 </div>
                 <div class="mesgs">
                     <div class="msg_history">
-                        <div class="incoming_msg">
-                            <div class="incoming_msg_img"><img src="https://ptetutorials.com/images/user-profile.png"
-                                                               alt="sunil"></div>
+                        <div v-for="message in messages" class="incoming_msg">
                             <div class="received_msg">
                                 <div class="received_withd_msg">
-                                    <p>Test which is a new approach to have all
-                                        solutions</p>
-                                    <span class="time_date"> 11:01 AM    |    June 9</span></div>
-                            </div>
-                        </div>
-                        <div class="outgoing_msg">
-                            <div class="sent_msg">
-                                <p>Test which is a new approach to have all
-                                    solutions</p>
-                                <span class="time_date"> 11:01 AM    |    June 9</span></div>
-                        </div>
-                        <div class="incoming_msg">
-                            <div class="incoming_msg_img"><img src="https://ptetutorials.com/images/user-profile.png"
-                                                               alt="sunil"></div>
-                            <div class="received_msg">
-                                <div class="received_withd_msg">
-                                    <p>Test, which is a new approach to have</p>
-                                    <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-                            </div>
-                        </div>
-                        <div class="outgoing_msg">
-                            <div class="sent_msg">
-                                <p>Apollo University, Delhi, India Test</p>
-                                <span class="time_date"> 11:01 AM    |    Today</span></div>
-                        </div>
-                        <div class="incoming_msg">
-                            <div class="incoming_msg_img"><img src="https://ptetutorials.com/images/user-profile.png"
-                                                               alt="sunil"></div>
-                            <div class="received_msg">
-                                <div class="received_withd_msg">
-                                    <p>We work directly with our designers and suppliers,
-                                        and sell direct to you, which means quality, exclusive
-                                        products, at a price anyone can afford.</p>
-                                    <span class="time_date"> 11:01 AM    |    Today</span></div>
+                                    <p>{{message.message}}</p>
+                                    <span class="time_date"> {{message.createdAt}}</span></div>
                             </div>
                         </div>
                     </div>
@@ -159,8 +125,6 @@
 </template>
 
 <script>
-    // @ is an alias to /src
-
     export default {
         name: 'PrivateChat',
 
@@ -175,18 +139,21 @@
             saveMessage() {
                 // save to firestore
                 db.collection('chat').add({
-                    message: this.message
+                    message: this.message,
+                    createdAt: new Date()
                 });
 
                 this.message = null;
             },
             fetchMessages() {
-                db.collection('chat').get().then(querySnapshot => {
-                    let allMessages = [];
-                    querySnapshot.forEach(doc => allMessages.push(doc.data()));
+                db.collection('chat')
+                    .orderBy('createdAt')
+                    .onSnapshot(querySnapshot => {
+                        let allMessages = [];
+                        querySnapshot.forEach(doc => allMessages.push(doc.data()));
 
-                    this.messages = allMessages;
-                });
+                        this.messages = allMessages;
+                    });
             }
         },
 
