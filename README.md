@@ -18,7 +18,12 @@
     * snake-game
         * not finished, some small things needs to be updated
     * vue
-        * some tests with vue.js 
+        * chat-VueFirebase
+            * simple chat with firebase
+        * vue-basic // TestVue
+            * no idea, some old first vue tests
+        * vue-project
+            * meetup vue project
     * booklistVanillaJS
         * using localStorage to handle users book list
     * pomodoroClock
