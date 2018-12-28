@@ -132,7 +132,8 @@
                     </div>
                     <div class="type_msg">
                         <div class="input_msg_write">
-                            <input type="text" class="write_msg" placeholder="Type a message" />
+                            <input @keyup.enter="saveMessage" v-model="message" type="text" class="write_msg"
+                                   placeholder="Type a message" />
                             <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
                         </div>
                     </div>
@@ -149,7 +150,19 @@
     // @ is an alias to /src
 
     export default {
-        components: {
+        data() {
+            return {
+                message: null
+            }
+        },
+
+        methods: {
+            saveMessage() {
+                // save to firetore
+                db.collection('chat').add({
+                    message: this.message
+                })
+            }
         }
     }
 </script>
@@ -176,7 +189,7 @@
     .srch_bar {
         display: inline-block;
         text-align: right;
-        width: 60%; padding:
+        width: 60%;
     }
     .headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
 
