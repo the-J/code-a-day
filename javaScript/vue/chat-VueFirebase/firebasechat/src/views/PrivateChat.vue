@@ -124,10 +124,6 @@
                     </div>
                 </div>
             </div>
-
-
-            <p class="text-center top_spac"> Design by <a target="_blank" href="#">Sunil Rajput</a></p>
-
         </div>
     </div>
 </template>
@@ -394,7 +390,9 @@
 
     .type_msg {
         border-top: 1px solid #c4c4c4;
-        position: relative;
+        position: absolute;
+        left: 43%;
+        width: 46%
     }
 
     .msg_send_btn {
