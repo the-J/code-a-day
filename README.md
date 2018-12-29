@@ -1,10 +1,4 @@
 # code-a-day
-
-* chrome extension
-    ###### building simple chrome extension
-    * Tinkering in chrome browser extensions options.
-    * Simple extension for changing background to random hex color
-
 * javaScript
     ###### projects in nodejs, cra and other full js things
     * protected-react-route
@@ -17,13 +11,6 @@
         * well, just old asteroids game in js [life on gh-pages](https://the-j.github.io/code-a-day/)
     * snake-game
         * not finished, some small things needs to be updated
-    * vue
-        * chat-VueFirebase
-            * simple chat with firebase
-        * vue-basic // TestVue
-            * no idea, some old first vue tests
-        * vue-project
-            * meetup vue project
     * booklistVanillaJS
         * using localStorage to handle users book list
     * pomodoroClock
@@ -36,10 +23,19 @@
         * not sure if still works
         
 * nodejs
-    ##### things based on NodeJS
+    ###### things based on NodeJS
     * some old repo
         * don't remember exactly, some old repo: express, node, mongoDB - log in with facebook....
-        
+
+* vue.js projects
+    ###### learning things with vue.js
+    * chat-VueFirebase
+        * simple chat with firebase
+    * vue-basic // TestVue
+        * no idea, some old first vue tests
+    * vue-project
+        * meetup vue project        
+                    
 * meteor
     ##### things in MeteorJS framework
     * votingApp
@@ -53,6 +49,12 @@
         * working with tweeepy
         * fetching tweets and analyzing fetched data
 
+
+* chrome extension
+    ###### building simple chrome extension
+    * Tinkering in chrome browser extensions options.
+    * Simple extension for changing background to random hex color
+    
 * small things
     ###### collections of small things
     * small_things
