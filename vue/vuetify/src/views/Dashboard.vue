@@ -21,8 +21,10 @@
                     </v-flex>
 
                     <v-flex xs2 sm4 md2>
-                        <div class="caption grey--text">Status</div>
-                        <div>{{project.status}}</div>
+                        <div class="right">
+                            <v-chip small :class="`${project.status} white--text caption my-2`">{{project.status}}
+                            </v-chip>
+                        </div>
                     </v-flex>
                 </v-layout>
                 <v-divider></v-divider>
@@ -54,7 +56,7 @@
 
 <style>
     .project.complete {
-        border-left: 4px solid green;
+        border-left: 4px solid lightgreen;
     }
 
     .project.ongoing {
@@ -62,7 +64,19 @@
     }
 
     .project.overdue {
-        border-left: 4px solid tomato;
+        border-left: 4px solid orangered;
+    }
+
+    .v-chip.complete {
+        background: lightgreen;
+    }
+
+    .v-chip.ongoing {
+        background: orange;
+    }
+
+    .v-chip.overdue {
+        background: tomato;
     }
 
 
