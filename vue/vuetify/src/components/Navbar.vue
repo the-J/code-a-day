@@ -17,6 +17,18 @@
         </v-toolbar>
 
         <v-navigation-drawer app v-model="drawer" class="primary">
+            <v-layout column align-center class="my-3">
+                <v-flex>
+                    <v-avatar color="teal" size="100" class="grey lighten-2">
+                        <span class="white--text headline">You</span>
+                    </v-avatar>
+
+                    <p class="white--text subheading mt-1">
+                        Your name
+                    </p>
+                </v-flex>
+            </v-layout>
+
             <v-list>
                 <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
                     <v-list-tile-action>
