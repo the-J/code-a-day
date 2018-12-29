@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const ObjectID = reqire('mongodb').ObjectID;
+const ObjectID = require('mongodb').ObjectID;
 const dbname = 'crud_mongodb';
 const url = 'mongodb://localhost:27017';
 
