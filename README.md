@@ -34,7 +34,9 @@
     * vue-basic // TestVue
         * no idea, some old first vue tests
     * vue-project
-        * meetup vue project        
+        * meetup vue project   
+    * vuetify
+        * materialize.css for vue     
                     
 * meteor
     ##### things in MeteorJS framework
