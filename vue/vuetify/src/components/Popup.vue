@@ -44,6 +44,7 @@
 <script>
 
     import format from 'date-fns/format';
+    import db from '@/fb.js';
 
     export default {
         data() {
@@ -60,6 +61,19 @@
             submit() {
                 if (this.$refs.projectForm.validate()) {
                     console.log(this.title, this.content);
+
+                    const project = {
+                        title: this.title,
+                        content: this.content,
+                        due: format(this.due, 'Do MMM YYYY'),
+                        person: 'New from web',
+                        status: 'ongoing'
+                    };
+
+                    db.collection('projects')
+                        .add(project)
+                        .then(() => console.log('saved to db'))
+                        .catch(err => console.log({ err }));
                 }
             }
         },
