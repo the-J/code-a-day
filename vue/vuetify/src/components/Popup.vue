@@ -10,17 +10,25 @@
             </v-card-title>
 
             <v-card-text>
-                <v-form class="px-3">
-                    <v-text-field label="Title" v-model="title" prepend-icon="folder"></v-text-field>
-                    <v-textarea label="Information" v-model="content" prepend-icon="edit"></v-textarea>
+                <!--vanillaJS ref-->
+                <v-form class="px-3" ref="projectForm">
+                    <v-text-field
+                            label="Title"
+                            v-model="title"
+                            prepend-icon="folder"
+                            :rules="inputRules"></v-text-field>
+                    <v-textarea
+                            label="Information"
+                            v-model="content"
+                            prepend-icon="edit"
+                            :rules="inputRules"></v-textarea>
 
                     <v-menu>
                         <v-text-field
                                 :value="formattedDate"
                                 slot="activator"
                                 label="Due Date"
-                                prepend-icon="date_range">
-                        </v-text-field>
+                                prepend-icon="date_range"></v-text-field>
                         <v-date-picker v-model="due"></v-date-picker>
                     </v-menu>
 
@@ -42,12 +50,17 @@
             return {
                 title: '',
                 content: '',
-                due: null
+                due: null,
+                inputRules: [
+                    v => v.length >= 3 || 'Minimum 3 characters'
+                ]
             };
         },
         methods: {
             submit() {
-                console.log(this.title, this.content);
+                if (this.$refs.projectForm.validate()) {
+                    console.log(this.title, this.content);
+                }
             }
         },
         computed: {
