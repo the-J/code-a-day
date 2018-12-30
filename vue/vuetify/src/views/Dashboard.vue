@@ -65,28 +65,32 @@
                         title: 'Project One',
                         person: 'Person One',
                         dueDate: '1 Feb 2020',
-                        status: 'ongoing'
+                        status: 'ongoing',
+                        content: 'AAAAAAAAAAA'
                     },
                     {
                         id: 2,
                         title: 'Project Two',
-                        person: 'Person Two',
+                        person: 'Person Three',
                         dueDate: '15 Jan 2018',
-                        status: 'complete'
+                        status: 'complete',
+                        content: 'VVVVVVVVVVVVV'
                     },
                     {
                         id: 3,
                         title: 'Project Three',
                         person: 'Person Three',
                         dueDate: '21 Apr 2020',
-                        status: 'overdue'
+                        status: 'overdue',
+                        content: 'HHHHHHHHHHH'
                     },
                     {
                         id: 4,
                         title: 'Project Four',
                         person: 'Person Four',
                         dueDate: '10 Dec 2015',
-                        status: 'complete'
+                        status: 'complete',
+                        content: 'EEEEEEE'
                     }
                 ]
             };

@@ -24,7 +24,7 @@
                     </v-avatar>
 
                     <p class="white--text subheading mt-1">
-                        Your name
+                        Your name (Person Three)
                     </p>
                 </v-flex>
             </v-layout>
