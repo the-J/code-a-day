@@ -30,26 +30,24 @@
         </v-toolbar>
 
         <v-navigation-drawer app v-model="drawer" class="primary">
-            <v-layout column align-center class="my-3">
-                <v-flex>
-                    <v-avatar color="teal" size="100" class="grey lighten-2">
-                        <span class="white--text headline">You</span>
+            <v-layout column align-center>
+                <v-flex class="mt-5">
+                    <v-avatar size="100" color="teal" class="grey--text">
+                        <span class="text-lg-center white--text headline">You</span>
                     </v-avatar>
-
-                    <p class="white--text subheading mt-1">
-                        Your name (Person Three)
-                    </p>
+                    <p class="white--text subheading mt-1">The Net Ninja</p>
+                </v-flex>
+                <v-flex class="mt-4 mb-3">
+                    <Popup/>
                 </v-flex>
             </v-layout>
-
             <v-list>
                 <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
                     <v-list-tile-action>
-                        <v-icon color="white">{{link.icon}}</v-icon>
+                        <v-icon class="white--text">{{ link.icon }}</v-icon>
                     </v-list-tile-action>
-
                     <v-list-tile-content>
-                        <v-list-tile-title class="white--text">{{link.text}}</v-list-tile-title>
+                        <v-list-tile-title class="white--text">{{ link.text }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
@@ -58,8 +56,10 @@
 </template>
 
 <script>
+    import Popup from './Popup.vue';
 
     export default {
+        components: { Popup },
         data() {
             return {
                 drawer: false,
