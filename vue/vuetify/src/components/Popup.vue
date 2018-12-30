@@ -79,6 +79,7 @@
                         .then(() => {
                             this.loading = false;
                             this.dialog = false;
+                            this.$emit('projectAdded')
                         });
                 }
             }
@@ -88,6 +89,5 @@
                 return this.due ? format(this.due, 'Do MMM YYYY') : '';
             }
         }
-
     };
 </script>
