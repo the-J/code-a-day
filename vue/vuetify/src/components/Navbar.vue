@@ -31,12 +31,14 @@
 
         <v-navigation-drawer app v-model="drawer" class="primary">
             <v-layout column align-center>
-                <v-flex class="mt-5">
+                <v-flex class="mt-5" align-self-center>
                     <v-avatar size="100" color="teal" class="grey--text">
                         <span class="text-lg-center white--text headline">You</span>
                     </v-avatar>
-                    <p class="white--text subheading mt-1">The Net Ninja</p>
                 </v-flex>
+
+                <p class="white--text subheading mt-1">You (Person Three)</p>
+
                 <v-flex class="mt-4 mb-3">
                     <Popup/>
                 </v-flex>
