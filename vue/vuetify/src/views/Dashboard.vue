@@ -56,6 +56,8 @@
 </template>
 
 <script>
+    import db from '@/fb.js';
+
     export default {
         data() {
             return {
@@ -103,6 +105,20 @@
                     else return 0;
                 });
             }
+        },
+        created() {
+            db.collection('projects').onSnapshot(res => {
+                const changes = res.docChanges();
+
+                changes.forEach(change => {
+                    if(change.type === 'added') {
+                        this.projects.push({
+                            ...change.doc.data(),
+                            id: change.doc.id
+                        });
+                    }
+                })
+            });
         }
     };
 </script>
