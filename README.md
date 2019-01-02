@@ -35,8 +35,9 @@
         * no idea, some old first vue tests
     * vue-project
         * meetup vue project   
-    * vuetify
-        * materialize.css for vue     
+    * vuetify + firebase
+        * materialize.css for vue
+        * simple backend in firebase     
                     
 * meteor
     ##### things in MeteorJS framework
