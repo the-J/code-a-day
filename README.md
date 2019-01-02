@@ -20,12 +20,7 @@
         * highCharts.js- F'/C'
         * yahoo weather API
     * RandomQuoteMachine
-        * not sure if still works
-    * chrome extension
-        ###### building simple chrome extension
-        * Tinkering in chrome browser extensions options.
-        * Simple extension for changing background to random hex color
-    
+        * not sure if still works    
     * small things
         ###### collections of small things
         * small_things
@@ -61,3 +56,9 @@
     * tweepy
         * working with tweeepy
         * fetching tweets and analyzing fetched data
+* diff
+    ###### diff small or big things
+    * chrome extension
+        ###### building simple chrome extension
+        * Tinkering in chrome browser extensions options.
+        * Simple extension for changing background to random hex color
