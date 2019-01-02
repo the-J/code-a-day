@@ -21,6 +21,16 @@
         * yahoo weather API
     * RandomQuoteMachine
         * not sure if still works
+    * chrome extension
+        ###### building simple chrome extension
+        * Tinkering in chrome browser extensions options.
+        * Simple extension for changing background to random hex color
+    
+    * small things
+        ###### collections of small things
+        * small_things
+            * some fun with css, testing materialize css and css stuff
+            * old clock that I made in JS and css
         
 * nodejs
     ###### things based on NodeJS
@@ -51,15 +61,3 @@
     * tweepy
         * working with tweeepy
         * fetching tweets and analyzing fetched data
-
-
-* chrome extension
-    ###### building simple chrome extension
-    * Tinkering in chrome browser extensions options.
-    * Simple extension for changing background to random hex color
-    
-* small things
-    ###### collections of small things
-    * small_things
-       * some fun with css, testing materialize css and css stuff
-        * old clock that I made in JS and css
