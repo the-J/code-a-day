@@ -1,2 +1,3 @@
 .idea/
 twitter_credentials.py
+python/tweepy/credentials.py
