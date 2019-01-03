@@ -2,105 +2,73 @@ const Joi = require('joi');
 const express = require('express');
 const app = express();
 
-// Middleware for parsing body by default
 app.use(express.json());
 
-const port = process.env.PORT || 3000
-app.listen(port, () => console.log(`App listening on port ${port}`));
+const genres = [
+   { id: 1, name: 'Action' },
+   { id: 2, name: 'Horror' },
+   { id: 3, name: 'Romance' },
+];
 
-const cars = [
-   { id: 1, name: 'car1' },
-   { id: 2, name: 'car2' },
-   { id: 3, name: 'car3' }
-]
-
-/**
- * GET methods
- */
-app.get('/', (req, res) => {
-   res.send('Hello world!!!');
-   res.end();
+app.get('/api/genres', (req, res) => {
+   res.send(genres);
 });
 
-app.get('/api/cars/', (req, res) => {
-   res.send(cars);
-   res.end();
-})
-
-app.get('/api/cars/:id', (req, res) => {
-   const car = cars.find(car => car.id === parseInt(req.params.id));
-   if (!car) return res.status(404).send('No car found');
-   res.send(car);
+app.get('/api/genres/:id', (req, res) => {
+   const genre = genres.find(c => c.id === parseInt(req.params.id));
+   if (!genre) return res.status(404).send('Not found');
+   res.send(genre);
 });
 
-/**
- * POST methods
- */
-app.post('/api/car', (req, res) => {
-   const { error } = validateCar(req.body);
-
+app.post('/api/genres', (req, res) => {
+   const { error } = validateGenre(req.body);
    if (error) return res.status(400).send(error.details[0].message);
 
-   const car = {
-      id: cars.length + 1,
+   const genre = {
+      id: genres.length + 1,
       name: req.body.name
-   }
+   };
 
-   cars.push(car);
-   res.send(car);
+   genres.push(genre);
+   res.send(genre);
 });
 
-/**
- * PUT methods
- */
-app.put('/api/car/:id', (req, res) => {
-   // Find car
-   const car = cars.find(car => car.id === parseInt(req.params.id));
+app.put('/api/genres/:id', (req, res) => {
+   const genre = genres.find(c => c.id === parseInt(req.params.id));
+   if (!genre) return res.status(404).send('Not found.');
 
-   // If don't exists, return 404
-   if (!car) return res.status(404).send('No car found');
-
-   // Validate input data
-   const { error } = validateCar(req.body);
-
-   // If invalid, send 400 - bad req
+   const { error } = validateGenre(req.body);
    if (error) return res.status(400).send(error.details[0].message);
 
-   // Update car
-   car.name = req.body.name;
-   
-   // return updated car
-   res.send(car);
-})
+   genre.name = req.body.name;
+   res.send(genre);
+});
 
-/**
- * DELETE methods
- */
-app.delete('/api/cars/:id', (req, res) => {
-   const car = cars.find(c => c.id === parseInt(req.params.id));
-   if (!car) res.status(404).send('No car with given ID');
+app.delete('/api/genres/:id', (req, res) => {
+   const genre = genres.find(c => c.id === parseInt(req.params.id));
+   if (!genre) return res.status(404).send('Not found.');
 
-   // delete
-   const index = cars.indexOf(car)
-   cars.splice(index, 1);
+   const index = genres.indexOf(genre);
+   genres.splice(index, 1);
 
-   res.send(cars);
-})
+   res.send(genre);
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Listening on port ${port}...`));
+
 
 /**
  * HELPERS
  */
 
 /**
- * Validate if car has a name
- * 
- * @param {Object} car
- * @param {Object.String} car.name 
+ * @param {String} genre 
  */
-function validateCar(car) {
+function validateGenre(genre) {
    const schema = {
       name: Joi.string().min(3).required()
-   }
+   };
 
-   return Joi.validate(car, schema);
+   return Joi.validate(genre, schema);
 }
