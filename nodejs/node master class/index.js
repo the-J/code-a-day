@@ -32,18 +32,10 @@ app.get('/api/cars/:id', (req, res) => {
 
 // POST methods
 app.post('/api/car', (req, res) => {
-   
-   console.log(req.body);
-
-   const schema = {
-      name: Joi.string().min(3).required()
-   }
-
-   const result = Joi.validate(req.body, schema);
-   console.log(result);
+   const {error} = validateCar(req.body);
   
-   if (result.error) {
-      res.status(400).send(result.error.details[0].message);
+   if (error) {
+      res.status(400).send(error.details[0].message);
       return;
    }
    
@@ -56,6 +48,44 @@ app.post('/api/car', (req, res) => {
    res.send(car);
 });
 
+// PUT methods
+app.put('/api/car/:id', (req, res) => {
+   console.log(req.params.id)
+   // Find car
+   const car = cars.find(car => car.id === parseInt(req.params.id));
+
+   // If don't exists, return 404
+   if(!car) {
+      res.status(404).send('No car found');
+      return;
+   };
+
+   // Validate input data
+   const {error} = validateCar(req.body);
+   
+   // If invalid, send 400 - bda req
+   if (error) {
+      res.tatus(400).send(error.details[0].message);
+      return;
+   }
+
+   // Update car
+   car.name = req.body.name;
+   // return updated car
+   res.send(car);
+})
+
 // PORT
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`App listening on port ${port}`));
+
+// HELPERS
+
+// validate car name
+function validateCar(car) {
+   const schema = {
+      name: Joi.string().min(3).required()
+   }
+
+   return Joi.validate(car, schema);
+}
