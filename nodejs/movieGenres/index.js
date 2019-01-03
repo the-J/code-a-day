@@ -1,8 +1,34 @@
 const Joi = require('joi');
 const express = require('express');
+const helmet = require('helmet')
+const morgan = require('morgan')
+const config = require('config');
+
+const logger = require('./logger.js');
+
+// main app
 const app = express();
 
+// configuration
+console.log("App Name: " + config.get('name'));
+console.log("Email Pass: " + config.get('mail.password'));
+
+if( app.get('env') === 'development') {
+   // logging api request
+   app.use(morgan('tiny'))
+   console.log('runnng development mode');
+}
+
+// parse req.body if includes json
 app.use(express.json());
+// fetching data from urls
+app.use(express.urlencoded({ extended: true }));
+// allowes to serve static content - img etc
+app.use(express.static('public'));
+// nothing important, my logger
+app.use(logger)
+
+app.use(helmet());
 
 const genres = [
    { id: 1, name: 'Action' },
