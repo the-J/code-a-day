@@ -4,20 +4,30 @@ const helmet = require('helmet')
 const morgan = require('morgan')
 const config = require('config');
 
+const startupDebugger = require('debug')('app:startup');
+const dbDebugger = require('debug')('app:db');
+
 const logger = require('./logger.js');
 
 // main app
 const app = express();
 
+// template engine
+app.set('view engine', 'pug');
+app.set('views', './views'); //default
+
 // configuration
 console.log("App Name: " + config.get('name'));
 console.log("Email Pass: " + config.get('mail.password'));
 
-if( app.get('env') === 'development') {
+if (app.get('env') === 'development') {
    // logging api request
    app.use(morgan('tiny'))
-   console.log('runnng development mode');
+   startupDebugger('Morgan enabled');
 }
+
+// DB things
+// dbDebugger('Connected to db...');
 
 // parse req.body if includes json
 app.use(express.json());
@@ -35,6 +45,13 @@ const genres = [
    { id: 2, name: 'Horror' },
    { id: 3, name: 'Romance' },
 ];
+
+app.get('/', (req, res) => {
+   res.render('index', {
+      title: 'My express app',
+      message: 'Hello'
+   })
+});
 
 app.get('/api/genres', (req, res) => {
    res.send(genres);
