@@ -26,7 +26,11 @@
         * small_things
             * some fun with css, testing materialize css and css stuff
             * old clock that I made in JS and css
-        
+
+* react
+    ###### react.js things
+
+    
 * nodejs
     ###### things based on NodeJS
     * some old repo
