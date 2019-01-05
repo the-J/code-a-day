@@ -1,5 +1,6 @@
 {
    "name": "Express App - default",
+   "mode": "default",
    "mail": {
       "host": "default-mail-server",
       "password": "Magic Mike"

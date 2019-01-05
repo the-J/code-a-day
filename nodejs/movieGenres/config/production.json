@@ -1,5 +1,6 @@
 {
    "name": "Express App - production",
+   "mode": "production",
    "mail": {
       "host": "prod-mail-server",
       "password": "Magic Mike"

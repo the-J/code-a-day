@@ -1,5 +1,6 @@
 {
    "name": "Express App - custom",
+   "mode": "custom",
    "mail": {
       "host": "custom-mail-server",
       "password": "ExpressApp_password"

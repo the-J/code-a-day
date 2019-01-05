@@ -4,12 +4,13 @@ const helmet = require('helmet')
 const morgan = require('morgan')
 const config = require('config');
 
-const routesGenres = require('./routes/genres');
-
 const startupDebugger = require('debug')('app:startup');
 const dbDebugger = require('debug')('app:db');
 
-const logger = require('./logger.js');
+const logger = require('./middleware/logger.js');
+
+const routesGenres = require('./routes/genres');
+const routesHome = require('./routes/home');
 
 // main app
 const app = express();
@@ -19,8 +20,7 @@ app.set('view engine', 'pug');
 app.set('views', './views'); //default
 
 // configuration
-console.log("App Name: " + config.get('name'));
-console.log("Email Pass: " + config.get('mail.password'));
+console.log("App Mode: " + config.get('mode'));
 
 // logging api request
 if (app.get('env') === 'development') {
@@ -47,12 +47,7 @@ app.use(logger)
 app.use(helmet());
 
 // main route
-app.get('/', (req, res) => {
-   res.render('index', {
-      title: 'My express app',
-      message: 'Hello'
-   })
-});
+app.get('/', routesHome);
 
 // genres routes
 app.use('/api/genres', routesGenres);
