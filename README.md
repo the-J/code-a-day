@@ -36,6 +36,13 @@
     * some old repo
         * don't remember exactly, some old repo: express, node, mongoDB - log in with facebook....
 
+    * hackersnews-copy
+        ###### hackernews clone with node, graphql-yoga
+
+    * movieGenres
+        ###### tinkering wit node apis
+
+
 * vue.js projects
     ###### learning things with vue.js
     * chat-VueFirebase
