@@ -12,3 +12,6 @@ const trainingData = [
 net.train(trainingData);
 
 console.group(net.run([0, 0]))
+console.group(net.run([1, 1]))
+console.group(net.run([1, 0]))
+console.group(net.run([0, 1]))

@@ -1,4 +1,8 @@
 # code-a-day
+* NN
+    ###### Neural Network stuff
+    * brainjs 
+
 * javaScript
     ###### projects in nodejs, cra and other full js things
     * protected-react-route
