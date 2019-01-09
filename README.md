@@ -2,6 +2,7 @@
 * NN
     ###### Neural Network stuff
     * brainjs 
+        * simple learning NN things: predicting numbers, simple recomendation engine, reading sentiment from a text
 
 * javaScript
     ###### projects in nodejs, cra and other full js things
