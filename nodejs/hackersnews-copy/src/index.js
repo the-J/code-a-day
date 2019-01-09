@@ -1,5 +1,5 @@
 const { GraphQLServer } = require('graphql-yoga');
-
+const { prisma } = require('./generated/pisma-client');
 // let links = [{
 //    id: 'link-0',
 //    url: 'www.howtographql.com',
@@ -51,7 +51,8 @@ const resolvers = {
 
 const server = new GraphQLServer({
    typeDefs: 'src/schema.graphql',
-   resolvers
+   resolvers,
+   context: { prisma }
 });
 
 server.start(() => console.log('Serwver unning on port 4000'));

@@ -12,7 +12,7 @@ scalar DateTime
 type Link {
   id: ID!
   createdAt: DateTime!
-  desciption: String!
+  description: String!
   url: String!
 }
 
@@ -23,7 +23,7 @@ type LinkConnection {
 }
 
 input LinkCreateInput {
-  desciption: String!
+  description: String!
   url: String!
 }
 
@@ -37,8 +37,8 @@ enum LinkOrderByInput {
   id_DESC
   createdAt_ASC
   createdAt_DESC
-  desciption_ASC
-  desciption_DESC
+  description_ASC
+  description_DESC
   url_ASC
   url_DESC
   updatedAt_ASC
@@ -48,7 +48,7 @@ enum LinkOrderByInput {
 type LinkPreviousValues {
   id: ID!
   createdAt: DateTime!
-  desciption: String!
+  description: String!
   url: String!
 }
 
@@ -71,12 +71,12 @@ input LinkSubscriptionWhereInput {
 }
 
 input LinkUpdateInput {
-  desciption: String
+  description: String
   url: String
 }
 
 input LinkUpdateManyMutationInput {
-  desciption: String
+  description: String
   url: String
 }
 
@@ -103,20 +103,20 @@ input LinkWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
-  desciption: String
-  desciption_not: String
-  desciption_in: [String!]
-  desciption_not_in: [String!]
-  desciption_lt: String
-  desciption_lte: String
-  desciption_gt: String
-  desciption_gte: String
-  desciption_contains: String
-  desciption_not_contains: String
-  desciption_starts_with: String
-  desciption_not_starts_with: String
-  desciption_ends_with: String
-  desciption_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
   url: String
   url_not: String
   url_in: [String!]
