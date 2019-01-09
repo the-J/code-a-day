@@ -118,3 +118,29 @@ const trainingData = [
 ];
 
 net.train(trainingData, {log: stats => console.log(stats)});
+
+// 1
+const result = net.run(toArray(
+   '#######' +
+   '#     #' +
+   '#     #' +
+   '#######' +
+   '#     #' +
+   '#     #' +
+   '#######'
+));
+
+console.log({result});
+
+// 2
+const result2 = brain.likely(toArray(
+   '#######' +
+   '#     #' +
+   '#     #' +
+   '#######' +
+   '#     #' +
+   '#     #' +
+   '#######'
+), net);
+
+console.log({result2})
