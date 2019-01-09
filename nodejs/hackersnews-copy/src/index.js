@@ -1,30 +1,26 @@
 const { GraphQLServer } = require('graphql-yoga');
 
-let links = [{
-   id: 'link-0',
-   url: 'www.howtographql.com',
-   description: 'Fullstack tutorial for GraphQL'
-}]
+// let links = [{
+//    id: 'link-0',
+//    url: 'www.howtographql.com',
+//    description: 'Fullstack tutorial for GraphQL'
+// }]
 
-let idCount = links.length
+// let idCount = links.length
 
 const resolvers = {
    Query: {
       info: () => `This is the API of a Hackernews Clone`,
-      feed: () => links,
-      link: (parent, args) => links.find(link => link.id === args.id)
+      feed: (rot, args, context, info) => context.prisma.links()
+      // () => links,
+      // link: (parent, args) => links.find(link => link.id === args.id)
    },
    Mutation: {
-      postLink: (parent, args) => {
-         const link = {
-            id: `link-${idCount++}`,
-            description: args.description,
+      postLink: (root, args, context) => {
+         return context.prisma.createLink({
             url: args.url,
-         }
-
-         links.push(link)
-
-         return link
+            description: args.description,
+         });
       },
       getLink: (parent, args) => links.find(link => link.id === args.id),
       updateLink: (parent, args) => {
