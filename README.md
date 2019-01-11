@@ -38,14 +38,13 @@
     
 * nodejs
     ###### things based on NodeJS
-    * some old repo
-        * don't remember exactly, some old repo: express, node, mongoDB - log in with facebook....
-
-    * hackersnews-copy
+     * hackersnews-copy
         ###### hackernews clone with node, graphql-yoga
-
+        * GraphQL with Prisma
+    * some old repo
+        ###### don't remember exactly, some old repo: express, node, mongoDB - log in with facebook....
     * movieGenres
-        ###### tinkering wit node apis
+        ###### tinkering with node apis
 
 
 * vue.js projects
