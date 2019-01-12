@@ -1,0 +1,55 @@
+/**
+ * Created by Juliusz Jakubowski<the-j> @ 11/01/2019
+ */
+
+/* main elements */
+
+body {
+   display: block;
+   font-size: 16px;
+   position: relative;
+   top: 10px;
+   left: 10%;
+   width: 80%;
+   border: 2px solid black;
+   height: 100%;
+}
+
+h1, h2, h3, h4, h5 {
+   margin: 0;
+   padding: 0;
+}
+
+.container {
+   display: block;
+   margin: 10px;
+   font-size: 1.5rem;
+   /* border: 2px solid red; */
+}
+
+/* reusables */
+
+.btn {
+   background-color: #4CAF50;
+   border: none;
+   color: white;
+   padding: 15px 32px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+}
+
+.btn start {
+   border: 1px solid red;
+}
+
+/* game elements */
+
+#game-board {
+   display: block;
+   position: relative;
+   min-height: 500px;
+   width: 100%;
+   border: 1px solid grey;
+}

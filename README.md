@@ -31,6 +31,8 @@
         * small_things
             * some fun with css, testing materialize css and css stuff
             * old clock that I made in JS and css
+    * quick-keys
+        ###### game for learning quick typing
 
 * react
     ###### react.js things
