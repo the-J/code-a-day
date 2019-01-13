@@ -1,3 +1,8 @@
-<h1 [class.grey]="h1GreyStyle">Home</h1>
+<h1 [class.grey]="h1GreyStyle">Basic css class binding</h1>
+
+<h1 [ngClass]="{
+  'grey': h1GreyStyle,
+  'large': !h1GreyStyle
+}">ngClass binding method</h1>
 
 <button (click)='someClick()'>Some click</button>
