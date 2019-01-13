@@ -5,8 +5,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent implements OnInit {
 
+  h1GreyStyle: boolean = false;
+  
   constructor() { }
 
   ngOnInit() {
@@ -14,5 +17,6 @@ export class HomeComponent implements OnInit {
 
   someClick() {
     console.log('someClick clicked');
+    this.h1GreyStyle = true;
   }
 }
