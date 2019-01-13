@@ -59,7 +59,12 @@
     * vuetify + firebase
         * materialize.css for vue
         * simple backend in firebase     
-                    
+
+* angular
+    ###### working with angular 7
+    * beginnersCrashCourse - first online short tut
+        * angular router
+        * sass          
 * meteor
     ##### things in MeteorJS framework
     * votingApp
