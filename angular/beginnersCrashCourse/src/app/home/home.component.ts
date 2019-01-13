@@ -11,9 +11,15 @@ export class HomeComponent implements OnInit {
 
   h1GreyStyle: boolean = false;
 
+  users: Object;
+
   constructor(private data: DataService) { }
 
   ngOnInit() {
+    this.data.getUsers().subscribe(data => {
+      this.users = data;
+      console.log(this.users);
+    })
   }
 
   someClick() {
