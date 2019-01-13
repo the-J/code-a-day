@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   h1GreyStyle: boolean = false;
-  
-  constructor() { }
+
+  constructor(private data: DataService) { }
 
   ngOnInit() {
   }
@@ -18,5 +19,9 @@ export class HomeComponent implements OnInit {
   someClick() {
     console.log('someClick clicked');
     this.h1GreyStyle = !this.h1GreyStyle;
+  }
+
+  usingGlobalClick() {
+    this.data.globalSomeClick();
   }
 }

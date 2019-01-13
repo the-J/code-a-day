@@ -6,4 +6,8 @@ import { Injectable } from '@angular/core';
 export class DataService {
 
   constructor() { }
+
+  globalSomeClick() {
+    console.log('global someClick clicked')
+  }
 }

@@ -19,7 +19,14 @@
         }">style.color
         param and ternary operator</h1>
     </li>
+    <li>
+      <h1 [style.color]="h1GreyStyle ? 'grey' : 'black'">using global service</h1>
+    </li>
   </ul>
 </div>
-
-<button (click)='someClick()'>Some click</button>
+<p>
+  <button (click)='someClick()'>Some click</button>
+</p>
+<p>
+  <button (click)='usingGlobalClick()'>Some gloabl service click (check console)</button>
+</p>
