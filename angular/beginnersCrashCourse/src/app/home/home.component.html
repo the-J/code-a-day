@@ -12,6 +12,13 @@
     <li>
       <h1 [style.color]="h1GreyStyle ? 'grey' : 'black'">style.color param and ternary operator</h1>
     </li>
+    <li>
+      <h1 [ngStyle]="{
+          'color': h1GreyStyle ? 'grey' : 'black',
+          'font-size': h1GreyStyle ?  '4em' : '1em'
+        }">style.color
+        param and ternary operator</h1>
+    </li>
   </ul>
 </div>
 
