@@ -31,7 +31,7 @@
   <button (click)='usingGlobalClick()'>Some gloabl service click (check console)</button>
 </p>
 
-<ul *ngIf="users">
+<ul class='users-list' *ngIf="users">
   <li *ngFor="let user of users.data">
     <img [src]="user.avatar" alt="avatar">
     <p>{{user.first_name}} {{ user.last_name }}</p>
