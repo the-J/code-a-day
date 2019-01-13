@@ -7,6 +7,8 @@
  * Letters will be moving from top to down. 
  * If letter is selected on the keyoard it should disapear.
  * You know the rulse...
+ * 
+ * Yeah, I don't care and bowse window should be at least 1000px
  */
 const gameBoard = document.querySelector("#game-board");
 // list of characters -> need to be automated
@@ -16,8 +18,10 @@ const takenPositions = [];
 
 // set hoizontal position of a character
 function setPosition() {
+
    // sight correction of position to match parent width
    const newPosition = Math.floor(1 + Math.random() * 99);
+
    // check if position is taken
    // "[...]No matter who you are, I'm gonna find you[...]"
    const taken = takenPositions.find(position => position === newPosition);
@@ -31,6 +35,7 @@ function setPosition() {
    }
 }
 
+// create characters
 for (let i = 0; i < 20; i++) {
    // create new HTML element for character
    const letter = document.createElement('div');
@@ -49,5 +54,7 @@ for (let i = 0; i < 20; i++) {
 
    // update gameBoard
    gameBoard.appendChild(letter);
-}
 
+   // moveDown.call(letter);
+   letter.classList.add('move-down');
+}

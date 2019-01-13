@@ -31,8 +31,7 @@
         * small_things
             * some fun with css, testing materialize css and css stuff
             * old clock that I made in JS and css
-    * quick-keys
-        ###### game for learning quick typing
+
 
 * react
     ###### react.js things
@@ -79,3 +78,8 @@
         ###### building simple chrome extension
         * Tinkering in chrome browser extensions options.
         * Simple extension for changing background to random hex color
+
+* toFinish
+    ###### things that i was working and didn't finish or postponed
+    * quick-keys
+        ###### game for learning quick typing
