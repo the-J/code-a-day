@@ -83,6 +83,8 @@
         ###### building simple chrome extension
         * Tinkering in chrome browser extensions options.
         * Simple extension for changing background to random hex color
+    * mongodbThings
+        * just testing stuff
 
 * toFinish
     ###### things that i was working and didn't finish or postponed
