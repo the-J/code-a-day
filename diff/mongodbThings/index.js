@@ -16,3 +16,14 @@ const courseSchema = new mongoose.Schema({
    },
    isPublished: Boolean
 })
+
+// compile model to class based on schema
+const Course = mongoose.model('Course', courseSchema)
+
+// object based on Course class - mapping do mongodb document 
+const course = new Course({
+   name: 'Node.js Course',
+   author: 'Superman',
+   tags: ['node', 'superhero'],
+   isPulished: true
+})
