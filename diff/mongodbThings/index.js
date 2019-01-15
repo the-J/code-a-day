@@ -45,6 +45,7 @@ async function createCourse() {
    console.log(result2);
 }
 
+// call once on booting
 // createCourse();
 
 async function getCourses() {
@@ -70,9 +71,21 @@ async function getCourses() {
       .sort({ name: 1 })
       .select({ name: 1, tags: 1 })
 
+   const pageNumber = 2;
+   const pageSize = 10;
+   // /api/courses?pageNumber=2&pageSize=10
+
+   const pagination = await Course
+      .find({ author: [/^Sup/i, /man$/i] })
+      .skip((pageNumber - 1) * pageSize)
+      .limit(pageSize)
+      .sort({ name: 1 })
+      .select({ name: 1, tags: 1 })
+
    console.log({ coursesSimple });
    console.log({ coursesOr });
    console.log({ coursesRegexp });
+   console.log({ pagination });
 }
 
 getCourses();
