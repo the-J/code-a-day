@@ -17,7 +17,13 @@ const courseSchema = new mongoose.Schema({
       type: Date,
       default: Date.now
    },
-   isPublished: Boolean
+   isPublished: Boolean,
+   price: {
+      type: Number,
+      required: function () {
+         return this.isPublished
+      }
+   }
 })
 
 // compile model to class based on schema
