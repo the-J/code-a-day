@@ -20,10 +20,28 @@ const courseSchema = new mongoose.Schema({
 // compile model to class based on schema
 const Course = mongoose.model('Course', courseSchema)
 
-// object based on Course class - mapping do mongodb document 
-const course = new Course({
-   name: 'Node.js Course',
-   author: 'Superman',
-   tags: ['node', 'superhero'],
-   isPulished: true
-})
+
+async function createCourse() {
+   // object based on Course class - mapping do mongodb document 
+   const course1 = new Course({
+      name: 'Nodejs Course',
+      author: 'Batman',
+      tags: ['nodejs', 'back-end', 'superhero'],
+      isPulished: true
+   });
+
+   const course2 = new Course({
+      name: 'Angular Course',
+      author: 'Superman',
+      tags: ['Angular', 'front-end', 'superhero'],
+      isPulished: true
+   });
+
+   // new DB entry
+   const result1 = await course1.save();
+   const result2 = await course2.save();
+   console.log(result1);
+   console.log(result2);
+}
+
+createCourse();
