@@ -19,7 +19,17 @@ const courseSchema = new mongoose.Schema({
       enum: ['web', 'mobile', 'network']
    },
    author: String,
-   tags: [String],
+   tags: {
+      type: Array,
+      validate: {
+         validator: function (v) {
+            // v && v.length > 0 
+            //  validationg if value is not null and got min one element
+            return v && v.length > 0;
+         },
+         message:' A course should have at least one tag'
+      }
+   },
    date: {
       type: Date,
       default: Date.now
@@ -30,7 +40,7 @@ const courseSchema = new mongoose.Schema({
       min: 10,
       max: 200,
       required: function () {
-         return this.isPublished
+         return this.isPublished;
       }
    }
 })
