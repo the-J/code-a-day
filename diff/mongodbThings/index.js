@@ -7,7 +7,10 @@ mongoose.connect('mongodb://localhost/testing')
 
 // simple test Schema
 const courseSchema = new mongoose.Schema({
-   name: String,
+   name: {
+      type: String,
+      required: true
+   },
    author: String,
    tags: [String],
    date: {
@@ -43,6 +46,46 @@ async function createCourse() {
 
    console.log(result1);
    console.log(result2);
+
+   // try{} catch{} block for handling exceptions
+   // 'name' is required and I will not provide any
+   // it's a one way to validate
+   const wrongData1 = new Course({
+      author: 'Jocker',
+      tags: ['fun', 'jokes'],
+      isPublished: false
+   });
+
+   try {
+      const wrongData = await wrongData1.save();
+   }
+   catch (ex) {
+      console.log(ex);
+   }
+
+
+   // it's aanother way to validate
+   const wrongData2 = new Course({
+      author: 'Jocker',
+      tags: ['fun', 'jokes'],
+      isPublished: false
+   });
+
+   try {
+      // this line will throw new exception
+      await wrongData2.validat();
+      // this is promise returning void so
+      // we can;t assign it to const
+      // but it takes callback
+      await wrongData2.validat(err => {
+         if (err) return console.log('err: ', err);
+         // and catch block will return err as well
+      });
+      const wrongData = await wrongData2.save();
+   }
+   catch (ex) {
+      console.log(ex);
+   }
 }
 
 // call once on booting
