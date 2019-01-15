@@ -27,21 +27,35 @@ async function createCourse() {
       name: 'Nodejs Course',
       author: 'Batman',
       tags: ['nodejs', 'back-end', 'superhero'],
-      isPulished: true
+      isPublished: true
    });
 
    const course2 = new Course({
       name: 'Angular Course',
       author: 'Superman',
       tags: ['Angular', 'front-end', 'superhero'],
-      isPulished: true
+      isPublished: false
    });
 
    // new DB entry
    const result1 = await course1.save();
    const result2 = await course2.save();
+
    console.log(result1);
    console.log(result2);
 }
 
-createCourse();
+// createCourse();
+
+async function getCourses() {
+
+   const courses = await Course
+      .find({ author: 'Superman' })
+      .limit(10)
+      .sort({ name: 1 })
+      .select({ name: 1, tags: 1 })
+
+   console.log({ courses });
+}
+
+getCourses();
