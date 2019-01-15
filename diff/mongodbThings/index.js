@@ -118,10 +118,45 @@ async function updateCourse(id, option) {
          author: 'Hellen Miren'
       })
    }
-   
+
    const updateResult = await course.save();
    console.log({ updateResult });
 }
 
 // updateCourse("5c3d99ad172dc928a8c6ae2b", 1);
 // updateCourse("5c3d99ad172dc928a8c6ae2b", 2);
+
+async function updateMethod(id) {
+
+   // this one won't return document but just confimation of the operation
+   const courseNoDoc = await Course.update({ _id: id }, {
+      $set: {
+         autho: 'Bicycle',
+         isPublished: false
+      }
+   });
+
+   console.log({ courseNoDoc });
+
+   // this one will retun old document
+   const courseWithOldDoc = await Course.findByIdAndUpdate({ _id: id }, {
+      $set: {
+         author: 'Jack',
+         isPublished: true
+      }
+   });
+
+   console.log({ courseWithOldDoc });
+
+   // finaly this one will return new document
+   const courseWithNewDoc = await Course.findByIdAndUpdate({ _id: id }, {
+      $set: {
+         author: 'Nostradamus',
+         isPublished: false
+      }
+   }, { new: true });
+
+   console.log({ courseWithNewDoc });
+}
+
+updateMethod("5c3d99ad172dc928a8c6ae2b");
