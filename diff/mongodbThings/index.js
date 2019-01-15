@@ -88,4 +88,40 @@ async function getCourses() {
    console.log({ pagination });
 }
 
-getCourses();
+// getCourses();
+
+async function updateCourse(id, option) {
+   // two ways
+
+   // 1 Query first
+   // findById()
+   // modify
+   // save();
+
+   // 2 update first
+   // Update directly in db
+   // optionally: get updated doc
+
+   const course = await Course.findById(id);
+   if (!course) return console.log('no such course');
+
+   // this way
+   if (option === 1) {
+      course.isPublished = true;
+      course.author = 'Hellen Miren'
+   }
+
+   // or this way
+   if (option === 2) {
+      course.set({
+         isPublished: true,
+         author: 'Hellen Miren'
+      })
+   }
+   
+   const updateResult = await course.save();
+   console.log({ updateResult });
+}
+
+// updateCourse("5c3d99ad172dc928a8c6ae2b", 1);
+// updateCourse("5c3d99ad172dc928a8c6ae2b", 2);
