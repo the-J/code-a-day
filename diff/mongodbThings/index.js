@@ -27,7 +27,23 @@ const courseSchema = new mongoose.Schema({
             //  validationg if value is not null and got min one element
             return v && v.length > 0;
          },
-         message:' A course should have at least one tag'
+         message: 'A course should have at least one tag'
+      }
+   },
+   someValueForAsyncValidator: {
+      type: Array,
+      validate: {
+         isAsync: true,
+         validator: function (v, callback) {
+            // simulating some async things
+            setTimeout(() => {
+               // do some async work
+               const resul = v && v.length > 7;
+            }, 4000);
+
+            callback(result);
+         },
+         message: 'A course should have at least one tag'
       }
    },
    date: {
