@@ -9,7 +9,14 @@ mongoose.connect('mongodb://localhost/testing')
 const courseSchema = new mongoose.Schema({
    name: {
       type: String,
-      required: true
+      required: true,
+      minLength: 5,
+      maxLength: 255
+      // math: /pattern/
+   },
+   category: {
+      type: String,
+      enum: ['web', 'mobile', 'network']
    },
    author: String,
    tags: [String],
@@ -20,6 +27,8 @@ const courseSchema = new mongoose.Schema({
    isPublished: Boolean,
    price: {
       type: Number,
+      min: 10,
+      max: 200,
       required: function () {
          return this.isPublished
       }
@@ -36,7 +45,8 @@ async function createCourse() {
       name: 'Nodejs Course',
       author: 'Batman',
       tags: ['nodejs', 'back-end', 'superhero'],
-      isPublished: true
+      isPublished: true,
+      price: 123
    });
 
    const course2 = new Course({
