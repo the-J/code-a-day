@@ -16,7 +16,10 @@ const courseSchema = new mongoose.Schema({
    },
    category: {
       type: String,
-      enum: ['web', 'mobile', 'network']
+      enum: ['web', 'mobile', 'network'],
+      // will set param to lowercase
+      lowercase: true
+      // uppercase, trim
    },
    author: String,
    tags: {
@@ -57,7 +60,11 @@ const courseSchema = new mongoose.Schema({
       max: 200,
       required: function () {
          return this.isPublished;
-      }
+      },
+      // returning calculated value defined in getter
+      get: v => Math.round(v),
+      // upting value  before setting with setter
+      set: v => Math.round(v)
    }
 })
 
