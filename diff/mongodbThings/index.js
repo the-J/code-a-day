@@ -49,13 +49,30 @@ async function createCourse() {
 
 async function getCourses() {
 
-   const courses = await Course
+   // comparison operators
+
+   const coursesSimple = await Course
       .find({ author: 'Superman' })
       .limit(10)
       .sort({ name: 1 })
       .select({ name: 1, tags: 1 })
 
-   console.log({ courses });
+   const coursesOr = await Course
+      .find()
+      .or([{ author: 'Superman' }, { author: 'Batman' }])
+      .limit(10)
+      .sort({ name: 1 })
+      .select({ name: 1, tags: 1 })
+
+   const coursesRegexp = await Course
+      .find({ author: [/^Sup/i, /man$/i] })
+      .limit(10)
+      .sort({ name: 1 })
+      .select({ name: 1, tags: 1 })
+
+   console.log({ coursesSimple });
+   console.log({ coursesOr });
+   console.log({ coursesRegexp });
 }
 
 getCourses();
