@@ -159,4 +159,17 @@ async function updateMethod(id) {
    console.log({ courseWithNewDoc });
 }
 
-updateMethod("5c3d99ad172dc928a8c6ae2b");
+// updateMethod("5c3d99ad172dc928a8c6ae2b");
+
+async function removeDocument(id) {
+   // delete one -> returning stats
+   const removed = await Course.deleteOne({ _id: id });
+   console.log({ removed })
+
+   // if no doc -> null
+   // if doc -> removed doc
+   const findAndDelete = await Course.findByIdAndRemove(id);
+   console.log({ findAndDelete })
+}
+
+// removeDocument("5c3d99ad172dc928a8c6ae2b");
