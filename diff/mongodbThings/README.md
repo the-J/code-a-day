@@ -1,0 +1,1 @@
+### This folder is a part of a course that is stored in ./nodejs/movieGenres. We just test some things in here. 
