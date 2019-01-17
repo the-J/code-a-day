@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-   const genre = await Genres.findById(req.params.id);
+   const genre = await Genre.findById(req.params.id);
    if (!genre) return res.status(404).send('Not found');
    res.send(genre);
 });
@@ -51,9 +51,7 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
    const genre = await Genre.findByIdAndRemove(req.params.id);
-
    if (!genre) return res.status(404).send('Not found.');
-
    res.send(genre);
 });
 
@@ -66,7 +64,7 @@ router.delete('/:id', async (req, res) => {
  */
 function validateGenre(genre) {
    const schema = {
-      name: Joi.string().min(3).required()
+      name: Joi.string().min(5).required()
    };
 
    return Joi.validate(genre, schema);
