@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const helmet = require('helmet')
 const morgan = require('morgan')
@@ -13,6 +14,11 @@ const routesHome = require('./routes/home');
 
 // main app
 const app = express();
+
+// db connection
+mongoose.connect('mongodb://localhost/genres')
+   .then(() => console.log('connected to db'))
+   .catch(err => console.log('db connection error ', err))
 
 // template engine
 app.set('view engine', 'pug');
