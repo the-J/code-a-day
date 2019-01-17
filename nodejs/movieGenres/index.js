@@ -54,7 +54,7 @@ app.use(helmet());
 // main route
 app.get('/', routesHome);
 
-// genres routes
+// genres routes api
 app.use('/api/genres', routesGenres);
 
 const port = process.env.PORT || 3000;
