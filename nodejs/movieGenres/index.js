@@ -10,13 +10,14 @@ const dbDebugger = require('debug')('app:db');
 const logger = require('./middleware/logger.js');
 
 const routesGenres = require('./routes/genres');
+const routesCustomers = require('./routes/customers');
 const routesHome = require('./routes/home');
 
 // main app
 const app = express();
 
 // db connection
-mongoose.connect('mongodb://localhost/genres')
+mongoose.connect('mongodb://localhost/genres', { useNewUrlParser: true })
    .then(() => console.log('connected to db'))
    .catch(err => console.log('db connection error ', err))
 
@@ -34,7 +35,7 @@ if (app.get('env') === 'development') {
 }
 
 // DB things
-// dbDebugger('Connected to db...');
+dbDebugger('Connected to db...');
 
 // parse req.body if includes json
 app.use(express.json());
@@ -56,6 +57,9 @@ app.get('/', routesHome);
 
 // genres routes api
 app.use('/api/genres', routesGenres);
+
+// customers routes api
+app.use('/api/customers', routesCustomers);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log('App runing on ' + port));
