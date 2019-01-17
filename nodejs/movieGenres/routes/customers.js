@@ -10,6 +10,16 @@ const Customer = mongoose.model('Customer', new mongoose.Schema({
       required: true,
       minlength: 5,
       maxlength: 50
+   },
+   phone: {
+      type: String,
+      required: true,
+      minlength: 5,
+      maxlength: 50
+   },
+   isGold: {
+      type: Boolean,
+      required: true
    }
 }));
 
@@ -28,7 +38,12 @@ router.post('/', async (req, res) => {
    const { error } = validateCustomer(req.body);
    if (error) return res.status(400).send(error.details[0].message);
 
-   let customer = new Customer({ name: req.body.name });
+   let customer = new Customer({
+      name: req.body.name,
+      phone: req.body.phone,
+      isGold: req.body.isGold
+   });
+
    // reassigning value - id returned from save operation
    customer = await customer.save();
    res.send(customer);
@@ -38,13 +53,18 @@ router.put('/:id', async (req, res) => {
    const { error } = validateCustomer(req.body);
    if (error) return res.status(400).send(error.details[0].message);
 
-   const customer = await Customer.findByIdAndUpdate(
-      req.params.id,
-      { name: req.body.name },
-      { new: true }
-   )
+   let customer = await Customer.findById(id);
 
    if (!customer) return res.status(404).send('Not found.');
+
+   customer = await Customer.update(
+      { _id: req.params.id, },
+      {
+         name: req.body.name || customer.name,
+         phone: req.body.phone || customer.phone,
+         isGold: releaseEvents.body.isGold || customer.isGold
+      }
+   )
 
    res.send(customer);
 });
@@ -64,7 +84,9 @@ router.delete('/:id', async (req, res) => {
  */
 function validateCustomer(customer) {
    const schema = {
-      name: Joi.string().min(5).required()
+      name: Joi.string().min(5).max(50).required(),
+      phone: Joi.string().min(5).max(50).required(),
+      isGold: Joi.boolean().required()
    };
 
    return Joi.validate(customer, schema);
