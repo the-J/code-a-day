@@ -1,17 +1,7 @@
-const mongoose = require('mongoose');
 const express = require('express')
-const Joi = require('joi');
 // diff then in index.js - need to work with 'instance' of express
 const router = express.Router()
-
-const Genre = mongoose.model('Genre', new mongoose.Schema({
-   name: {
-      type: String,
-      required: true,
-      minlength: 5,
-      maxlength: 50
-   }
-}));
+const { Genre, validateGenre } = require('../models/genres')
 
 router.get('/', async (req, res) => {
    const genres = await Genre.find().sort('name');
@@ -54,20 +44,5 @@ router.delete('/:id', async (req, res) => {
    if (!genre) return res.status(404).send('Not found.');
    res.send(genre);
 });
-
-/**
- * HELPERS
- */
-
-/**
- * @param {String} genre 
- */
-function validateGenre(genre) {
-   const schema = {
-      name: Joi.string().min(5).max(50).required()
-   };
-
-   return Joi.validate(genre, schema);
-}
 
 module.exports = router;
