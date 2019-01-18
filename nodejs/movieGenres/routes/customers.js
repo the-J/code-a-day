@@ -1,27 +1,7 @@
-const mongoose = require('mongoose');
 const express = require('express')
-const Joi = require('joi');
 // diff then in index.js - need to work with 'instance' of express
 const router = express.Router()
-
-const Customer = mongoose.model('Customer', new mongoose.Schema({
-   name: {
-      type: String,
-      required: true,
-      minlength: 5,
-      maxlength: 50
-   },
-   phone: {
-      type: String,
-      required: true,
-      minlength: 5,
-      maxlength: 50
-   },
-   isGold: {
-      type: Boolean,
-      required: true
-   }
-}));
+const {Customer, validateCustomer} = require('../modules/customer')
 
 router.get('/', async (req, res) => {
    const customer = await Customer.find().sort('name');
@@ -74,22 +54,5 @@ router.delete('/:id', async (req, res) => {
    if (!customer) return res.status(404).send('Not found.');
    res.send(customer);
 });
-
-/**
- * HELPERS
- */
-
-/**
- * @param {String} customer 
- */
-function validateCustomer(customer) {
-   const schema = {
-      name: Joi.string().min(5).max(50).required(),
-      phone: Joi.string().min(5).max(50).required(),
-      isGold: Joi.boolean().required()
-   };
-
-   return Joi.validate(customer, schema);
-}
 
 module.exports = router;
