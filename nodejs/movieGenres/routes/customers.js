@@ -1,7 +1,7 @@
 const express = require('express')
 // diff then in index.js - need to work with 'instance' of express
 const router = express.Router()
-const {Customer, validateCustomer} = require('../modules/customer')
+const { Customer, validateCustomer } = require('../modules/customer')
 
 router.get('/', async (req, res) => {
    const customer = await Customer.find().sort('name');
