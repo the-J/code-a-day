@@ -1,7 +1,7 @@
 const express = require('express')
 // diff then in index.js - need to work with 'instance' of express
 const router = express.Router()
-const { Genre, validateGenre } = require('../models/genres')
+const { Genre, validateGenre } = require('../models/genre')
 
 router.get('/', async (req, res) => {
    const genres = await Genre.find().sort('name');
