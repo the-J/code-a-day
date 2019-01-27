@@ -1,12 +1,16 @@
-const mongoose = require('mongoose');
 const express = require('express')
+const mongoose = require('mongoose');
+const Fawn = require('fawn');
+
 // diff then in index.js - need to work with 'instance' of express
-const router = express.Router()
+const router = express.Router();
+
+// init Fawn on mongoose object
+Fawn.init(mongoose);
 
 const { Rental, validateRental } = require('../models/rental');
 const { Movie } = require('../models/movie')
 const { Customer } = require('../models/customer')
-
 
 router.get('/', async (req, res) => {
    // sort descending by param 'dateOut'
@@ -49,14 +53,36 @@ router.post('/', async (req, res) => {
 
    });
 
+
+   // FAWN - wrapt in try catch - something can fail
+   try {
+   // chaining saving and updating collections with fawn
+      new Fawn.Task()
+         // save rental
+         // full collection name - case sensitive
+         .save('rentals', rental)
+         // now update movies
+         .update('movies',  {_id: movie._id}, {
+            $inc: {numberInStock: -1}
+         })
+         .run();
+
+         res.send(rental);
+   }
+   catch(ex) {
+      res.status(500).send('Something failed');
+   }
+
+
+   // THIS IS HANDLED BY FAWN
    // reassigning value - id returned from save operation
-   rental = await rental.save();
+   // rental = await rental.save();
 
-   // updated list of movies in stock
-   movie.numberInStock--;
-   movie.save();
+   // // updated list of movies in stock
+   // movie.numberInStock--;
+   // movie.save();
 
-   res.send(rental);
+   // res.send(rental);
 });
 
 router.put('/:id', async (req, res) => {
