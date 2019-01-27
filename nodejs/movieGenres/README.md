@@ -6,7 +6,7 @@
 ```
 $ mongod
 ```
-run index.js
+$ run index.js
 ```
-node index.js
+$ node index.js
 ```
