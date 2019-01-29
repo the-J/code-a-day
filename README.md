@@ -44,8 +44,10 @@
         * GraphQL with Prisma
     * some old repo
         ###### don't remember exactly, some old repo: express, node, mongoDB - log in with facebook....
-    * movieGenres
+    * movieGenres [README.md](./nodejs/movieGenres)
         ###### tinkering with node apis
+        * "Two Phase Commits" with Fawn package
+        * destructuring mondogoDB _id
 
 
 * vue.js projects
