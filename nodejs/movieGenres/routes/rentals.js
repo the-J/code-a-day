@@ -28,6 +28,13 @@ router.post('/', async (req, res) => {
    const { error } = validateRental(req.body);
    if (error) return res.status(400).send(error.details[0].message);
 
+   // this could validate if passed customerId param is valid
+   // but it's bad approach - it should go to validateRental function
+   //
+   // if (!mongoose.Types.ObjectId.isValid(req.body.cutstomerId)) {
+   //    return res.status(400).send('Invalid Customer');
+   // }
+
    const customer = await Customer.findById(req.body.customerId);
    if (!customer) return res.status(400).send('Invalid customer');
 
@@ -55,20 +62,20 @@ router.post('/', async (req, res) => {
 
    // FAWN - wrapt in try catch - something can fail
    try {
-   // chaining saving and updating collections with fawn
+      // chaining saving and updating collections with fawn
       new Fawn.Task()
          // save rental
          // full collection name - case sensitive
          .save('rentals', rental)
          // now update movies
-         .update('movies',  {_id: movie._id}, {
-            $inc: {numberInStock: -1}
+         .update('movies', { _id: movie._id }, {
+            $inc: { numberInStock: -1 }
          })
          .run();
 
-         res.send(rental);
+      res.send(rental);
    }
-   catch(ex) {
+   catch (ex) {
       res.status(500).send('Something failed');
    }
 
