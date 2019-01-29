@@ -3,6 +3,14 @@ const express = require('express')
 const router = express.Router()
 const { Customer, validateCustomer } = require('../models/customer')
 
+/**
+ * Example req:
+ * {
+	   "name": "John Doe",
+	   "phone": "123-123-123",
+	   "isGold": false
+   }
+ */
 router.get('/', async (req, res) => {
    const customer = await Customer.find().sort('name');
    res.send(customer);
