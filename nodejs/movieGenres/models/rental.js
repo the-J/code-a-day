@@ -1,6 +1,4 @@
 const Joi = require('joi');
-// extending Joi object with 'joi- objectId' method
-Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 
 // creating new customer schema - we don't need all his info.

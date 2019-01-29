@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const helmet = require('helmet')
 const morgan = require('morgan')
 const config = require('config');
+const Joi = require('joi');
+// extending Joi object with 'joi- objectId' method
+Joi.objectId = require('joi-objectid')(Joi);
 
 const startupDebugger = require('debug')('app:startup');
 const dbDebugger = require('debug')('app:db');
