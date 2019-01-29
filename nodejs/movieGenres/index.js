@@ -11,6 +11,8 @@ const logger = require('./middleware/logger.js');
 
 const routesGenres = require('./routes/genres');
 const routesCustomers = require('./routes/customers');
+const routesMovies = require('./routes/movies');
+const routesRentals = require('./routes/rentals');
 const routesHome = require('./routes/home');
 
 // main app
@@ -60,6 +62,12 @@ app.use('/api/genres', routesGenres);
 
 // customers routes api
 app.use('/api/customers', routesCustomers);
+
+// movies routes api
+app.use('/api/movies', routesMovies);
+
+// rentals routes api
+app.use('/api/rentals', routesRentals);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log('App runing on ' + port));
