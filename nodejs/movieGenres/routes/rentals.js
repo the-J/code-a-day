@@ -49,8 +49,7 @@ router.post('/', async (req, res) => {
          _id: movie._id,
          title: movie.title,
          dailyRentalRate: movie.dailyRentalRate
-      },
-
+      }
    });
 
 
