@@ -23,7 +23,14 @@ const routesHome = require('./routes/home');
 const app = express();
 
 // db connection
-mongoose.connect('mongodb://localhost/genres', { useNewUrlParser: true })
+// check options with https://mongoosejs.com/docs/deprecations
+mongoose.connect(
+   'mongodb://localhost/genres',
+   {
+      useNewUrlParser: true,
+      useFindAndModify: false,
+      useCreateIndex: true
+   })
    .then(() => console.log('connected to db'))
    .catch(err => console.log('db connection error ', err))
 
