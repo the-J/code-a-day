@@ -12,6 +12,7 @@ const dbDebugger = require('debug')('app:db');
 
 const logger = require('./middleware/logger.js');
 
+const routesUsers = require('./routes/users');
 const routesGenres = require('./routes/genres');
 const routesCustomers = require('./routes/customers');
 const routesMovies = require('./routes/movies');
@@ -62,6 +63,9 @@ app.get('/', routesHome);
 
 // genres routes api
 app.use('/api/genres', routesGenres);
+
+// users routes api
+app.use('/api/users', routesUsers);
 
 // customers routes api
 app.use('/api/customers', routesCustomers);
