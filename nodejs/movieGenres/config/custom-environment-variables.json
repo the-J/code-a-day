@@ -4,5 +4,6 @@
    "mail": {
       "host": "custom-mail-server",
       "password": "ExpressApp_password"
-   }
+   },
+   "jwtPrivateKey": "movieGenres_jwtPrivateKey"
 }
