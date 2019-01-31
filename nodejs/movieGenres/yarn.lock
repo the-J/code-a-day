@@ -573,6 +573,11 @@ joi-objectid@^2.0.0:
   resolved "https://registry.yarnpkg.com/joi-objectid/-/joi-objectid-2.0.0.tgz#56549573a66ba795dcf6b9e226de5f3b2d36ec3a"
   integrity sha1-VlSVc6Zrp5Xc9rniJt5fOy027Do=
 
+joi-password-complexity@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/joi-password-complexity/-/joi-password-complexity-2.0.1.tgz#7a65485a366447a222542d9c1ea9c1589000d6bd"
+  integrity sha512-xmj+jFbVDkOQIqe6NlS0F+bJ/o2cVFZrJcf5W5S+7WDCZfJhR81XcqpI/RhFT2n+sF5o7HVbjQIBzx5qjh3S7w==
+
 joi@^14.3.1:
   version "14.3.1"
   resolved "https://registry.yarnpkg.com/joi/-/joi-14.3.1.tgz#164a262ec0b855466e0c35eea2a885ae8b6c703c"
@@ -735,10 +740,10 @@ mongoose@4.12.3:
     regexp-clone "0.0.1"
     sliced "1.0.1"
 
-mongoose@^5.4.4:
-  version "5.4.4"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.4.4.tgz#923923cd39a03b970c269f828322990ea163f9a8"
-  integrity sha512-KoYUFtgrXQ9Sxuf5IEE0Y2LswWGhHiN27bxtObANxMgXbuNLTtLB3xaep8jITUDitG4kkI+FKElUJH4uY8G2Bw==
+mongoose@^5.4.8:
+  version "5.4.8"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.4.8.tgz#f56bc514ee51593ce31b4f794d1f26f97dce10e9"
+  integrity sha512-2wgBi1LBxL/pcG0nNP8zXBLRmWZFzg8pb2MH4JkMPIxP/HGtQQEP0DbG1Yzy+Igsp3M1+V/59uXW37O2Fg5mBQ==
   dependencies:
     async "2.6.1"
     bson "~1.1.0"
