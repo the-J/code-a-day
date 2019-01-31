@@ -3,9 +3,11 @@ const bcrypt = require('bcrypt');
 const Joi = require('joi');
 const PasswordComplexity = require('joi-password-complexity');
 const _ = require('lodash');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
-const { User } = require('../models/user')
 const { passwordComplexityOptions } = require('../const.js');
+const { User } = require('../models/user')
 // diff then in index.js - need to work with 'instance' of express
 const router = express.Router()
 
@@ -21,7 +23,13 @@ router.post('/', async (req, res) => {
    const validPassord = await bcrypt.compare(req.body.password, user.password);
    if (!validPassord) return res.status(400).send('Invalid email or password');
 
-   res.send(true);
+   // creating jsonWebToken
+   const token = jwt.sign(
+      { _id: user._id },
+      config.get('jwtPrivateKey')
+   );
+
+   res.send(token);
 });
 
 function validateAuth(user) {

@@ -4,6 +4,7 @@ const helmet = require('helmet')
 const morgan = require('morgan')
 const config = require('config');
 const Joi = require('joi');
+
 // extending Joi object with 'joi- objectId' method
 Joi.objectId = require('joi-objectid')(Joi);
 
@@ -22,6 +23,13 @@ const routesHome = require('./routes/home');
 
 // main app
 const app = express();
+
+// key required for authentication module
+// exit like failure if no key set
+if (!config.get('jwtPrivateKey')) {
+   console.log('FATAL ERROR: process.env.jwtPrivateKey key not defined');
+   proces.exit(1);
+}
 
 // db connection
 // check options with https://mongoosejs.com/docs/deprecations
