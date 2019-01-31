@@ -2,15 +2,7 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 const PasswordComplexity = require('joi-password-complexity');
 
-const passwordComplexityOptions = {
-   min: 5,
-   max: 1024,
-   lowerCase: 1,
-   upperCase: 1,
-   numeric: 1,
-   symbol: 1,
-   requirementCount: 2,
-}
+const { passwordComplexityOptions } = require('../const.js');
 
 const userSchema = new mongoose.Schema({
    name: {
