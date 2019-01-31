@@ -13,6 +13,7 @@ const dbDebugger = require('debug')('app:db');
 const logger = require('./middleware/logger.js');
 
 const routesUsers = require('./routes/users');
+const routesAuth = require('./routes/auth');
 const routesGenres = require('./routes/genres');
 const routesCustomers = require('./routes/customers');
 const routesMovies = require('./routes/movies');
@@ -82,6 +83,9 @@ app.use('/api/movies', routesMovies);
 
 // rentals routes api
 app.use('/api/rentals', routesRentals);
+
+// auth routes api
+app.use('/api/auth', routesAuth);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log('App runing on ' + port));
