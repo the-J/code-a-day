@@ -1,8 +1,9 @@
 
 #### ABOUT
 Tinkering with express. 
-Four api endpoints + authentication and authorization.
-Working with postman to simulate API requests.
+* Four api endpoints + authentication and authorization.
+* Working with postman to simulate API requests.
+* [JSON Web Token](http://jwt.io)
  
 #### NOTES
    * "Two Phase Commits" with Fawn package
