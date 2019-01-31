@@ -1,4 +1,5 @@
 const express = require('express')
+const bcrypt = require('bcrypt');
 const _ = require('lodash');
 // diff then in index.js - need to work with 'instance' of express
 const { User, validateUser } = require('../models/user')
@@ -27,7 +28,16 @@ router.post('/', async (req, res) => {
    // });
    user = new User(_.pick(req.body, ['name', 'email', 'password']));
 
-   await user.save();
+   // hashing password
+   const salt = await bcrypt.genSalt(10);
+   user.password = await bcrypt.hash(user.password, salt)
+
+   try {
+      await user.save();
+   }
+   catch (error) {
+      return res.status(400).send(error.errmsg);
+   }
 
    // dont send password
    // res.send({
@@ -35,7 +45,7 @@ router.post('/', async (req, res) => {
    //    email: user.email
    // });
 
-   // dont return pass
+   // dont send password
    res.send(_.pick(user, ['_id', 'name', 'email']))
 });
 
