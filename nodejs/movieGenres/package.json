@@ -11,6 +11,7 @@
   "author": "Juliusz Jakubowski",
   "license": "GNUv3",
   "dependencies": {
+    "bcrypt": "^3.0.3",
     "config": "^3.0.1",
     "debug": "^4.1.1",
     "express": "^4.16.4",
