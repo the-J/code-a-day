@@ -5,5 +5,5 @@
       "host": "default-mail-server",
       "password": "Magic Mike"
    },
-   "jwtPrivateKey": ""
+   "jwtPrivateKey": "movieGenres_jwtPrivateKey"
 }
