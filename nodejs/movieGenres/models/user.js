@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
    },
    isAdmin: Boolean
 });
+// permisions can be defined in many ways:
+// roles: []
+// oprations: []
+// permissions: []
 
 // custom schema method for authentication
 // use function because need to use 'this'
