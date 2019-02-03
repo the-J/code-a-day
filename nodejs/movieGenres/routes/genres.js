@@ -3,6 +3,7 @@ const express = require('express')
 const { Genre, validateGenre } = require('../models/genre')
 
 const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 
 // diff then in index.js - need to work with 'instance' of express
 const router = express.Router()
@@ -53,7 +54,8 @@ router.put('/:id', auth, async (req, res) => {
    res.send(genre);
 });
 
-router.delete('/:id', auth, async (req, res) => {
+// running wto middlewares in sequence
+router.delete('/:id', [auth, admin], async (req, res) => {
    const genre = await Genre.findByIdAndRemove(req.params.id);
    if (!genre) return res.status(404).send('Not found.');
    res.send(genre);
