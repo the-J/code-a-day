@@ -60,6 +60,9 @@ if (app.get('env') === 'development') {
 dbDebugger('Connected to db...');
 
 // parse req.body if includes json
+// *******************************
+// we could use auth.js here but not all
+// endpoints need to be protected
 app.use(express.json());
 
 // fetching data from urls
