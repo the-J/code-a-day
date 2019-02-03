@@ -49,6 +49,8 @@
         * "Two Phase Commits" with Fawn package
         * user creation, validation
         * some api endpoints and routing 
+        * GRASP design pattern
+        * custom mongo schema method for authentication
 
 
 * vue.js projects

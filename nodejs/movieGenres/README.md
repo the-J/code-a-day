@@ -6,6 +6,8 @@ Tinkering with express.
 * [JSON Web Token](http://jwt.io)
 
 * App allows to autologin after creating account - no email validation or so - by setting user create response x-auth-token in header.
+* [Information Expert Principle](https://en.wikipedia.org/wiki/GRASP_%28object-oriented_design%29)
+* custom mongo schema method for authentication
 
 #### NOTES
    * "Two Phase Commits" with Fawn package
