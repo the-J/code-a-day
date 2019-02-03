@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
 const PasswordComplexity = require('joi-password-complexity');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
 const { passwordComplexityOptions } = require('../const.js');
 
@@ -27,6 +29,16 @@ const userSchema = new mongoose.Schema({
       required: true
    }
 });
+
+// custom schema method for authentication
+// use function because need to use 'this'
+userSchema.methods.generateAuthToken = function () {
+   // creating jsonWebToken
+   return jwt.sign(
+      { _id: this._id },
+      config.get('jwtPrivateKey')
+   );
+}
 
 const User = mongoose.model('Users', userSchema);
 

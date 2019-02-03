@@ -1,7 +1,5 @@
 const express = require('express')
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const config = require('config');
 const _ = require('lodash');
 // diff then in index.js - need to work with 'instance' of express
 const { User, validateUser } = require('../models/user')
@@ -49,10 +47,7 @@ router.post('/', async (req, res) => {
 
    // creating jsonWebToken that 
    // will be returned in header
-   const token = jwt.sign(
-      { _id: user._id },
-      config.get('jwtPrivateKey')
-   );
+   const token = user.generateAuthToken();
 
    // dont send password
    res
