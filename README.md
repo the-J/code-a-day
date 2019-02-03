@@ -45,9 +45,10 @@
     * some old repo
         ###### don't remember exactly, some old repo: express, node, mongoDB - log in with facebook....
     * movieGenres [README.md](./nodejs/movieGenres)
-        ###### tinkering with node apis
+        ###### tinkering with express
         * "Two Phase Commits" with Fawn package
-        * destructuring mondogoDB _id
+        * user creation, validation
+        * some api endpoints and routing 
 
 
 * vue.js projects

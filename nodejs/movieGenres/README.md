@@ -4,7 +4,9 @@ Tinkering with express.
 * Four api endpoints + authentication and authorization.
 * Working with postman to simulate API requests.
 * [JSON Web Token](http://jwt.io)
- 
+
+* App allows to autologin after creating account - no email validation or so - by setting user create response x-auth-token in header.
+
 #### NOTES
    * "Two Phase Commits" with Fawn package
 
