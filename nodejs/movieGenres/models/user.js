@@ -27,15 +27,18 @@ const userSchema = new mongoose.Schema({
       minlength: passwordComplexityOptions.min,
       maxlength: passwordComplexityOptions.max,
       required: true
-   }
+   },
+   isAdmin: Boolean
 });
 
 // custom schema method for authentication
 // use function because need to use 'this'
 userSchema.methods.generateAuthToken = function () {
    // creating jsonWebToken
-   return jwt.sign(
-      { _id: this._id },
+   return jwt.sign({
+      _id: this._id,
+      isAdmin: this.isAdmin
+   },
       config.get('jwtPrivateKey')
    );
 }
