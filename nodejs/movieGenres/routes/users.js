@@ -1,8 +1,12 @@
 const express = require('express')
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
-// diff then in index.js - need to work with 'instance' of express
+
 const { User, validateUser } = require('../models/user')
+
+const auth = require('../middleware/auth');
+
+// diff then in index.js - need to work with 'instance' of express
 const router = express.Router()
 
 /**
@@ -11,6 +15,13 @@ const router = express.Router()
       "name": "thrller"
    }
  */
+
+//  instead of '/:id' we create endpoint
+//  that will return user depending on web token
+router.get('/me', auth, async (req, res) => {
+   const user = await User.findById(req.user._id).select('-password');
+   res.send(user);
+});
 
 router.post('/', async (req, res) => {
    const { error } = validateUser(req.body);
