@@ -1,8 +1,8 @@
 {
-   "name": "Express App - development",
-   "mode": "development",
-   "mail": {
-      "host": "dev-mail-server",
-      "password": "Magic Mike"
-   }
+  "name": "Express App - development",
+  "mode": "development",
+  "mail": {
+    "host": "dev-mail-server",
+    "password": "Magic Mike"
+  }
 }

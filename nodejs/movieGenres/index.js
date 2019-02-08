@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const helmet = require('helmet')
-const morgan = require('morgan')
+const helmet = require('helmet');
+const morgan = require('morgan');
 const config = require('config');
 const Joi = require('joi');
 
@@ -27,33 +27,33 @@ const app = express();
 // key required for authentication module
 // exit like failure if no key set
 if (!config.get('jwtPrivateKey')) {
-   console.log('FATAL ERROR: process.env.jwtPrivateKey key not defined');
-   proces.exit(1);
+    console.log('FATAL ERROR: process.env.jwtPrivateKey key not defined');
+    proces.exit(1);
 }
 
 // db connection
 // check options with https://mongoosejs.com/docs/deprecations
 mongoose.connect(
-   'mongodb://localhost/genres',
-   {
-      useNewUrlParser: true,
-      useFindAndModify: false,
-      useCreateIndex: true
-   })
-   .then(() => console.log('connected to db'))
-   .catch(err => console.log('db connection error ', err))
+    'mongodb://localhost/genres',
+    {
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useCreateIndex: true
+    })
+    .then(() => console.log('connected to db'))
+    .catch(err => console.log('db connection error ', err));
 
 // template engine
 app.set('view engine', 'pug');
 app.set('views', './views'); //default
 
 // configuration
-console.log("App Mode: " + config.get('mode'));
+console.log('App Mode: ' + config.get('mode'));
 
 // logging api request
 if (app.get('env') === 'development') {
-   app.use(morgan('tiny'))
-   startupDebugger('Morgan enabled');
+    app.use(morgan('tiny'));
+    startupDebugger('Morgan enabled');
 }
 
 // DB things
@@ -72,7 +72,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // nothing important, my logger
-app.use(logger)
+app.use(logger);
 
 // another middlelayer
 app.use(helmet());
