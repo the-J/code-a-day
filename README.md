@@ -90,6 +90,8 @@
         * Simple extension for changing background to random hex color
     * mongodbThings
         * just testing stuff
+    * NOTES
+        ###### things about js and things around it
 
 * toFinish
     ###### things that i was working and didn't finish or postponed
