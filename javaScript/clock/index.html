@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0,
+    minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CLOCK - TIK TOK</title>
+
+    <style>
+        .clock {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background-color: #3B5998;
+            border: 2px solid #464646;
+        }
+
+        .vertical-line {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+            background-color: green;
+        }
+
+        .horizontal-line {
+            position: absolute;
+            left: 50%;
+            width: 1px;
+            height: 100%;
+            background-color: green;
+        }
+
+        .center-dot {
+            position: absolute;
+            top: calc(50% - 5px);
+            left: calc(50% - 5px);
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            z-index: 3;
+        }
+
+        .seconds {
+            position: absolute;
+            top: 70px;
+            left: 248px;
+            width: 4px;
+            height: 180px;
+            background-color: red;
+            /*transform: rotate(100deg);*/
+            transform-origin: bottom;
+            z-index: 2;
+        }
+
+        .minutes {
+            position: absolute;
+            top: 125px;
+            left: 247px;
+            width: 6px;
+            height: 125px;
+            box-sizing: border-box;
+            border: 1px solid black;
+            background-color: #1EAEDB;
+            /*transform: rotate(45deg);*/
+            transform-origin: bottom;
+            z-index: 1;
+        }
+
+        .hours {
+            position: absolute;
+            top: 140px;
+            left: 246px;
+            width: 8px;
+            height: 110px;
+            box-sizing: border-box;
+            border: 1px solid black;
+            background-color: #4CAF50;
+            /*transform: rotate(100deg);*/
+            transform-origin: bottom
+        }
+    </style>
+    <script>
+
+    </script>
+</head>
+<body>
+<div>
+    <div class="clock">
+        <div class="vertical-line"></div>
+        <div class="horizontal-line"></div>
+        <div class="center-dot"></div>
+        <div class="seconds"></div>
+        <div class="minutes"></div>
+        <div class="hours"></div>
+    </div>
+</div>
+
+</body>
+</html>
