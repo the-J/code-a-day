@@ -83,11 +83,29 @@
             transform-origin: bottom
         }
     </style>
-    <script>
 
+    <script>
+        function setTime() {
+            const currentTime = new Date();
+
+            const seconds = document.querySelector('.seconds')
+            const minutes = document.querySelector('.minutes')
+            const hours = document.querySelector('.hours')
+
+            seconds.style.transform = `rotate(${currentTime.getSeconds() * 6}deg)`
+            minutes.style.transform = `rotate(${currentTime.getMinutes() * 6}deg)`
+            hours.style.transform = `rotate(${currentTime.getHours() * 30}deg)`
+        }
+
+
+        function ready() {
+            if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
+                setInterval(() => setTime(), 1000)
+            }
+        }
     </script>
 </head>
-<body>
+<body onload="ready()">
 <div>
     <div class="clock">
         <div class="vertical-line"></div>
