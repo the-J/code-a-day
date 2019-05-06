@@ -51,9 +51,14 @@
             width: 4px;
             height: 180px;
             background-color: red;
-            /*transform: rotate(100deg);*/
             transform-origin: bottom;
             z-index: 2;
+
+            animation-name: rota;
+            animation-duration: 60s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            animation-delay: 1s;
         }
 
         .minutes {
@@ -65,9 +70,14 @@
             box-sizing: border-box;
             border: 1px solid black;
             background-color: #1EAEDB;
-            /*transform: rotate(45deg);*/
             transform-origin: bottom;
             z-index: 1;
+
+            animation-name: rota;
+            animation-duration: 3600s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            animation-delay: 1s;
         }
 
         .hours {
@@ -79,14 +89,24 @@
             box-sizing: border-box;
             border: 1px solid black;
             background-color: #4CAF50;
-            /*transform: rotate(100deg);*/
-            transform-origin: bottom
+            transform-origin: bottom;
+
+            animation-name: rota;
+            animation-duration: 43200s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            animation-delay: 1s;
+        }
+
+        @keyframes rota {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 
     <script>
         function setTime() {
-            const currentTime = new Date();
+            const currentTime = new Date()
 
             const seconds = document.querySelector('.seconds')
             const minutes = document.querySelector('.minutes')
@@ -100,7 +120,7 @@
 
         function ready() {
             if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
-                setInterval(() => setTime(), 1000)
+                setTime()
             }
         }
     </script>
