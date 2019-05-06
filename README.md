@@ -31,7 +31,8 @@
         * small_things
             * some fun with css, testing materialize css and css stuff
             * old clock that I made in JS and css
-
+    * clock
+        * just a small clock: js + css
 
 * react
     ###### react.js things
